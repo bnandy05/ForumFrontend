@@ -68,3 +68,24 @@ body {
     background-color: #004085;
   }
   
+  .links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    font-size: 14px;
+  }
+  
+  .links a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .links a:hover {
+    color: #0056b3;
+  }
+  
+  .links a:focus {
+    outline: none;
+  }
+  
