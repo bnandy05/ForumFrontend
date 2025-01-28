@@ -1,19 +1,22 @@
-<div class="login-container">
-    <form class="login-form">
+<body>
+  <div class="login-container">
+    <div class="login-panel">
       <h2>Bejelentkezés</h2>
-      <div class="input-group">
-        <label for="username">Felhasználónév</label>
-        <input type="text" id="username" name="username" required placeholder="Írd be a felhasználóneved" />
-      </div>
-      <div class="input-group">
-        <label for="password">Jelszó</label>
-        <input type="password" id="password" name="password" required placeholder="Írd be a jelszavad" />
-      </div>
-      <button type="submit" class="login-button">Bejelentkezés</button>
-      <div class="links">
-        <a href="#" class="forgot-password">Elfelejtett jelszó?</a>
-        <a href="#" class="register">Regisztráció</a>
-      </div>
-    </form>
+      <form>
+        <div class="form-group">
+          <label for="username">Felhasználónév</label>
+          <input type="text" id="username" placeholder="Írd be a felhasználóneved">
+        </div>
+        <div class="form-group">
+          <label for="password">Jelszó</label>
+          <input type="password" id="password" placeholder="Írd be a jelszavad">
+        </div>
+        <button type="submit" class="login-button">Bejelentkezés</button>
+        <div class="additional-links">
+          <a href="#">Elfelejtett jelszó?</a>
+          <a href="#">Regisztráció</a>
+        </div>
+      </form>
+    </div>
   </div>
-  
+</body>
