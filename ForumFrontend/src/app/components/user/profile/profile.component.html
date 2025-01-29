@@ -1,1 +1,29 @@
-<p>profile works!</p>
+<body>
+    <div class="profile-container">
+        <img src="profile-pic.jpg" alt="Profilkép" class="profile-pic">
+        <form>
+            <div class="form-group">
+                <label for="profile-pic">Profilkép módosítása</label>
+                <input type="file" id="profile-pic">
+            </div>
+            <div class="form-group">
+                <label for="username">Felhasználónév</label>
+                <input type="text" id="username" value="John Doe">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" value="john.doe@example.com">
+            </div>
+            <div class="form-group">
+                <label for="password">Jelszó</label>
+                <input type="password" id="password" placeholder="Új jelszó">
+            </div>
+            <button type="submit" class="button">Mentés</button>
+        </form>
+        <div class="topics">
+            <h3>Saját topicok</h3>
+            <div class="topic">Mi a kedvenc programozási nyelved?</div>
+            <div class="topic">Kedvenc fejlesztői eszközöd?</div>
+        </div>
+    </div>
+</body>
