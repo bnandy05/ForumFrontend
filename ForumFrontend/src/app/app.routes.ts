@@ -28,6 +28,11 @@ export const routes: Routes = [
           import('./components/user/profile/profile.component').then(m => m.ProfileComponent)
       },
       {
+        path: 'header',
+        loadComponent: () => 
+          import('./components/header/header.component').then(m => m.HeaderComponent)
+      },
+      {
         path: 'topics',
         children: [
           {
