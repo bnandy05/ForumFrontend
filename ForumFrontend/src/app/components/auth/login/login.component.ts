@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { AuthService } from '../auth.service';
       <button type="submit">Bejelentkezés</button>
     </form>
   `,
-  imports: []
+  imports: [FormsModule]
 })
 export class LoginComponent {
   email = '';
@@ -20,7 +21,7 @@ export class LoginComponent {
   constructor(private authService: AuthService) {}
 
   login() {
-    this.authService.login({ email: this.email, password: this.password }).subscribe(response => {
+    this.authService.login({ email: this.email, password: this.password }).subscribe((response: any) => {
       console.log('Sikeres bejelentkezés:', response);
     });
   }
