@@ -1,22 +1,39 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
-  private apiUrl = 'https://berenandor.moriczcloud.hu';  // Backend API URL
+  private token = new BehaviorSubject<string | null>(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
-  getCsrfToken(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/sanctum/csrf-cookie`, { withCredentials: true });
+  login(email: string, password: string) {
+    this.http.post<any>('http://localhost:8000/login', { email, password }).subscribe({
+      next: (response) => {
+        localStorage.setItem('token', response.token);
+        this.token.next(response.token);
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        console.error('Login failed', err);
+        alert('Hibás email vagy jelszó.');
+      }
+    });
   }
 
-  login(email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, { email, password }, { withCredentials: true });
+  logout() {
+    this.http.post('http://localhost:8000/logout', {}).subscribe(() => {
+      localStorage.removeItem('token');
+      this.token.next(null);
+      this.router.navigate(['/login']);
+    });
   }
 
-  logout(): Observable<any> {
-    return this.http.post(`${this.apiUrl}/logout`, {}, { withCredentials: true });
+  isAuthenticated() {
+    return this.token.asObservable();
   }
 }

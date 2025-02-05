@@ -4,22 +4,20 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  email = '';
-  password = '';
+  email: string = '';
+  password: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  login() {
-    this.authService.getCsrfToken().subscribe(() => {
-      this.authService.login(this.email, this.password).subscribe((response: any) => {
-        localStorage.setItem('token', response.token);
-        this.router.navigate(['/home']);
-      });
-    });
+  onSubmit() {
+    this.authService.login(this.email, this.password);
+  }
+
+  onForgotPassword() {
+    alert('Elfelejtett jelszó funkció hamarosan elérhető.');
   }
 }
