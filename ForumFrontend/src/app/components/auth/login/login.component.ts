@@ -1,27 +1,25 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  template: `
-    <form (submit)="login()">
-      <input type="email" [(ngModel)]="email" placeholder="Email">
-      <input type="password" [(ngModel)]="password" placeholder="Jelszó">
-      <button type="submit">Bejelentkezés</button>
-    </form>
-  `,
-  imports: []
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   email = '';
   password = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   login() {
-    this.authService.login({ email: this.email, password: this.password }).subscribe(response => {
-      console.log('Sikeres bejelentkezés:', response);
+    this.authService.getCsrfToken().subscribe(() => {
+      this.authService.login(this.email, this.password).subscribe((response: any) => {
+        localStorage.setItem('token', response.token);
+        this.router.navigate(['/home']);
+      });
     });
   }
 }

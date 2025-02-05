@@ -1,26 +1,22 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = 'http://127.0.0.1:8000/api';
+  private apiUrl = 'https://berenandor.moriczcloud.hu';  // Backend API URL
 
-  private http = inject(HttpClient);
+  constructor(private http: HttpClient) {}
 
-  register(user: { name: string; email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, user);
+  getCsrfToken(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/sanctum/csrf-cookie`, { withCredentials: true });
   }
 
-  login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials);
+  login(email: string, password: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, { email, password }, { withCredentials: true });
   }
 
   logout(): Observable<any> {
-    return this.http.post(`${this.apiUrl}/logout`, {});
-  }
-
-  getUser(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/user`);
+    return this.http.post(`${this.apiUrl}/logout`, {}, { withCredentials: true });
   }
 }
