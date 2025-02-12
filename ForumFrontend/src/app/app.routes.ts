@@ -1,54 +1,44 @@
 import { Routes } from '@angular/router';
-  
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
+import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
+import { HeaderComponent } from './components/header/header.component';
+import { TopicCreateComponent } from './components/topics/topic-create/topic-create.component';
+import { TopicDetailsComponent } from './components/topics/topic-details/topic-details.component';
 
 export const routes: Routes = [
     {
         path: '',
-        loadComponent: () => 
-          import('./components/home/home.component').then(m => m.HomeComponent)
-      },
-      {
+        component: HomeComponent
+    },
+    {
         path: 'login',
-        loadComponent: () => 
-          import('./components/auth/login/login.component').then(m => m.LoginComponent)
-      },
-      {
+        component: LoginComponent
+    },
+    {
         path: 'register',
-        loadComponent: () => 
-          import('./components/auth/register/register.component').then(m => m.RegisterComponent)
-      },
-      {
+        component: RegisterComponent
+    },
+    {
         path: 'forgot-password',
-        loadComponent: () => 
-          import('./components/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
-      },
-      {
+        component: ForgotPasswordComponent
+    },
+    {
         path: 'profile',
-        loadComponent: () => 
-          import('./components/user/profile/profile.component').then(m => m.ProfileComponent)
-      },
-      {
+        component: ProfileComponent
+    },
+    {
         path: 'header',
-        loadComponent: () => 
-          import('./components/header/header.component').then(m => m.HeaderComponent)
-      },
-      {
-        path: 'topics',
-        children: [
-          {
-            path: 'create',
-            loadComponent: () => 
-              import('./components/topics/topic-create/topic-create.component').then(m => m.TopicCreateComponent)
-          },
-          {
-            path: ':id',
-            loadComponent: () => 
-              import('./components/topics/topic-details/topic-details.component').then(m => m.TopicDetailsComponent)
-          }
-        ]
-      },
-      {
-        path: '**',
-        redirectTo: ''
-      }
+        component: HeaderComponent
+    },
+    {
+        path: 'topics/create',
+        component: TopicCreateComponent
+    },
+    {
+        path: 'topics/:id',
+        component: TopicDetailsComponent
+    }
 ];
