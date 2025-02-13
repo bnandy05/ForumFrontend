@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
-  apiUrl = 'http://localhost:8000/api/register'; // Laravel API URL-je
+  apiUrl = 'https://berenandor.moriczcloud.hu/api/register'; // Laravel API URL-je
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.registerForm = this.fb.group({
