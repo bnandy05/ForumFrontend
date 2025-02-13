@@ -40,7 +40,12 @@ export class AuthService {
     });
   }
 
-  isAuthenticated() {
-    return this.token.asObservable();
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  getUser() {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    return this.http.get(`${this.apiUrl}/user`, { headers });
   }
 }
