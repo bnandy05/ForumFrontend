@@ -8,11 +8,12 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthService {
   private token = new BehaviorSubject<string | null>(null);
+  private apiUrl = 'http://localhost:8000'; // Laravel backend base URL
 
   constructor(private http: HttpClient, private router: Router) {}
 
   login(email: string, password: string) {
-    this.http.post<any>('http://localhost:8000/login', { email, password }).subscribe({
+    this.http.post<any>(`${this.apiUrl}/login`, { email, password }, { withCredentials: true }).subscribe({
       next: (response) => {
         localStorage.setItem('token', response.token);
         this.token.next(response.token);
@@ -26,10 +27,16 @@ export class AuthService {
   }
 
   logout() {
-    this.http.post('http://localhost:8000/logout', {}).subscribe(() => {
-      localStorage.removeItem('token');
-      this.token.next(null);
-      this.router.navigate(['/login']);
+    this.http.post(`${this.apiUrl}/logout`, {}, { withCredentials: true }).subscribe({
+      next: () => {
+        localStorage.removeItem('token');
+        this.token.next(null);
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        console.error('Logout failed', err);
+        alert('Hiba történt a kijelentkezés során.');
+      }
     });
   }
 
