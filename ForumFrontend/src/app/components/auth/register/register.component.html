@@ -2,20 +2,29 @@
   <div class="login-container">
     <div class="login-panel">
       <h2>Regisztráció</h2>
-      <form>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="username">Felhasználónév</label>
-          <input type="text" id="username" placeholder="Válassz egy felhasználónevet">
+          <label for="name">Felhasználónév</label>
+          <input type="text" id="name" formControlName="name" placeholder="Válassz egy felhasználónevet">
+          <div *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched" class="error">
+            A felhasználónév megadása kötelező.
+          </div>
         </div>
         <div class="form-group">
           <label for="email">Email cím</label>
-          <input type="email" id="email" placeholder="Írd be az email címed">
+          <input type="email" id="email" formControlName="email" placeholder="Írd be az email címed">
+          <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error">
+            Érvényes email cím megadása kötelező.
+          </div>
         </div>
         <div class="form-group">
           <label for="password">Jelszó</label>
-          <input type="password" id="password" placeholder="Válassz egy jelszót">
+          <input type="password" id="password" formControlName="password" placeholder="Válassz egy jelszót">
+          <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="error">
+            A jelszónak legalább 8 karakter hosszúnak kell lennie.
+          </div>
         </div>
-        <button type="submit" class="login-button">Regisztráció</button>
+        <button type="submit" [disabled]="registerForm.invalid" class="login-button">Regisztráció</button>
         <div class="additional-links">
           <a href="#">Már van fiókom</a>
         </div>
@@ -23,4 +32,3 @@
     </div>
   </div>
 </body>
-
