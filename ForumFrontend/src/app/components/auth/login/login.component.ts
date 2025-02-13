@@ -26,7 +26,7 @@ export class LoginComponent {
   onSubmit() {
     const loginData = { email: this.email, password: this.password };
   
-    this.http.post('http://your-laravel-api-url/api/login', loginData, { withCredentials: true }).subscribe(
+    this.http.post('https://berenandor.moriczcloud.hu/api/login', loginData, { withCredentials: true }).subscribe(
       (response: any) => {
         // Sikeres bejelentkezés
         localStorage.setItem('token', response.token);
