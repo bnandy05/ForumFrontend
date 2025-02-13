@@ -39,9 +39,4 @@ export class LoginComponent {
       }
     );
   }
-  
-
-  onForgotPassword() {
-    alert('Elfelejtett jelszó funkció hamarosan elérhető.');
-  }
 }
