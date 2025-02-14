@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class LoginComponent {
   email: string = '';
   password: string = '';
+  errorMessage: string = '';
 
   constructor(
     private authService: AuthService
