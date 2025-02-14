@@ -12,7 +12,7 @@
       <div class="post">
         <div class="post-content">
           <h2 class="post-title">{{topic.title}}</h2>
-          <p class="post-meta">by <span class="author">{{topic.user.name}}</span> - 2 órája</p>
+          <p class="post-meta">by <span class="author">{{topic.user.name}}</span> - {{topic.timeAgo}}</p>
           <p class="post-text">{{topic.content}}</p>
           <div class="post-actions">
             <button>💬 5 Hozzászólás</button>
@@ -21,6 +21,6 @@
         </div>
       </div>
     </div>  
-      
+
     </body>
 </html>
