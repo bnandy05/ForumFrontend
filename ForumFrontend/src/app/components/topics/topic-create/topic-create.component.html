@@ -1,22 +1,62 @@
-<body>
-    <div class="container">
-        <h2>Új Topic Létrehozása</h2>
-        <form>
-            <label for="title">Cím:</label>
-            <input type="text" id="title" placeholder="Add meg a topic címét..." required>
-<br>
-            <label for="description">Leírás:</label>
-            <textarea id="description" rows="4" placeholder="Írj egy rövid leírást..." required></textarea>
-<br>
-            <label for="category">Kategória:</label>
-            <select id="category">
-                <option>Programozás</option>
-                <option>Tech</option>
-                <option>Egyéb</option>
-            </select>
+<app-header></app-header>
+<div class="container mt-4">
+    <h2>Új téma létrehozása</h2>
+    
+    <form [formGroup]="topicForm" (ngSubmit)="onSubmit()" class="needs-validation">
+      <div class="mb-3">
+        <label for="title" class="form-label">Cím</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="title" 
+          formControlName="title"
+          [class.is-invalid]="title?.invalid && (title?.dirty || title?.touched)"
+        >
+        <div class="invalid-feedback" *ngIf="title?.errors?.['required']">
+          A cím megadása kötelező!
+        </div>
+        <div class="invalid-feedback" *ngIf="title?.errors?.['maxlength']">
+          A cím nem lehet hosszabb 255 karakternél!
+        </div>
+      </div>
 
-            <button type="submit">Létrehozás</button>
-        </form>
-    </div>
-</body>
+      <div class="mb-3">
+        <label for="content" class="form-label">Tartalom</label>
+        <textarea 
+          class="form-control" 
+          id="content" 
+          rows="6"
+          formControlName="content"
+          [class.is-invalid]="content?.invalid && (content?.dirty || content?.touched)"
+        ></textarea>
+        <div class="invalid-feedback" *ngIf="content?.errors?.['required']">
+          A tartalom megadása kötelező!
+        </div>
+      </div>
 
+      <div class="mb-3">
+        <label for="category" class="form-label">Kategória</label>
+        <select 
+          class="form-select" 
+          id="category"
+          formControlName="category_id"
+          [class.is-invalid]="category_id?.invalid && (category_id?.dirty || category_id?.touched)">
+          <option *ngFor="let category of categories" [value]="category.id">
+            {{category.category_name}}
+          </option>
+        </select>
+        <div class="invalid-feedback" *ngIf="category_id?.errors?.['required']">
+          A kategória kiválasztása kötelező!
+        </div>
+      </div>
+
+      <button 
+        type="submit" 
+        class="btn btn-primary"
+        [disabled]="topicForm.invalid || isSubmitting"
+      >
+        <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status"></span>
+        Téma létrehozása
+      </button>
+    </form>
+  </div>
