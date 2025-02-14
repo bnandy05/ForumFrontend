@@ -1,23 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 import { HeaderComponent } from '../header/header.component';
+import { TopicService } from '../../services/topic.service';
+import { CommonModule } from '@angular/common';
+
+export interface Topic {
+  id: number;
+  title: string;
+  content: string;
+  user: {
+    id: number;
+    name: string;
+  };
+  created_at: string;
+}
+
 
 @Component({
   selector: 'app-home',
-  imports: [HeaderComponent],
+  imports: [HeaderComponent, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit{
-  constructor(private authService: AuthService) {}
+  topics: Topic[] = [];
+
+  constructor(private topicService: TopicService) {}
+
   ngOnInit() {
-    this.authService.getUser().subscribe(
-      (user: any) => {
-        console.log('Logged-in user:', user);
+    this.topicService.getTopics().subscribe({
+      next: (topics) => {
+        console.log('Topics:', topics);
+        this.topics = topics.data;
       },
-      (error) => {
-        console.error('Error fetching user data:', error);
+      error: (err) => {
+        console.error('Failed to fetch topics:', err);
       }
-    );
+    });
   }
 }

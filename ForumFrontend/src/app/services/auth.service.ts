@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthService {
   private token = new BehaviorSubject<string | null>(null);
-  private apiUrl = 'https://berenandor.moriczcloud.hu/api'; // Laravel backend base URL
+  private apiUrl = 'https://berenandor.moriczcloud.hu/api';
 
   constructor(private http: HttpClient, private router: Router) {}
 
