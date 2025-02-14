@@ -24,10 +24,8 @@ export class HomeComponent implements OnInit {
   constructor(private topicService: TopicService) {}
 
   ngOnInit() {
-    console.log('Current date:', dayjs().format());
     this.topicService.getTopics().subscribe({
       next: (response) => {
-        console.log('Topics:', response.data);
         this.topics = response.data.map((topic: any) => ({
           ...topic,
           timeAgo: dayjs.utc(topic.created_at).local().fromNow()
