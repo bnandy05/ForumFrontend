@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthService {
   private token = new BehaviorSubject<string | null>(null);
-  private apiUrl = 'https://berenandor.moriczcloud.hu/api'; // Laravel backend base URL
+  private apiUrl = 'https://berenandor.moriczcloud.hu/api';
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -34,9 +34,16 @@ export class AuthService {
         this.router.navigate(['/login']);
       },
       error: (err) => {
-        console.error('Logout failed', err);
-        alert('Hiba történt a kijelentkezés során.');
-      }
+        if (err.status === 401 || err.status === 403) {
+          console.warn('A token már nem érvényes.');
+          localStorage.removeItem('token');
+          this.token.next(null);
+          this.router.navigate(['/login']);
+        } else {
+          console.error('Logout failed', err);
+          alert('Hiba történt a kijelentkezés során.');
+        }
+      }      
     });
   }
 

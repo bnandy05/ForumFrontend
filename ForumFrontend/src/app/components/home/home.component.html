@@ -8,30 +8,16 @@
 <body>
     <app-header></app-header>
     
-    <div class="forum-container container">
+    <div *ngFor="let topic of topics" class="forum-container container">
       <div class="post">
         <div class="post-content">
-          <h2 class="post-title">Mi a kedvenc programozási nyelved?</h2>
-          <p class="post-meta">by <span class="author">CodeMaster</span> - 2 órája</p>
-          <p class="post-text">Érdekel, hogy ti melyik nyelvet szeretitek és miért. Én a JavaScriptet imádom, mert dinamikus és sokoldalú.</p>
-          <div class="post-actions">
-            <button>💬 5 Hozzászólás</button>
-            <button>🔗 Megosztás</button>
-          </div>
+          <h1 class="post-title">{{topic.title}}</h1>
+          <p class="post-meta">Kategória: <span class="category">{{topic.category.category_name}}</span></p>
+          <p class="post-meta">by <span class="author">{{topic.user.name}}</span> - {{topic.timeAgo}}</p>
+          <p class="post-text">{{topic.content}}</p>
         </div>
       </div>
-    
-      <div class="post">
-        <div class="post-content">
-          <h2 class="post-title">Kedvenc fejlesztői eszközöd?</h2>
-          <p class="post-meta">by <span class="author">DevNinja</span> - 5 órája</p>
-          <p class="post-text">VScode, JetBrains termékek vagy más? Osszátok meg a tapasztalatokat!</p>
-          <div class="post-actions">
-            <button>💬 12 Hozzászólás</button>
-            <button>🔗 Megosztás</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    </div>  
+
     </body>
 </html>

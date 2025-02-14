@@ -1,1 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.progress-bar {
+    width: 200px;
+    height: 10px;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0;
+    background-color: #3498db;
+    animation: fill 300ms cubic-bezier(.42,0,1,1);
+}
+
+@keyframes fill {
+    0% { width: 0; }
+    100% { width: 100%; }
+}

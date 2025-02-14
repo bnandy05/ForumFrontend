@@ -1,1 +1,8 @@
-<router-outlet></router-outlet>
+<div *ngIf="isLoading" class="loading-overlay">
+    <div class="progress-bar">
+        <div class="progress-bar-fill"></div>
+    </div>
+</div>
+  
+  <router-outlet></router-outlet>
+  
