@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
-import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -14,14 +13,13 @@ import { CommonModule } from '@angular/common';
 export class LoginComponent {
   email: string = '';
   password: string = '';
+  errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService
+  ) {}
 
   onSubmit() {
     this.authService.login(this.email, this.password);
-  }
-
-  onForgotPassword() {
-    alert('Elfelejtett jelszó funkció hamarosan elérhető.');
   }
 }
