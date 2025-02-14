@@ -3,11 +3,11 @@ import { TopicService } from '../../services/topic.service';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc'; // UTC plugin
+import utc from 'dayjs/plugin/utc';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/hu';
 
-dayjs.extend(utc); // UTC plugin
+dayjs.extend(utc);
 dayjs.extend(relativeTime);
 dayjs.locale('hu');
 
@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
         console.log('Topics:', response.data);
         this.topics = response.data.map((topic: any) => ({
           ...topic,
-          timeAgo: dayjs.utc(topic.created_at).local().fromNow() // UTC-ről helyi időzónára, majd relatív idő
+          timeAgo: dayjs.utc(topic.created_at).local().fromNow()
         }));
       },
       error: (err) => {
