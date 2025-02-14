@@ -100,3 +100,9 @@ input:focus {
 .additional-links a:hover {
   color: #c9c9c9;
 }
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+}
