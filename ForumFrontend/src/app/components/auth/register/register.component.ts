@@ -27,11 +27,9 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
       this.http.post(this.apiUrl, this.registerForm.value, { withCredentials: true }).subscribe(
         (response: any) => {
-          console.log('Sikeres regisztráció:', response);
           this.router.navigate(['/login']);
         },
         (error) => {
-          console.error('Hiba a regisztráció során:', error);
           alert('Hiba történt a regisztráció során.');
         }
       );
