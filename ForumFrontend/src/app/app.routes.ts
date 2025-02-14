@@ -1,9 +1,11 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./components/home/home.component').then(m => m.HomeComponent)
+    loadComponent: () => import('./components/home/home.component').then(m => m.HomeComponent),
+    canActivate: [AuthGuard],
   },
   {
     path: 'login',
@@ -23,7 +25,8 @@ export const routes: Routes = [
   },
   {
     path: 'profile',
-    loadComponent: () => import('./components/user/profile/profile.component').then(m => m.ProfileComponent)
+    loadComponent: () => import('./components/user/profile/profile.component').then(m => m.ProfileComponent),
+    canActivate: [AuthGuard],
   },
   {
     path: 'topics',
@@ -31,12 +34,14 @@ export const routes: Routes = [
       {
         path: 'create',
         loadComponent: () =>
-          import('./components/topics/topic-create/topic-create.component').then(m => m.TopicCreateComponent)
+          import('./components/topics/topic-create/topic-create.component').then(m => m.TopicCreateComponent),
+        canActivate: [AuthGuard],
       },
       {
         path: ':id',
         loadComponent: () =>
-          import('./components/topics/topic-details/topic-details.component').then(m => m.TopicDetailsComponent)
+          import('./components/topics/topic-details/topic-details.component').then(m => m.TopicDetailsComponent),
+        canActivate: [AuthGuard],
       }
     ]
   },
