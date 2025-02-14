@@ -16,7 +16,7 @@ export class TopicService {
     if (title) params.title = title;
     if (orderBy) params.order_by = orderBy;
 
-    return this.http.get(`${this.apiUrl}/homepage`, { params });
+    return this.http.get(`${this.apiUrl}/home`, { params });
   }
 
   getTopic(id: number): Observable<any> {

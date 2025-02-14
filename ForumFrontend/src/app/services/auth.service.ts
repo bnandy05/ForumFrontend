@@ -47,6 +47,40 @@ export class AuthService {
     });
   }
 
+  forgot(email: string) {
+    this.http.post(`${this.apiUrl}/password/forgot`, { email }, { withCredentials: true }).subscribe({
+      next: (response: any) => {
+        alert("Az új jelszót elküldtük az e-mail címedre. Nézd meg az email fiókod!");
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        if (err.status === 404) {
+          alert('Az e-mail cím nem található az adatbázisban.');
+        } else {
+          alert('Hiba történt a jelszó-visszaállítás során. Kérjük, próbáld újra később.');
+        }
+      }
+    });
+  }
+
+  changePassword(currentPassword: string, newPassword: string) {
+    this.http.post(`${this.apiUrl}/password/change`, { currentPassword, newPassword }, { withCredentials: true }).subscribe({
+      next: (response: any) => {
+        alert('A jelszó sikeresen megváltoztatva!');
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        if (err.status === 401) {
+          alert('A jelenlegi jelszó nem megfelelő.');
+        } else if (err.status === 400) {
+          alert('Az új jelszó nem felel meg a követelményeknek.');
+        } else {
+          alert('Hiba történt a jelszó változtatása során. Kérjük, próbáld újra később.');
+        }
+      }
+    });
+  }
+
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
   }
