@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
+import { NoAuthGuard } from './no-auth.guard';
 
 export const routes: Routes = [
   {
@@ -9,15 +10,18 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadComponent: () => import('./components/auth/login/login.component').then(m => m.LoginComponent)
+    loadComponent: () => import('./components/auth/login/login.component').then(m => m.LoginComponent),
+    canActivate: [NoAuthGuard],
   },
   {
     path: 'register',
-    loadComponent: () => import('./components/auth/register/register.component').then(m => m.RegisterComponent)
+    loadComponent: () => import('./components/auth/register/register.component').then(m => m.RegisterComponent),
+    canActivate: [NoAuthGuard],
   },
   {
     path: 'logout',
-    loadComponent: () => import('./components/auth/logout/logout.component').then(m => m.LogoutComponent)
+    loadComponent: () => import('./components/auth/logout/logout.component').then(m => m.LogoutComponent),
+    canActivate: [AuthGuard],
   },
   {
     path: 'forgot-password',
