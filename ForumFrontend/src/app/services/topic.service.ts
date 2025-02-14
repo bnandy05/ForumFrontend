@@ -58,4 +58,8 @@ export class TopicService {
   deleteAdminComment(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/komment/admin/${id}`);
   }
+
+  getCategories(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/kategoriak`);
+  }
 }

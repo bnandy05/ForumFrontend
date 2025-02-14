@@ -33,21 +33,14 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'topics',
-    children: [
-      {
-        path: 'create',
-        loadComponent: () =>
-          import('./components/topics/topic-create/topic-create.component').then(m => m.TopicCreateComponent),
-        canActivate: [AuthGuard],
-      },
-      {
-        path: ':id',
-        loadComponent: () =>
-          import('./components/topics/topic-details/topic-details.component').then(m => m.TopicDetailsComponent),
-        canActivate: [AuthGuard],
-      }
-    ]
+    path: 'create',
+    loadComponent: () => import('./components/topics/topic-create/topic-create.component').then(m => m.TopicCreateComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'topics/view/:id',
+    loadComponent: () => import('./components/topics/topic-details/topic-details.component').then(m => m.TopicDetailsComponent),
+    canActivate: [AuthGuard],
   },
   {
     path: '**',

@@ -11,6 +11,11 @@
   transform: scale(1.02);
 }
 
+.category{
+  font-weight: bold;
+  color: white;
+}
+
 .post-title {
   font-size: 1.4rem;
   color: #ffffff;
