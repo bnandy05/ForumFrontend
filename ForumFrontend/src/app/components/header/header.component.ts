@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit{
   ngOnInit() {
     this.authService.getUser().subscribe(
       (user: any) => {
-        this.username = user.username;
+        this.username = user.name;
       },
       (error) => {
         console.error('Error fetching user data:', error);
