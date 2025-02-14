@@ -16,11 +16,11 @@ export class TopicService {
     if (title) params.title = title;
     if (orderBy) params.order_by = orderBy;
 
-    return this.http.get(`${this.apiUrl}/fooldal`, { params });
+    return this.http.get(`${this.apiUrl}/home`, { params });
   }
 
   getTopic(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/topik/${id}`);
+    return this.http.get(`${this.apiUrl}/topic/${id}`);
   }
 
   createTopic(title: string, content: string, categoryId: number): Observable<any> {
@@ -30,36 +30,36 @@ export class TopicService {
 
   addComment(topicId: number, content: string): Observable<any> {
     const data = { content };
-    return this.http.post(`${this.apiUrl}/topik/${topicId}/komment`, data);
+    return this.http.post(`${this.apiUrl}/topic/${topicId}/comment`, data);
   }
 
   voteTopic(topicId: number, voteType: 'up' | 'down'): Observable<any> {
     const data = { vote_type: voteType };
-    return this.http.post(`${this.apiUrl}/topik/${topicId}/vote`, data);
+    return this.http.post(`${this.apiUrl}/topic/${topicId}/vote`, data);
   }
 
   voteComment(commentId: number, voteType: 'up' | 'down'): Observable<any> {
     const data = { vote_type: voteType };
-    return this.http.post(`${this.apiUrl}/komment/${commentId}/vote`, data);
+    return this.http.post(`${this.apiUrl}/comment/${commentId}/vote`, data);
   }
 
   deleteTopic(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/topik/${id}`);
+    return this.http.delete(`${this.apiUrl}/topic/${id}`);
   }
 
   deleteComment(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/komment/${id}`);
+    return this.http.delete(`${this.apiUrl}/comment/${id}`);
   }
 
   deleteAdminTopic(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/topik/admin/${id}`);
+    return this.http.delete(`${this.apiUrl}/topic/admin/${id}`);
   }
 
   deleteAdminComment(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/komment/admin/${id}`);
+    return this.http.delete(`${this.apiUrl}/comment/admin/${id}`);
   }
 
   getCategories(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/kategoriak`);
+    return this.http.get(`${this.apiUrl}/categories`);
   }
 }
