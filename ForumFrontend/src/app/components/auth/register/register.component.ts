@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,7 @@ export class RegisterComponent {
   registerForm: FormGroup;
   apiUrl = 'https://berenandor.moriczcloud.hu/api/register'; // Laravel API URL-je
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(255)]],
       email: ['', [Validators.required, Validators.email]],
@@ -27,7 +28,7 @@ export class RegisterComponent {
       this.http.post(this.apiUrl, this.registerForm.value, { withCredentials: true }).subscribe(
         (response: any) => {
           console.log('Sikeres regisztráció:', response);
-          alert('Sikeres regisztráció! Token: ' + response.token);
+          this.router.navigate(['/login']);
         },
         (error) => {
           console.error('Hiba a regisztráció során:', error);
