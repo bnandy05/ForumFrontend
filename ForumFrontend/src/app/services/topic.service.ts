@@ -25,7 +25,7 @@ export class TopicService {
 
   createTopic(title: string, content: string, categoryId: number): Observable<any> {
     const data = { title, content, category_id: categoryId };
-    return this.http.post(`${this.apiUrl}/feltoltes`, data);
+    return this.http.post(`${this.apiUrl}/upload`, data);
   }
 
   addComment(topicId: number, content: string): Observable<any> {
