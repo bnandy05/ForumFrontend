@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,11 @@ export class AuthService {
   private token = new BehaviorSubject<string | null>(null);
   private apiUrl = 'https://berenandor.moriczcloud.hu/api';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient, 
+    private router: Router,
+    private messageService: MessageService
+  ) {}
 
   login(email: string, password: string) {
     this.http.post<any>(`${this.apiUrl}/login`, { email, password }, { withCredentials: true }).subscribe({
@@ -18,10 +23,10 @@ export class AuthService {
         localStorage.setItem('token', response.token);
         this.token.next(response.token);
         this.router.navigate(['/']);
+        this.messageService.add({ severity: 'success', summary: 'Sikeres bejelentkezés', detail: 'Üdvözöljük!' });
       },
       error: (err) => {
-        console.error('Login failed', err);
-        alert('Hibás email vagy jelszó.');
+        this.messageService.add({ severity: 'error', summary: 'Bejelentkezési hiba', detail: 'Hibás email vagy jelszó.' });
       }
     });
   }
@@ -32,16 +37,16 @@ export class AuthService {
         localStorage.removeItem('token');
         this.token.next(null);
         this.router.navigate(['/login']);
+        this.messageService.add({ severity: 'success', summary: 'Sikeres kijelentkezés', detail: 'Viszontlátásra!' });
       },
       error: (err) => {
         if (err.status === 401 || err.status === 403) {
-          console.warn('A token már nem érvényes.');
+          this.messageService.add({ severity: 'warn', summary: 'Érvénytelen token', detail: 'A token már nem érvényes.' });
           localStorage.removeItem('token');
           this.token.next(null);
           this.router.navigate(['/login']);
         } else {
-          console.error('Logout failed', err);
-          alert('Hiba történt a kijelentkezés során.');
+          this.messageService.add({ severity: 'error', summary: 'Kijelentkezési hiba', detail: 'Hiba történt a kijelentkezés során.' });
         }
       }      
     });
@@ -50,14 +55,14 @@ export class AuthService {
   forgot(email: string) {
     this.http.post(`${this.apiUrl}/password/forgot`, { email }, { withCredentials: true }).subscribe({
       next: (response: any) => {
-        alert("Az új jelszót elküldtük az e-mail címedre. Nézd meg az email fiókod!");
+        this.messageService.add({ severity: 'success', summary: 'Jelszó visszaállítás', detail: 'Az új jelszót elküldtük az e-mail címedre. Nézd meg az email fiókod!' });
         this.router.navigate(['/login']);
       },
       error: (err) => {
         if (err.status === 404) {
-          alert('Az e-mail cím nem található az adatbázisban.');
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Az e-mail cím nem található az adatbázisban.' });
         } else {
-          alert('Hiba történt a jelszó-visszaállítás során. Kérjük, próbáld újra később.');
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a jelszó-visszaállítás során. Kérjük, próbáld újra később.' });
         }
       }
     });
@@ -70,21 +75,20 @@ export class AuthService {
       new_password_confirmation: confirmNewPassword 
     }, { withCredentials: true }).subscribe({
       next: (response: any) => {
-        alert('A jelszó sikeresen megváltoztatva!');
+        this.messageService.add({ severity: 'success', summary: 'Sikeres jelszó változtatás', detail: 'A jelszó sikeresen megváltoztatva!' });
         this.router.navigate(['/login']);
       },
       error: (err) => {
         if (err.status === 401) {
-          alert('A jelenlegi jelszó nem megfelelő.');
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'A jelenlegi jelszó nem megfelelő.' });
         } else if (err.status === 422) {
-          alert('A jelszó nem felel meg a követelményeknek vagy a jelszavak nem egyeznek.');
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'A jelszó nem felel meg a követelményeknek vagy a jelszavak nem egyeznek.' });
         } else {
-          alert('Hiba történt a jelszó változtatása során. Kérjük, próbáld újra később.');
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a jelszó változtatása során. Kérjük, próbáld újra később.' });
         }
       }
     });
   }
-  
 
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,10 @@ import { Observable } from 'rxjs';
 export class TopicService {
   private apiUrl = 'https://berenandor.moriczcloud.hu/api/forum';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private messageService: MessageService
+  ) {}
 
   getTopics(categoryId?: number, title?: string, orderBy?: string): Observable<any> {
     let params: any = {};
@@ -25,38 +29,110 @@ export class TopicService {
 
   createTopic(title: string, content: string, categoryId: number): Observable<any> {
     const data = { title, content, category_id: categoryId };
-    return this.http.post(`${this.apiUrl}/upload`, data);
+    return this.http.post(`${this.apiUrl}/upload`, data).pipe(
+      tap({
+        next: () => {
+          this.messageService.add({ severity: 'success', summary: 'Sikeres', detail: 'Téma sikeresen létrehozva!' });
+        },
+        error: (err) => {
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a téma létrehozása során.' });
+        }
+      })
+    );
   }
 
   addComment(topicId: number, content: string): Observable<any> {
     const data = { content };
-    return this.http.post(`${this.apiUrl}/topic/${topicId}/comment`, data);
+    return this.http.post(`${this.apiUrl}/topic/${topicId}/comment`, data).pipe(
+      tap({
+        next: () => {
+          this.messageService.add({ severity: 'success', summary: 'Sikeres', detail: 'Hozzászólás sikeresen hozzáadva!' });
+        },
+        error: (err) => {
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a hozzászólás hozzáadása során.' });
+        }
+      })
+    );
   }
 
   voteTopic(topicId: number, voteType: 'up' | 'down'): Observable<any> {
     const data = { vote_type: voteType };
-    return this.http.post(`${this.apiUrl}/topic/${topicId}/vote`, data);
+    return this.http.post(`${this.apiUrl}/topic/${topicId}/vote`, data).pipe(
+      tap({
+        next: () => {
+          this.messageService.add({ severity: 'success', summary: 'Sikeres', detail: 'Szavazat sikeresen rögzítve!' });
+        },
+        error: (err) => {
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a szavazás során.' });
+        }
+      })
+    );
   }
 
   voteComment(commentId: number, voteType: 'up' | 'down'): Observable<any> {
     const data = { vote_type: voteType };
-    return this.http.post(`${this.apiUrl}/comment/${commentId}/vote`, data);
+    return this.http.post(`${this.apiUrl}/comment/${commentId}/vote`, data).pipe(
+      tap({
+        next: () => {
+          this.messageService.add({ severity: 'success', summary: 'Sikeres', detail: 'Szavazat sikeresen rögzítve!' });
+        },
+        error: (err) => {
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a szavazás során.' });
+        }
+      })
+    );
   }
 
   deleteTopic(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/topic/${id}`);
+    return this.http.delete(`${this.apiUrl}/topic/${id}`).pipe(
+      tap({
+        next: () => {
+          this.messageService.add({ severity: 'success', summary: 'Sikeres', detail: 'Téma sikeresen törölve!' });
+        },
+        error: (err) => {
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a téma törlése során.' });
+        }
+      })
+    );
   }
 
   deleteComment(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/comment/${id}`);
+    return this.http.delete(`${this.apiUrl}/comment/${id}`).pipe(
+      tap({
+        next: () => {
+          this.messageService.add({ severity: 'success', summary: 'Sikeres', detail: 'Hozzászólás sikeresen törölve!' });
+        },
+        error: (err) => {
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a hozzászólás törlése során.' });
+        }
+      })
+    );
   }
 
   deleteAdminTopic(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/topic/admin/${id}`);
+    return this.http.delete(`${this.apiUrl}/topic/admin/${id}`).pipe(
+      tap({
+        next: () => {
+          this.messageService.add({ severity: 'success', summary: 'Sikeres', detail: 'Téma adminként sikeresen törölve!' });
+        },
+        error: (err) => {
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a téma adminkénti törlése során.' });
+        }
+      })
+    );
   }
 
   deleteAdminComment(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/comment/admin/${id}`);
+    return this.http.delete(`${this.apiUrl}/comment/admin/${id}`).pipe(
+      tap({
+        next: () => {
+          this.messageService.add({ severity: 'success', summary: 'Sikeres', detail: 'Hozzászólás adminként sikeresen törölve!' });
+        },
+        error: (err) => {
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a hozzászólás adminkénti törlése során.' });
+        }
+      })
+    );
   }
 
   getCategories(): Observable<any> {

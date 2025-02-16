@@ -23,12 +23,4 @@ export class AppComponent {
       this.isLoading = false;
     }, 300)
   }
-
-  showSuccess() {
-    this.messageService.add({ severity: 'success', summary: 'Siker!', detail: 'Ez egy sikeres üzenet' });
-  }
-
-  showError() {
-    this.messageService.add({ severity: 'error', summary: 'Hiba!', detail: 'Ez egy hibaüzenet' });
-  }
 }
