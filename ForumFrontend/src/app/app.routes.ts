@@ -28,6 +28,10 @@ export const routes: Routes = [
     loadComponent: () => import('./components/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
   },
   {
+    path: 'password/forgot',
+    loadComponent: () => import('./components/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
+  },
+  {
     path: 'profile',
     loadComponent: () => import('./components/user/profile/profile.component').then(m => m.ProfileComponent),
     canActivate: [AuthGuard],
@@ -39,6 +43,11 @@ export const routes: Routes = [
   },
   {
     path: 'change-password',
+    loadComponent: () => import('./components/auth/change-password/change-password.component').then(m => m.ChangePasswordComponent),
+    canActivate: [AuthGuard],
+  }, 
+  {
+    path: 'password/change',
     loadComponent: () => import('./components/auth/change-password/change-password.component').then(m => m.ChangePasswordComponent),
     canActivate: [AuthGuard],
   }, 
