@@ -63,8 +63,12 @@ export class AuthService {
     });
   }
 
-  changePassword(currentPassword: string, newPassword: string) {
-    this.http.post(`${this.apiUrl}/password/change`, { currentPassword, newPassword }, { withCredentials: true }).subscribe({
+  changePassword(currentPassword: string, newPassword: string, confirmNewPassword: string) {
+    this.http.post(`${this.apiUrl}/password/change`, {
+      current_password: currentPassword,
+      new_password: newPassword,
+      new_password_confirmation: confirmNewPassword 
+    }, { withCredentials: true }).subscribe({
       next: (response: any) => {
         alert('A jelszó sikeresen megváltoztatva!');
         this.router.navigate(['/login']);
@@ -72,14 +76,15 @@ export class AuthService {
       error: (err) => {
         if (err.status === 401) {
           alert('A jelenlegi jelszó nem megfelelő.');
-        } else if (err.status === 400) {
-          alert('Az új jelszó nem felel meg a követelményeknek.');
+        } else if (err.status === 422) {
+          alert('A jelszó nem felel meg a követelményeknek vagy a jelszavak nem egyeznek.');
         } else {
           alert('Hiba történt a jelszó változtatása során. Kérjük, próbáld újra később.');
         }
       }
     });
   }
+  
 
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');

@@ -36,7 +36,12 @@ export const routes: Routes = [
     path: 'create',
     loadComponent: () => import('./components/topics/topic-create/topic-create.component').then(m => m.TopicCreateComponent),
     canActivate: [AuthGuard],
-  },  
+  },
+  {
+    path: 'change-password',
+    loadComponent: () => import('./components/auth/change-password/change-password.component').then(m => m.ChangePasswordComponent),
+    canActivate: [AuthGuard],
+  }, 
   {
     path: 'topics/create',
     loadComponent: () => import('./components/topics/topic-create/topic-create.component').then(m => m.TopicCreateComponent),
