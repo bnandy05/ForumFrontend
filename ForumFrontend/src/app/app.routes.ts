@@ -28,10 +28,6 @@ export const routes: Routes = [
     loadComponent: () => import('./components/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
   },
   {
-    path: 'password/forgot',
-    loadComponent: () => import('./components/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
-  },
-  {
     path: 'profile',
     loadComponent: () => import('./components/user/profile/profile.component').then(m => m.ProfileComponent),
     canActivate: [AuthGuard],
@@ -46,16 +42,6 @@ export const routes: Routes = [
     loadComponent: () => import('./components/auth/change-password/change-password.component').then(m => m.ChangePasswordComponent),
     canActivate: [AuthGuard],
   }, 
-  {
-    path: 'password/change',
-    loadComponent: () => import('./components/auth/change-password/change-password.component').then(m => m.ChangePasswordComponent),
-    canActivate: [AuthGuard],
-  }, 
-  {
-    path: 'topics/create',
-    loadComponent: () => import('./components/topics/topic-create/topic-create.component').then(m => m.TopicCreateComponent),
-    canActivate: [AuthGuard],
-  },
   {
     path: 'topics/view/:id',
     loadComponent: () => import('./components/topics/topic-details/topic-details.component').then(m => m.TopicDetailsComponent),
