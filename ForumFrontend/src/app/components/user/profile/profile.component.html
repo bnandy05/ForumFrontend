@@ -1,15 +1,34 @@
 <app-header></app-header>
-<body>
-  <a href="details/{{topic.id}}" *ngFor="let topic of topics">
-  <div class="forum-container container">
-    <div class="post">
-      <div class="post-content">
-        <h1 class="post-title">{{topic.title}} </h1>
-        <p class="post-meta">Kategória: <span class="category">{{topic.category.category_name}}</span></p>
-        <p class="post-meta">by <span class="author">{{topic.user.name}}</span> - {{topic.timeAgo}}</p>
-        <p class="post-text">{{topic.content}}</p>
-      </div>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header text-white header">
+                    <h3>Profil</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img [src]="userProfile.picture" alt="Profil kép" class="img-fluid rounded-circle">
+                        </div>
+                        <div class="col-md-8 text-end">
+                            <h4 class="mb-3">{{ userProfile.name }}</h4>
+                            <p><strong>Email:</strong> {{ userProfile.email }}</p>
+                            <p><strong>Regisztráció dátuma:</strong> {{ userProfile.created_at | date }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="change-password"><button href="password/change" class="btn btn-warning btn-block mb-2">Jelszó változtatása</button></a>
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <a href="logout"><button class="btn btn-danger btn-block">Kijelentkezés</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  </a>
-  </body>
+</div>
