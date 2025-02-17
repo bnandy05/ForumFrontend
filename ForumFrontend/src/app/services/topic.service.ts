@@ -14,7 +14,7 @@ export class TopicService {
     private messageService: MessageService
   ) {}
 
-  getTopics(categoryId?: number, title?: string, orderBy?: string): Observable<any> {
+  getTopics(categoryId?: string, title?: string, orderBy?: string): Observable<any> {
     let params: any = {};
     if (categoryId) params.category_id = categoryId;
     if (title) params.title = title;
