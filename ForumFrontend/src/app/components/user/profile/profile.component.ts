@@ -1,40 +1,35 @@
-import { AuthService } from './../../../services/auth.service';
-import { UserService } from './../../../services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { TopicService } from '../../../services/topic.service';
 import { HeaderComponent } from '../../header/header.component';
+import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import 'dayjs/locale/hu';
 
-dayjs.extend(utc);
-dayjs.extend(relativeTime);
-dayjs.locale('hu');
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
+  selector: 'app-profile',
   imports: [HeaderComponent, CommonModule],
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrl: './profile.component.css'
 })
-export class ProfileComponent implements OnInit {
-  topics: any[] = [];
+export class ProfileComponent implements OnInit{
+  userProfile: any = {};
 
-  constructor(private AuthService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
-  ngOnInit() {
-    this.AuthService.getTopics().subscribe({
-      next: (response) => {
-        this.topics = response.data.map((topic: any) => ({
-          ...topic,
-          timeAgo: dayjs.utc(topic.created_at).local().fromNow()
-        }));
+  ngOnInit(): void {
+    this.loadUserProfile();
+  }
+
+  loadUserProfile(): void {
+    this.authService.getUser().subscribe({
+      next: (profile) => {
+        this.userProfile = profile;
       },
       error: (err) => {
-        console.error('Failed to fetch topics:', err);
+        console.error('Hiba történt a profil betöltésekor', err);
       }
     });
   }

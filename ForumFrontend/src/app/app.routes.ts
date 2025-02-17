@@ -25,7 +25,8 @@ export const routes: Routes = [
   },
   {
     path: 'forgot-password',
-    loadComponent: () => import('./components/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
+    loadComponent: () => import('./components/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent),
+    canActivate: [NoAuthGuard],
   },
   {
     path: 'profile',
@@ -38,10 +39,10 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'topics/create',
-    loadComponent: () => import('./components/topics/topic-create/topic-create.component').then(m => m.TopicCreateComponent),
+    path: 'change-password',
+    loadComponent: () => import('./components/auth/change-password/change-password.component').then(m => m.ChangePasswordComponent),
     canActivate: [AuthGuard],
-  },
+  }, 
   {
     path: 'details',
     loadComponent: () => import('./components/topics/topic-details/topic-details.component').then(m => m.TopicDetailsComponent),
