@@ -44,6 +44,16 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   }, 
   {
+    path: 'details',
+    loadComponent: () => import('./components/topics/topic-details/topic-details.component').then(m => m.TopicDetailsComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'details/:id',
+    loadComponent: () => import('./components/topics/topic-details/topic-details.component').then(m => m.TopicDetailsComponent),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'topics/view/:id',
     loadComponent: () => import('./components/topics/topic-details/topic-details.component').then(m => m.TopicDetailsComponent),
     canActivate: [AuthGuard],
