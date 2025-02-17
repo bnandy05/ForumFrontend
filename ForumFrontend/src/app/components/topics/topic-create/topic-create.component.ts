@@ -10,11 +10,12 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TopicService } from '../../../services/topic.service';
+import { EditorModule } from 'primeng/editor';
 
 @Component({
   selector: 'app-topic-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, HeaderComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, HeaderComponent, EditorModule],
   templateUrl: './topic-create.component.html',
   styleUrl: './topic-create.component.css',
 })
