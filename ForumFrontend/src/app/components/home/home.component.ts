@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   topics: any[] = [];
   title: string = "";
   orderBy: any = "";
-  categoryId: number = 0
+  categoryId: string = "";
   categories: any[] = [];
 
   constructor(private topicService: TopicService) {}
@@ -44,6 +44,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.categoryId = '';
+    this.orderBy = 'created_at'; 
     this.filterTopics();
     this.topicService.getCategories().subscribe({
       next: (response) => {

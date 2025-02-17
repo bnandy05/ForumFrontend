@@ -26,9 +26,8 @@
           <div class="col-md-4 mb-3">
               <label for="orderBy" class="form-label">Rendezés:</label>
               <select id="orderBy" [(ngModel)]="orderBy" (change)="filterTopics()" class="form-select">
-                  <option value="">Alapértelmezett</option>
-                  <option value="asc">Növekvő</option>
-                  <option value="desc">Csökkenő</option>
+                  <option value="created_at">Dátum szerint</option>
+                  <option value="upvotes">Upvote-ok szerint</option>
               </select>
           </div>
       </div>
