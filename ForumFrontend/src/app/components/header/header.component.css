@@ -1,117 +1,62 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background: #1a1a2e;
-    color: #e0e0e0;
-    min-height: 100vh;
-  }
-  
-  .forum-header {
-    background: #25274d;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    padding: 1rem 2rem;
-    border-bottom-right-radius: 12px;
-    border-bottom-left-radius: 12px;
-    margin-bottom: 2rem;
-  }
-  
-  .home-link {
-    font-size: 1.8rem;
-    text-decoration: none;
-    color: #6a75d1;
-    transition: color 0.2s ease;
-  }
-  
-  .home-link:hover {
-    color: #ffffff;
-  }
-  
-  .new-topic-btn {
-    background: #6a75d1;
-    color: white;
-    border-radius: 8px;
-    padding: 0.6rem 1rem;
-    border: none;
-    font-weight: bold;
-    transition: background 0.3s ease, transform 0.2s ease;
-  }
-  
-  .new-topic-btn:hover {
-    background: #5a64c4;
-    transform: scale(1.05);
-  }
-  
-  .notification {
-    font-size: 1.5rem;
-    color: #6a75d1;
-    position: relative;
-  }
-  
-  .notification:hover {
-    color: #ffffff;
-  }
-  
-  .notif-count {
-    position: absolute;
-    top: -5px;
-    right: -10px;
-    background: red;
-    color: white;
-    font-size: 0.8rem;
-    padding: 3px 6px;
-    border-radius: 50%;
-    font-weight: bold;
-  }
-  
-  .username {
-    color: white !important;
-  }
-
-:host ::ng-deep .p-menubar {
-  background-color: #25274d;
-  border-radius: 12px;
-  padding: 8px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+.navbar {
+  padding: 0.8rem 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* 🌟 Menü elemek */
-:host ::ng-deep .p-menubar .p-menuitem-link {
-  color: #e0e0e0 !important;
-  font-family: 'Arial', sans-serif;
-  font-weight: bold;
-  transition: background 0.3s ease, color 0.3s ease;
+.navbar .nav-link {
+  color: rgba(255,255,255,0.9) !important;
+  padding: 0.5rem 1rem !important;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-/* 🌟 Hover effekt */
-:host ::ng-deep .p-menubar .p-menuitem-link:hover {
-  background: rgba(106, 117, 209, 0.2);
-  border-radius: 8px;
+.navbar .nav-link:hover {
+  color: #fff !important;
+  transform: translateY(-1px);
 }
 
-/* 🌟 Aktív menüpont */
-:host ::ng-deep .p-menubar .p-menuitem-link:focus {
-  background: rgba(106, 117, 209, 0.4);
+.navbar .nav-link.active {
+  color: #fff !important;
+  font-weight: 500;
 }
 
-/* 🌟 Ikonok */
-:host ::ng-deep .p-menuitem-icon {
-  font-size: 1.2rem;
-  margin-right: 8px;
-  color: #6a75d1;
+.navbar .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
 }
 
-/* 🌟 Almenü stílusok */
-:host ::ng-deep .p-submenu-list {
-  background-color: #2e2e4f;
-  border-radius: 8px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+.navbar .nav-link:hover::after {
+  width: 70%;
 }
 
-/* 🌟 Almenü elemek */
-:host ::ng-deep .p-submenu-list .p-menuitem-link {
-  color: #e0e0e0;
+.navbar-brand {
+  font-weight: 600;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
 }
 
-:host ::ng-deep .p-submenu-list .p-menuitem-link:hover {
-  background: rgba(106, 117, 209, 0.2);
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+      padding: 1rem 0;
+  }
+  
+  .navbar .nav-link {
+      padding: 0.7rem 1rem !important;
+  }
+
+  .navbar-nav {
+      margin: 0.5rem 0;
+  }
 }
 
+.navbar .nav-link i {
+  margin-right: 0.4rem;
+  font-size: 1.1em;
+}
