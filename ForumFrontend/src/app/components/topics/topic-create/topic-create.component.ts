@@ -24,6 +24,7 @@ export class TopicCreateComponent implements OnInit {
   categories: any[] = [];
   isSubmitting = false;
 
+
   constructor(
     private fb: FormBuilder,
     private topicService: TopicService,
