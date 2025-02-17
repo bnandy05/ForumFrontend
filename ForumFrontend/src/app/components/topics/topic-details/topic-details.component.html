@@ -1,1 +1,22 @@
-<p>topic-details works!</p>
+<app-header></app-header>
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum</title>
+</head>
+<body>
+    <div *ngFor="let topic of topics" class="forum-container container">
+      <div class="post">
+        <div class="post-content">
+          <h1 class="post-title">{{topic.title}}</h1>
+          <p class="post-meta">Kategória: <span class="category">{{topic.category.category_name}}</span></p>
+          <p class="post-meta">by <span class="author">{{topic.user.name}}</span> - {{topic.timeAgo}}</p>
+          <p class="post-text">{{topic.content}}</p>
+        </div>
+      </div>
+    </div>
+
+    </body>
+</html>
