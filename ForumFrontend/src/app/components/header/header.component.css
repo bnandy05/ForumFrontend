@@ -1,68 +1,62 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background: #1a1a2e;
-    color: #e0e0e0;
-    min-height: 100vh;
+.navbar {
+  padding: 0.8rem 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar .nav-link {
+  color: rgba(255,255,255,0.9) !important;
+  padding: 0.5rem 1rem !important;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.navbar .nav-link:hover {
+  color: #fff !important;
+  transform: translateY(-1px);
+}
+
+.navbar .nav-link.active {
+  color: #fff !important;
+  font-weight: 500;
+}
+
+.navbar .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.navbar .nav-link:hover::after {
+  width: 70%;
+}
+
+.navbar-brand {
+  font-weight: 600;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+}
+
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+      padding: 1rem 0;
   }
   
-  .forum-header {
-    background: #25274d;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    padding: 1rem 2rem;
-    border-bottom-right-radius: 12px;
-    border-bottom-left-radius: 12px;
-    margin-bottom: 2rem;
+  .navbar .nav-link {
+      padding: 0.7rem 1rem !important;
   }
-  
-  .home-link {
-    font-size: 1.8rem;
-    text-decoration: none;
-    color: #6a75d1;
-    transition: color 0.2s ease;
+
+  .navbar-nav {
+      margin: 0.5rem 0;
   }
-  
-  .home-link:hover {
-    color: #ffffff;
-  }
-  
-  .new-topic-btn {
-    background: #6a75d1;
-    color: white;
-    border-radius: 8px;
-    padding: 0.6rem 1rem;
-    border: none;
-    font-weight: bold;
-    transition: background 0.3s ease, transform 0.2s ease;
-  }
-  
-  .new-topic-btn:hover {
-    background: #5a64c4;
-    transform: scale(1.05);
-  }
-  
-  .notification {
-    font-size: 1.5rem;
-    color: #6a75d1;
-    position: relative;
-  }
-  
-  .notification:hover {
-    color: #ffffff;
-  }
-  
-  .notif-count {
-    position: absolute;
-    top: -5px;
-    right: -10px;
-    background: red;
-    color: white;
-    font-size: 0.8rem;
-    padding: 3px 6px;
-    border-radius: 50%;
-    font-weight: bold;
-  }
-  
-  .username {
-    color: white !important;
-  }
-  
+}
+
+.navbar .nav-link i {
+  margin-right: 0.4rem;
+  font-size: 1.1em;
+}

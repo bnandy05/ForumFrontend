@@ -1,15 +1,45 @@
-<header class="forum-header d-flex justify-content-between align-items-center">
-    <a href="/frontend" class="home-link">🏠 Kezdőlap</a>
-    <div class="d-flex align-items-center">
-      <a class="new-topic-btn me-3" href="create">+ Új Topic</a>
-      <div class="dropdown">
-        <a href="#" class="d-flex align-items-center text-decoration-none" id="profileMenu" data-bs-toggle="dropdown" aria-expanded="false">
-          <span class="username text-decoration-none">{{username}}</span>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileMenu">
-          <li><a class="dropdown-item" href="profile">Profil</a></li>
-          <li><a class="dropdown-item" href="logout">Kijelentkezés</a></li>
-        </ul>
-      </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    
+    <!-- Mobile toggle button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar content -->
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <!-- Primary menu items -->
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="fas fa-home me-1"></i> Kezdőlap
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/create">
+            <i class="fas fa-laptop me-1"></i> Topic Feltöltés
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/My-topics">
+            <i class="fas fa-mobile-alt me-1"></i> Én Topicjaim
+          </a>
+        </li>
+      </ul>
+
+      <!-- Secondary menu items on the right -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/profile">
+            <i class="fas fa-user me-1"></i> Profil
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">
+            <i class="fas fa-sign-out-alt me-1"></i> Kijelentkezés
+          </a>
+        </li>
+      </ul>
     </div>
-</header>
+  </div>
+</nav>

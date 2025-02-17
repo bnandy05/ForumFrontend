@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="container mt-4">
-    <h2>Új téma létrehozása</h2>
+    <h2>Új Topic létrehozása</h2>
     
     <form [formGroup]="topicForm" (ngSubmit)="onSubmit()" class="needs-validation">
       <div class="mb-3">
@@ -22,13 +22,11 @@
 
       <div class="mb-3">
         <label for="content" class="form-label">Tartalom</label>
-        <textarea 
-          class="form-control" 
-          id="content" 
-          rows="6"
-          formControlName="content"
+        <p-editor 
+          formControlName="content" 
+          [style]="{ height: '320px' }"
           [class.is-invalid]="content?.invalid && (content?.dirty || content?.touched)"
-        ></textarea>
+        ></p-editor>
         <div class="invalid-feedback" *ngIf="content?.errors?.['required']">
           A tartalom megadása kötelező!
         </div>
@@ -59,4 +57,4 @@
         Téma létrehozása
       </button>
     </form>
-  </div>
+</div>
