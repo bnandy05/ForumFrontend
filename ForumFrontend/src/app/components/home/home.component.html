@@ -7,17 +7,18 @@
 </head>
 <body>
     <app-header></app-header>
-    
-    <div *ngFor="let topic of topics" class="forum-container container">
+
+    <a href="details/{{topic.id}}" *ngFor="let topic of topics">
+    <div class="forum-container container">
       <div class="post">
         <div class="post-content">
-          <h1 class="post-title">{{topic.title}}</h1>
+          <h1 class="post-title">{{topic.title}} </h1>
           <p class="post-meta">Kategória: <span class="category">{{topic.category.category_name}}</span></p>
           <p class="post-meta">by <span class="author">{{topic.user.name}}</span> - {{topic.timeAgo}}</p>
           <p class="post-text">{{topic.content}}</p>
         </div>
       </div>
-    </div>  
-
+    </div>
+    </a>
     </body>
 </html>
