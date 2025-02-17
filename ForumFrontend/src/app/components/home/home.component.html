@@ -7,17 +7,43 @@
 </head>
 <body>
     <app-header></app-header>
-    
-    <div *ngFor="let topic of topics" class="forum-container container">
-      <div class="post">
-        <div class="post-content">
-          <h1 class="post-title">{{topic.title}}</h1>
-          <p class="post-meta">Kategória: <span class="category">{{topic.category.category_name}}</span></p>
-          <p class="post-meta">by <span class="author">{{topic.user.name}}</span> - {{topic.timeAgo}}</p>
-          <div class="post-text" [innerHTML]="topic.content | safeHtml"></div>
-        </div>
-      </div>
-    </div>  
 
-    </body>
+    <div class="container py-3">
+      <div class="row">
+          <div class="col-md-4 mb-3">
+              <label for="category" class="form-label">Kategória:</label>
+              <select id="category" [(ngModel)]="categoryId" (change)="filterTopics()" class="form-select">
+                  <option value="">Minden kategória</option>
+                  <option *ngFor="let category of categories" value="{{category.id}}">{{category.category_name}}</option>
+              </select>
+          </div>
+  
+          <div class="col-md-4 mb-3">
+              <label for="title" class="form-label">Cím keresése:</label>
+              <input type="text" id="title" [(ngModel)]="title" (input)="filterTopics()" class="form-control" placeholder="Cím keresése...">
+          </div>
+  
+          <div class="col-md-4 mb-3">
+              <label for="orderBy" class="form-label">Rendezés:</label>
+              <select id="orderBy" [(ngModel)]="orderBy" (change)="filterTopics()" class="form-select">
+                  <option value="">Alapértelmezett</option>
+                  <option value="asc">Növekvő</option>
+                  <option value="desc">Csökkenő</option>
+              </select>
+          </div>
+      </div>
+  </div>
+  
+
+    <div *ngFor="let topic of topics" class="forum-container container">
+        <div class="post">
+            <div class="post-content">
+                <h1 class="post-title">{{topic.title}}</h1>
+                <p class="post-meta">Kategória: <span class="category">{{topic.category.category_name}}</span></p>
+                <p class="post-meta">by <span class="author">{{topic.user.name}}</span> - {{topic.timeAgo}}</p>
+                <div class="post-text" [innerHTML]="topic.content | safeHtml"></div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
