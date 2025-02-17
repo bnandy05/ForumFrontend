@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TopicService } from '../../services/topic.service';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
+import { SafeHtmlPipe } from '../../safe-html.pipe';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -14,7 +15,7 @@ dayjs.locale('hu');
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, CommonModule],
+  imports: [HeaderComponent, CommonModule, SafeHtmlPipe],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
