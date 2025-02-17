@@ -65,4 +65,53 @@ body {
   .username {
     color: white !important;
   }
-  
+
+:host ::ng-deep .p-menubar {
+  background-color: #25274d;
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* 🌟 Menü elemek */
+:host ::ng-deep .p-menubar .p-menuitem-link {
+  color: #e0e0e0 !important;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* 🌟 Hover effekt */
+:host ::ng-deep .p-menubar .p-menuitem-link:hover {
+  background: rgba(106, 117, 209, 0.2);
+  border-radius: 8px;
+}
+
+/* 🌟 Aktív menüpont */
+:host ::ng-deep .p-menubar .p-menuitem-link:focus {
+  background: rgba(106, 117, 209, 0.4);
+}
+
+/* 🌟 Ikonok */
+:host ::ng-deep .p-menuitem-icon {
+  font-size: 1.2rem;
+  margin-right: 8px;
+  color: #6a75d1;
+}
+
+/* 🌟 Almenü stílusok */
+:host ::ng-deep .p-submenu-list {
+  background-color: #2e2e4f;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* 🌟 Almenü elemek */
+:host ::ng-deep .p-submenu-list .p-menuitem-link {
+  color: #e0e0e0;
+}
+
+:host ::ng-deep .p-submenu-list .p-menuitem-link:hover {
+  background: rgba(106, 117, 209, 0.2);
+}
+
