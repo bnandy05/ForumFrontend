@@ -1,0 +1,46 @@
+.post {
+    background: #25274d;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+  }
+  
+  .post:hover {
+    transform: scale(1.02);
+  }
+  
+  .category{
+    font-weight: bold;
+    color: white;
+  }
+  
+  .post-title {
+    font-size: 1.4rem;
+    color: #ffffff;
+  }
+  
+  .post-meta {
+    font-size: 0.9rem;
+    color: #a0a0a0;
+  }
+  
+  .author {
+    font-weight: bold;
+    color: #6a75d1;
+  }
+  
+  .post-actions button {
+    background: none;
+    border: none;
+    color: #6a75d1;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  .post-actions button:hover {
+    color: #ffffff;
+  }
+  
