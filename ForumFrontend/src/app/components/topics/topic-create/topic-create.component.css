@@ -7,7 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 1rem;
+    padding: 0;
 }
 
 .container {
@@ -16,9 +16,10 @@ body {
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     width: 100%;
-    max-width: 800px; /* Növeltük a max-width értékét, hogy nagyobb képernyőkön szélesebb legyen */
+    max-width: 800px;
     text-align: center;
-    margin: 1rem; /* Margin hozzáadva, hogy ne legyen túl szorosan a szélén */
+    margin: auto;
+    box-sizing: border-box;
 }
 
 h2 {
