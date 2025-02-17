@@ -36,10 +36,20 @@ export const routes: Routes = [
     path: 'create',
     loadComponent: () => import('./components/topics/topic-create/topic-create.component').then(m => m.TopicCreateComponent),
     canActivate: [AuthGuard],
-  },  
+  },
   {
     path: 'topics/create',
     loadComponent: () => import('./components/topics/topic-create/topic-create.component').then(m => m.TopicCreateComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'details',
+    loadComponent: () => import('./components/topics/topic-details/topic-details.component').then(m => m.TopicDetailsComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'details/:id',
+    loadComponent: () => import('./components/topics/topic-details/topic-details.component').then(m => m.TopicDetailsComponent),
     canActivate: [AuthGuard],
   },
   {
