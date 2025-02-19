@@ -24,36 +24,66 @@ dayjs.locale('hu');
 export class HomeComponent implements OnInit {
   topics: any[] = [];
   title: string = "";
-  orderBy: any = "";
+  orderBy: string = "";
   categoryId: string = "";
   categories: any[] = [];
-  upvote_count: number = 0;
+  currentPage: number = 1;
+  hasMoreTopics: boolean = true;
+  loadingMore: boolean = false;
 
   constructor(private topicService: TopicService, private router: Router) {}
 
-  onClick(topicid: number) {
-    this.router.navigate(['topics/view', topicid]);
+  onClick(topicId: number) {
+    this.router.navigate(['topics/view', topicId]);
   }
 
   filterTopics() {
-    this.topicService.getTopics(this.categoryId, this.title, this.orderBy).subscribe({
+    this.currentPage = 1;
+    this.hasMoreTopics = true;
+    this.loadTopics(true);
+  }
+
+  loadTopics(reset: boolean = false) {
+    if (this.loadingMore) return;
+    this.loadingMore = true;
+
+    this.topicService.getTopics(this.categoryId, this.title, this.orderBy, false, this.currentPage).subscribe({
       next: (response) => {
-        this.topics = response.data.map((topic: any) => ({
+        const newTopics = response.data.map((topic: any) => ({
           ...topic,
           timeAgo: dayjs.utc(topic.created_at).local().fromNow(),
           upvote_count: topic.upvotes - topic.downvotes
         }));
+
+        if (reset) {
+          this.topics = newTopics;
+        } else {
+          this.topics = [...this.topics, ...newTopics];
+        }
+
+        // Ellenőrizzük, hogy van-e még több oldal
+        this.hasMoreTopics = this.currentPage < response.last_page;
+
+        this.loadingMore = false;
       },
       error: (err) => {
         console.error('Failed to fetch topics:', err);
+        this.loadingMore = false;
       }
     });
   }
 
+  loadMore() {
+    if (!this.hasMoreTopics) return;
+    this.currentPage++;
+    this.loadTopics();
+  }
+
   ngOnInit() {
     this.categoryId = '';
-    this.orderBy = 'created_at'; 
-    this.filterTopics();
+    this.orderBy = 'created_at';
+    this.loadTopics(true);
+
     this.topicService.getCategories().subscribe({
       next: (response) => {
         this.categories = response;

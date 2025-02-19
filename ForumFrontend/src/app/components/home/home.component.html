@@ -45,5 +45,15 @@
             </div>
         </div>
     </div>
+
+    <div class="text-center">
+        <button *ngIf="hasMoreTopics && !loadingMore" (click)="loadMore()" class="btn btn-primary" [disabled]="loadingMore">
+            További téma betöltése
+        </button>
+        <div *ngIf="loadingMore" class="spinner-border" role="status">
+            <span class="visually-hidden">Betöltés...</span>
+        </div>
+    </div>
+      
 </body>
 </html>
