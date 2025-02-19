@@ -8,6 +8,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/hu';
+import { Router } from '@angular/router';
 
 dayjs.extend(utc);
 dayjs.extend(relativeTime);
@@ -26,15 +27,21 @@ export class HomeComponent implements OnInit {
   orderBy: any = "";
   categoryId: string = "";
   categories: any[] = [];
+  upvote_count: number = 0;
 
-  constructor(private topicService: TopicService) {}
+  constructor(private topicService: TopicService, private router: Router) {}
+
+  onClick(topicid: number) {
+    this.router.navigate(['topics/view', topicid]);
+  }
 
   filterTopics() {
     this.topicService.getTopics(this.categoryId, this.title, this.orderBy).subscribe({
       next: (response) => {
         this.topics = response.data.map((topic: any) => ({
           ...topic,
-          timeAgo: dayjs.utc(topic.created_at).local().fromNow()
+          timeAgo: dayjs.utc(topic.created_at).local().fromNow(),
+          upvote_count: topic.upvotes - topic.downvotes
         }));
       },
       error: (err) => {

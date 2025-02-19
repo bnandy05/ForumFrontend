@@ -26,17 +26,16 @@
           <div class="col-md-4 mb-3">
               <label for="orderBy" class="form-label">Rendezés:</label>
               <select id="orderBy" [(ngModel)]="orderBy" (change)="filterTopics()" class="form-select">
-                  <option value="created_at">Dátum szerint (↑)</option>
-                  <option value="upvotes">Upvote-ok szerint (↑)</option>
-                  <option value="created_at_asc">Dátum szerint (↓)</option>
-                  <option value="upvotes_asc">Upvote-ok szerint (↓)</option>
+                  <option value="created_at">Dátum szerint (Újabb felül)</option>
+                  <option value="upvotes">Upvote-ok szerint (Több felül)</option>
+                  <option value="created_at_asc">Dátum szerint (Régebbi felül)</option>
+                  <option value="upvotes_asc">Upvote-ok szerint (Kevesebb felül)</option>
               </select>
           </div>
       </div>
   </div>
   
-
-    <div *ngFor="let topic of topics" class="forum-container container">
+    <div *ngFor="let topic of topics" (click)="onClick(topic.id)" class="forum-container container">
         <div class="post">
             <div class="post-content">
                 <h1 class="post-title">{{topic.title}}</h1>
