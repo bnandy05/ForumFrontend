@@ -96,7 +96,7 @@ onMouseUp(topicId: number, event: MouseEvent | TouchEvent) {
     if (this.loadingMore) return;
     this.loadingMore = true;
 
-    this.topicService.getTopics(this.categoryId, this.title, this.orderBy, false, this.currentPage).subscribe({
+    this.topicService.getTopics(this.categoryId, this.title, this.orderBy, false, null, this.currentPage).subscribe({
       next: (response) => {
         const newTopics = response.data.map((topic: any) => ({
           ...topic,
@@ -111,7 +111,6 @@ onMouseUp(topicId: number, event: MouseEvent | TouchEvent) {
         }
 
         this.hasMoreTopics = this.currentPage < response.last_page;
-        console.log(this.topics)
         this.loadingMore = false;
       },
       error: (err) => {

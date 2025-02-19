@@ -33,7 +33,7 @@ export class MyTopicsComponent implements OnInit {
   isSelectingText = false;
   startX: number = 0;
   startY: number = 0;
-  userId: number | null = null; // URL-ből kapott user ID
+  userId: number | null = null;
 
   constructor(
     private topicService: TopicService, 

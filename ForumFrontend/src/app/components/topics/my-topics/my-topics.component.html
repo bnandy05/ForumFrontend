@@ -54,7 +54,8 @@
       </div>
     </div>
 
-    <h1 class="text-center">Én Topic-jaim</h1>
+    <h1 class="text-center" *ngIf="userId == null">Én Topic-jaim</h1>
+    <h1 class="text-center" *ngIf="userId != null">{{topics[0].user.name}} Topic-jai</h1>
 
     <div
       *ngFor="let topic of topics"
