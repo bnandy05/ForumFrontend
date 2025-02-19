@@ -61,7 +61,6 @@ export class HomeComponent implements OnInit {
           this.topics = [...this.topics, ...newTopics];
         }
 
-        // Ellenőrizzük, hogy van-e még több oldal
         this.hasMoreTopics = this.currentPage < response.last_page;
 
         this.loadingMore = false;
