@@ -14,12 +14,13 @@ export class TopicService {
     private messageService: MessageService
   ) {}
 
-  getTopics(categoryId?: string, title?: string, orderBy?: string, myTopics: boolean = false, page: number = 1): Observable<any> {
+  getTopics(categoryId?: string, title?: string, orderBy?: string, myTopics: boolean = false, userTopics: number | null = null, page: number = 1): Observable<any> {
     let params: any = {};
     if (categoryId) params.category_id = categoryId;
     if (title) params.title = title;
     if (orderBy) params.order_by = orderBy;
     if (myTopics) params.my_topics = true;
+    if (userTopics && userTopics!=null) params.user_topics = userTopics;
     params.page = page;
 
     return this.http.get(`${this.apiUrl}/home`, { params }).pipe(

@@ -30,11 +30,60 @@ export class HomeComponent implements OnInit {
   currentPage: number = 1;
   hasMoreTopics: boolean = true;
   loadingMore: boolean = false;
+  isSelectingText = false;
+  startX: number = 0;
+  startY: number = 0;
 
   constructor(private topicService: TopicService, private router: Router) {}
 
-  onClick(topicId: number) {
-    this.router.navigate(['topics/view', topicId]);
+  onMouseDown(event: MouseEvent | TouchEvent) {
+    if (event instanceof MouseEvent) {
+      this.startX = event.clientX;
+      this.startY = event.clientY;
+    } else {
+      this.startX = event.touches[0].clientX;
+      this.startY = event.touches[0].clientY;
+    }
+}
+
+onMouseUp(topicId: number, event: MouseEvent | TouchEvent) {
+    const selection = window.getSelection();
+    if (selection && selection.toString().length > 0) {
+      this.isSelectingText = true;
+    }
+
+    if (this.isSelectingText) {
+      this.isSelectingText = false;
+      return;
+    }
+
+    let endX: number, endY: number;
+    if (event instanceof MouseEvent) {
+      endX = event.clientX;
+      endY = event.clientY;
+    } else {
+      endX = event.changedTouches[0].clientX;
+      endY = event.changedTouches[0].clientY;
+    }
+
+    if (Math.abs(this.startX - endX) > 5 || Math.abs(this.startY - endY) > 5) {
+      return;
+    }
+
+    const target = event.target as HTMLElement;
+    const forbiddenTags = ['P', 'H1', 'SPAN', 'A', 'BUTTON'];
+
+    if (forbiddenTags.includes(target.tagName)) {
+      return;
+    }
+
+    this.router.navigate(['/topics/view', topicId]);
+  }
+
+
+  userClick(userId:number)
+  {
+    this.router.navigate(['/topics/user', userId]);
   }
 
   filterTopics() {
@@ -47,7 +96,7 @@ export class HomeComponent implements OnInit {
     if (this.loadingMore) return;
     this.loadingMore = true;
 
-    this.topicService.getTopics(this.categoryId, this.title, this.orderBy, false, this.currentPage).subscribe({
+    this.topicService.getTopics(this.categoryId, this.title, this.orderBy, false, null, this.currentPage).subscribe({
       next: (response) => {
         const newTopics = response.data.map((topic: any) => ({
           ...topic,
@@ -62,7 +111,6 @@ export class HomeComponent implements OnInit {
         }
 
         this.hasMoreTopics = this.currentPage < response.last_page;
-
         this.loadingMore = false;
       },
       error: (err) => {
