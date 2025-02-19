@@ -1,57 +1,97 @@
 <!DOCTYPE html>
 <html lang="hu">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Forum</title>
-</head>
-<body>
+  </head>
+  <body>
     <app-header></app-header>
     <div class="container py-3">
       <div class="row">
-          <div class="col-md-4 mb-3">
-              <label for="category" class="form-label">Kategória:</label>
-              <select id="category" [(ngModel)]="categoryId" (change)="filterTopics()" class="form-select">
-                  <option value="">Minden kategória</option>
-                  <option *ngFor="let category of categories" value="{{category.id}}">{{category.category_name}}</option>
-              </select>
-          </div>
-  
-          <div class="col-md-4 mb-3">
-              <label for="title" class="form-label">Cím keresése:</label>
-              <input type="text" id="title" [(ngModel)]="title" (input)="filterTopics()" class="form-control" placeholder="Cím keresése...">
-          </div>
-  
-          <div class="col-md-4 mb-3">
-              <label for="orderBy" class="form-label">Rendezés:</label>
-              <select id="orderBy" [(ngModel)]="orderBy" (change)="filterTopics()" class="form-select">
-                  <option value="created_at">Dátum szerint</option>
-                  <option value="upvotes">Upvote-ok szerint</option>
-              </select>
-          </div>
-      </div>
-  </div>
-  
-  <h1 class="text-center">Én Topic-jaim</h1>
-
-    <div *ngFor="let topic of topics" class="forum-container container">
-        <div class="post">
-            <div class="post-content">
-                <h1 class="post-title">{{topic.title}}</h1>
-                <p class="post-meta">Kategória: <span class="category">{{topic.category.category_name}}</span></p>
-                <p class="post-meta">by <span class="author">{{topic.user.name}}</span> - {{topic.timeAgo}}</p>
-                <div class="post-text" [innerHTML]="topic.content | safeHtml"></div>
-            </div>
+        <div class="col-md-4 mb-3">
+          <label for="category" class="form-label">Kategória:</label>
+          <select
+            id="category"
+            [(ngModel)]="categoryId"
+            (change)="filterTopics()"
+            class="form-select"
+          >
+            <option value="">Minden kategória</option>
+            <option
+              *ngFor="let category of categories"
+              value="{{ category.id }}"
+            >
+              {{ category.category_name }}
+            </option>
+          </select>
         </div>
+
+        <div class="col-md-4 mb-3">
+          <label for="title" class="form-label">Cím keresése:</label>
+          <input
+            type="text"
+            id="title"
+            [(ngModel)]="title"
+            (input)="filterTopics()"
+            class="form-control"
+            placeholder="Cím keresése..."
+          />
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label for="orderBy" class="form-label">Rendezés:</label>
+          <select
+            id="orderBy"
+            [(ngModel)]="orderBy"
+            (change)="filterTopics()"
+            class="form-select"
+          >
+            <option value="created_at">Dátum szerint</option>
+            <option value="upvotes">Upvote-ok szerint</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <h1 class="text-center">Én Topic-jaim</h1>
+
+    <div
+      *ngFor="let topic of topics"
+      (mousedown)="onMouseDown($event)"
+      (mouseup)="onMouseUp(topic.id, $event)"
+      (touchstart)="onMouseDown($event)"
+      (touchend)="onMouseUp(topic.id, $event)"
+      class="forum-container container"
+    >
+      <div class="post">
+        <div class="post-content">
+          <h1 class="post-title">{{ topic.title }}</h1>
+          <p class="post-meta">
+            Kategória:
+            <span class="category">{{ topic.category.category_name }}</span>
+          </p>
+          <p class="post-meta">
+            by <span class="author">{{ topic.user.name }}</span> -
+            {{ topic.timeAgo }}
+          </p>
+          <div class="post-text" [innerHTML]="topic.content | safeHtml"></div>
+        </div>
+      </div>
     </div>
 
     <div class="text-center">
-        <button *ngIf="hasMoreTopics && !loadingMore" (click)="loadMore()" class="btn btn-primary" [disabled]="loadingMore">
-            További téma betöltése
-        </button>
-        <div *ngIf="loadingMore" class="spinner-border" role="status">
-            <span class="visually-hidden">Betöltés...</span>
-        </div>
+      <button
+        *ngIf="hasMoreTopics && !loadingMore"
+        (click)="loadMore()"
+        class="btn btn-primary"
+        [disabled]="loadingMore"
+      >
+        További téma betöltése
+      </button>
+      <div *ngIf="loadingMore" class="spinner-border" role="status">
+        <span class="visually-hidden">Betöltés...</span>
+      </div>
     </div>
-</body>
+  </body>
 </html>

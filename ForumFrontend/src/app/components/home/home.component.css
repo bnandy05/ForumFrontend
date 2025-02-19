@@ -19,11 +19,16 @@
 .post-title {
   font-size: 1.4rem;
   color: #ffffff;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%;
+  word-wrap: break-word;
+  line-height: 1.4rem;
+  max-height: 2.8rem;
 }
+
 
 .post-meta {
   font-size: 0.9rem;
@@ -35,13 +40,14 @@
 }
 
 .post-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 10;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  max-width: 100%;
 }
-
 
 .author {
   font-weight: bold;
