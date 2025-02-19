@@ -1,62 +1,60 @@
+/* NAVBAR */
 .navbar {
-  padding: 0.8rem 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: #1e1e1e !important;
+  padding: 12px 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease-in-out;
 }
 
 .navbar .nav-link {
-  color: rgba(255,255,255,0.9) !important;
-  padding: 0.5rem 1rem !important;
-  transition: all 0.3s ease;
-  position: relative;
+  color: #ffffff !important;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
 }
 
 .navbar .nav-link:hover {
-  color: #fff !important;
-  transform: translateY(-1px);
+  color: #1db954 !important;
+  transform: scale(1.05);
 }
 
-.navbar .nav-link.active {
-  color: #fff !important;
-  font-weight: 500;
+/* NAVBAR TOGGLER */
+.navbar-toggler {
+  border: none;
+  outline: none;
 }
 
-.navbar .nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background-color: #fff;
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
+.navbar-toggler-icon {
+  filter: invert(1);
 }
 
-.navbar .nav-link:hover::after {
-  width: 70%;
+/* DROPDOWN MENÜ */
+.dropdown-menu {
+  background-color: #222;
+  border: 1px solid #333;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
 }
 
-.navbar-brand {
-  font-weight: 600;
-  font-size: 1.5rem;
-  padding: 0.5rem 1rem;
+.dropdown-menu .dropdown-item {
+  color: #ffffff;
+  padding: 10px 15px;
+  transition: all 0.3s ease-in-out;
 }
 
-@media (max-width: 991.98px) {
-  .navbar-collapse {
-      padding: 1rem 0;
-  }
-  
-  .navbar .nav-link {
-      padding: 0.7rem 1rem !important;
-  }
-
-  .navbar-nav {
-      margin: 0.5rem 0;
-  }
+.dropdown-menu .dropdown-item i {
+  color: #1db954;
 }
 
-.navbar .nav-link i {
-  margin-right: 0.4rem;
-  font-size: 1.1em;
+.dropdown-menu .dropdown-item:hover {
+  background-color: #1db954;
+  color: #000000;
+  transform: translateX(5px);
+}
+
+/* DROPDOWN ELVÁLASZTÓ */
+.dropdown-divider {
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 5px 0;
 }
