@@ -14,17 +14,31 @@ export class TopicService {
     private messageService: MessageService
   ) {}
 
-  getTopics(categoryId?: string, title?: string, orderBy?: string): Observable<any> {
+  getTopics(categoryId?: string, title?: string, orderBy?: string, myTopics: boolean = false, page: number = 1): Observable<any> {
     let params: any = {};
     if (categoryId) params.category_id = categoryId;
     if (title) params.title = title;
     if (orderBy) params.order_by = orderBy;
+    if (myTopics) params.my_topics = true;
+    params.page = page;
 
-    return this.http.get(`${this.apiUrl}/home`, { params });
+    return this.http.get(`${this.apiUrl}/home`, { params }).pipe(
+      tap({
+        error: (err) => {
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a témák betöltése során.' });
+        }
+      })
+    );
   }
 
   getTopic(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/topic/${id}`);
+    return this.http.get(`${this.apiUrl}/topic/${id}`).pipe(
+      tap({
+        error: (err) => {
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a téma betöltése során.' });
+        }
+      })
+    );
   }
 
   createTopic(title: string, content: string, categoryId: number): Observable<any> {
