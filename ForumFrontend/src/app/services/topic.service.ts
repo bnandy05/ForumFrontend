@@ -31,16 +31,6 @@ export class TopicService {
     );
   }
 
-
-  getMyTopics(categoryId?: string, title?: string, orderBy?: string): Observable<any> {
-    let params: any = {};
-    if (categoryId) params.category_id = categoryId;
-    if (title) params.title = title;
-    if (orderBy) params.order_by = orderBy;
-
-    return this.http.get(`${this.apiUrl}/my-topics`, { params });
-  }
-
   getTopic(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/topic/${id}`).pipe(
       tap({
