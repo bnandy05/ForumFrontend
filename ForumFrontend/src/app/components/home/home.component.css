@@ -79,10 +79,18 @@ body {
 }
 
 .post-title {
-  font-size: 22px;
   font-weight: bold;
   color: #1db954;
   transition: 0.3s;
+  font-size: 1.4rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  line-height: 1.4rem;
+  max-height: 2.8rem;
 }
 
 .post-title:hover {
