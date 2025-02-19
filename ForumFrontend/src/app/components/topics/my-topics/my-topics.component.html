@@ -7,7 +7,6 @@
 </head>
 <body>
     <app-header></app-header>
-
     <div class="container py-3">
       <div class="row">
           <div class="col-md-4 mb-3">
@@ -26,16 +25,16 @@
           <div class="col-md-4 mb-3">
               <label for="orderBy" class="form-label">Rendezés:</label>
               <select id="orderBy" [(ngModel)]="orderBy" (change)="filterTopics()" class="form-select">
-                  <option value="created_at">Dátum szerint (Újabb felül)</option>
-                  <option value="upvotes">Upvote-ok szerint (Több felül)</option>
-                  <option value="created_at_asc">Dátum szerint (Régebbi felül)</option>
-                  <option value="upvotes_asc">Upvote-ok szerint (Kevesebb felül)</option>
+                  <option value="created_at">Dátum szerint</option>
+                  <option value="upvotes">Upvote-ok szerint</option>
               </select>
           </div>
       </div>
   </div>
   
-    <div *ngFor="let topic of topics" (click)="onClick(topic.id)" class="forum-container container">
+  <h1 class="text-center">Én Topic-jaim</h1>
+
+    <div *ngFor="let topic of topics" class="forum-container container">
         <div class="post">
             <div class="post-content">
                 <h1 class="post-title">{{topic.title}}</h1>
@@ -54,6 +53,5 @@
             <span class="visually-hidden">Betöltés...</span>
         </div>
     </div>
-      
 </body>
 </html>

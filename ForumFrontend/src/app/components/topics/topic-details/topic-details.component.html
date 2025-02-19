@@ -13,7 +13,7 @@
           <h1 class="post-title">{{topic.title}}</h1>
           <p class="post-meta">Kategória: <span class="category">{{topic.category.category_name}}</span></p>
           <p class="post-meta">by <span class="author">{{topic.user.name}}</span> - {{topic.timeAgo}}</p>
-          <p class="post-text">{{topic.content}}</p>
+          <p class="post-text" [innerHTML]="topic.content | safeHtml"></p>
         </div>
       </div>
     </div>

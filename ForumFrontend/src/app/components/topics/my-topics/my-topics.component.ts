@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { TopicService } from '../../services/topic.service';
-import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
-import { SafeHtmlPipe } from '../../safe-html.pipe';
 import { FormsModule } from '@angular/forms';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/hu';
+import { TopicService } from '../../../services/topic.service';
+import { HeaderComponent } from '../../header/header.component';
+import { SafeHtmlPipe } from '../../../safe-html.pipe';
 import { Router } from '@angular/router';
 
 dayjs.extend(utc);
@@ -15,13 +15,13 @@ dayjs.extend(relativeTime);
 dayjs.locale('hu');
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-my-topics',
   standalone: true,
   imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  templateUrl: './my-topics.component.html',
+  styleUrls: ['./my-topics.component.css']
 })
-export class HomeComponent implements OnInit {
+export class MyTopicsComponent implements OnInit {
   topics: any[] = [];
   title: string = "";
   orderBy: string = "";
@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
     if (this.loadingMore) return;
     this.loadingMore = true;
 
-    this.topicService.getTopics(this.categoryId, this.title, this.orderBy, false, this.currentPage).subscribe({
+    this.topicService.getTopics(this.categoryId, this.title, this.orderBy, true, this.currentPage).subscribe({
       next: (response) => {
         const newTopics = response.data.map((topic: any) => ({
           ...topic,

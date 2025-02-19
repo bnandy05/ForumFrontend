@@ -42,24 +42,15 @@ export const routes: Routes = [
     path: 'change-password',
     loadComponent: () => import('./components/auth/change-password/change-password.component').then(m => m.ChangePasswordComponent),
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'my-topics',
+    loadComponent: () => import('./components/topics/my-topics/my-topics.component').then(m => m.MyTopicsComponent),
+    canActivate: [AuthGuard],
   }, 
-  {
-    path: 'details',
-    loadComponent: () => import('./components/topics/topic-details/topic-details.component').then(m => m.TopicDetailsComponent),
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'details/:id',
-    loadComponent: () => import('./components/topics/topic-details/topic-details.component').then(m => m.TopicDetailsComponent),
-    canActivate: [AuthGuard],
-  },
   {
     path: 'topics/view/:id',
     loadComponent: () => import('./components/topics/topic-details/topic-details.component').then(m => m.TopicDetailsComponent),
     canActivate: [AuthGuard],
-  },
-  {
-    path: '**',
-    redirectTo: ''
   }
 ];
