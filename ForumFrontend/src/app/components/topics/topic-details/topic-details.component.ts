@@ -149,18 +149,15 @@ export class TopicDetailsComponent implements OnInit {
     const comment = this.topics[0].comments[index];
 
     if (this.userCommentVotes[commentId] === type) {
-      // Ha a felhasználó visszavonja a szavazatát
       this.userCommentVotes[commentId] = null;
       comment.upvote_count += type === 'up' ? -1 : 1;
     } else if (
       this.userCommentVotes[commentId] &&
       this.userCommentVotes[commentId] !== type
     ) {
-      // Ha a felhasználó megváltoztatja a szavazatát
       comment.upvote_count += type === 'up' ? 2 : -2;
       this.userCommentVotes[commentId] = type;
     } else {
-      // Ha a felhasználó új szavazatot ad le
       this.userCommentVotes[commentId] = type;
       comment.upvote_count += type === 'up' ? 1 : -1;
     }
@@ -172,7 +169,6 @@ export class TopicDetailsComponent implements OnInit {
     const topic = this.topics[0];
 
     if (this.userVote === type) {
-      // Ha a felhasználó visszavonja a szavazatát
       this.userVote = null;
       if (type === 'up') {
         topic.upvote_count -= 1;
@@ -180,7 +176,6 @@ export class TopicDetailsComponent implements OnInit {
         topic.upvote_count += 1;
       }
     } else if (this.userVote && this.userVote !== type) {
-      // Ha a felhasználó megváltoztatja a szavazatát
       if (type === 'up') {
         topic.upvote_count += 2;
       } else {
@@ -188,7 +183,6 @@ export class TopicDetailsComponent implements OnInit {
       }
       this.userVote = type;
     } else {
-      // Ha a felhasználó új szavazatot ad le
       this.userVote = type;
       if (type === 'up') {
         topic.upvote_count += 1;

@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
   isSelectingText = false;
   startX: number = 0;
   startY: number = 0;
+  userVotes: { [key: number]: 'up' | 'down' | null } = {};
 
   constructor(private topicService: TopicService, private router: Router) {}
 
@@ -44,9 +45,9 @@ export class HomeComponent implements OnInit {
       this.startX = event.touches[0].clientX;
       this.startY = event.touches[0].clientY;
     }
-}
+  }
 
-onMouseUp(topicId: number, event: MouseEvent | TouchEvent) {
+  onMouseUp(topicId: number, event: MouseEvent | TouchEvent) {
     const selection = window.getSelection();
     if (selection && selection.toString().length > 0) {
       this.isSelectingText = true;
@@ -80,9 +81,7 @@ onMouseUp(topicId: number, event: MouseEvent | TouchEvent) {
     this.router.navigate(['/topics/view', topicId]);
   }
 
-
-  userClick(userId:number)
-  {
+  userClick(userId: number) {
     this.router.navigate(['/topics/user', userId]);
   }
 
@@ -98,7 +97,8 @@ onMouseUp(topicId: number, event: MouseEvent | TouchEvent) {
 
     this.topicService.getTopics(this.categoryId, this.title, this.orderBy, false, null, this.currentPage).subscribe({
       next: (response) => {
-        const newTopics = response.data.map((topic: any) => ({
+        console.log(response);
+        const newTopics = response.topics.data.map((topic: any) => ({
           ...topic,
           timeAgo: dayjs.utc(topic.created_at).local().fromNow(),
           upvote_count: topic.upvotes - topic.downvotes
@@ -110,6 +110,9 @@ onMouseUp(topicId: number, event: MouseEvent | TouchEvent) {
           this.topics = [...this.topics, ...newTopics];
         }
 
+        // **Feldolgozzuk a `user_votes` objektumot**
+        this.userVotes = response.user_votes || {};
+
         this.hasMoreTopics = this.currentPage < response.last_page;
         this.loadingMore = false;
       },
@@ -119,6 +122,26 @@ onMouseUp(topicId: number, event: MouseEvent | TouchEvent) {
       }
     });
   }
+
+  vote(topicId: number, index: number, type: 'up' | 'down') {
+    const topic = this.topics[index];
+  
+    if (!topic) return;
+  
+    if (this.userVotes[topicId] === type) {
+      this.userVotes[topicId] = null;
+      topic.upvote_count += type === 'up' ? -1 : 1;
+    } else if (this.userVotes[topicId] && this.userVotes[topicId] !== type) {
+      topic.upvote_count += type === 'up' ? 2 : -2;
+      this.userVotes[topicId] = type;
+    } else {
+      this.userVotes[topicId] = type;
+      topic.upvote_count += type === 'up' ? 1 : -1;
+    }
+  
+    this.topicService.vote(topicId, 'topic', type);
+  }
+  
 
   loadMore() {
     if (!this.hasMoreTopics) return;

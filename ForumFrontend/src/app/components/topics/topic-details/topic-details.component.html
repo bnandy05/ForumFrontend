@@ -16,6 +16,7 @@
                 <button
                   (click)="voteTopic('up')"
                   [class.active]="userVote === 'up'"
+                  class="btn"
                 >
                   &#x25B2;
                 </button>
@@ -23,6 +24,7 @@
                 <button
                   (click)="voteTopic('down')"
                   [class.active]="userVote === 'down'"
+                  class="btn"
                 >
                   &#x25BC;
                 </button>
@@ -58,14 +60,16 @@
                 <div class="comment-vote-buttons ms-3 text-center">
                   <button
                     (click)="voteComment(comment.id, i, 'up')"
-                    [class.active]="comment.userVote === 'up'"
+                    [class.active]="userCommentVotes[comment.id] === 'up'"
+                    class="btn"
                   >
                     &#x25B2;
                   </button>
                   <span>{{ comment.upvote_count }}</span>
                   <button
                     (click)="voteComment(comment.id, i, 'down')"
-                    [class.active]="comment.userVote === 'down'"
+                    [class.active]="userCommentVotes[comment.id] === 'down'"
+                    class="btn"
                   >
                     &#x25BC;
                   </button>

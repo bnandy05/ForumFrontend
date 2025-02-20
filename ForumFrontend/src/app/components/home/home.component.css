@@ -66,3 +66,8 @@
 .post-actions button:hover {
   color: #ffffff;
 }
+
+.btn.active {
+  background-color: #007bff;
+  color: white;
+}
