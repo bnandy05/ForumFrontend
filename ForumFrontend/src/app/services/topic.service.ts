@@ -60,9 +60,6 @@ export class TopicService {
     const data = { content };
     return this.http.post(`${this.apiUrl}/topic/${topicId}/comment`, data).pipe(
       tap({
-        next: () => {
-          this.messageService.add({ severity: 'success', summary: 'Sikeres', detail: 'Hozzászólás sikeresen hozzáadva!' });
-        },
         error: (err) => {
           this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a hozzászólás hozzáadása során.' });
         }

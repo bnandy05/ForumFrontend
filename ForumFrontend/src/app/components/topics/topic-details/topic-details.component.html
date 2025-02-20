@@ -49,15 +49,16 @@
                   <strong>{{ comment.user.name }}</strong> -
                   {{ comment.timeAgo }}
                 </p>
-                <p class="mb-0">{{ comment.text }}</p>
+                <p class="mb-0">{{ comment.content }}</p>
               </div>
               <div class="comment-input">
                 <input
                   type="text"
                   class="form-control"
                   placeholder="Írj egy hozzászólást..."
+                  [(ngModel)]="newComment[topic.id]"
                 />
-                <button class="btn btn-primary mt-2">Küldés</button>
+                <button class="btn btn-primary mt-2" (click)="addComment(topic.id)">Küldés</button>
               </div>
             </div>
           </div>
