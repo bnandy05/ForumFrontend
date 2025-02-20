@@ -1,93 +1,89 @@
+/* Alap beállítások */
 body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: white;
     margin: 0;
-    font-family: 'Arial', sans-serif;
-    background: #1a1a2e;
-    color: #e0e0e0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
     padding: 0;
 }
 
+/* Konténer */
 .container {
-    background: #25274d;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    width: 100%;
-    max-width: 800px;
-    text-align: center;
-    margin: auto;
-    box-sizing: border-box;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 255, 0, 0.4);
 }
 
+/* Cím */
 h2 {
-    margin-bottom: 1rem;
-    font-size: 1.8rem;
-    color: #e0e0e0;
+    text-align: center;
+    color: #00ff00;
+    margin-bottom: 20px;
 }
 
-.form-group {
-    margin-bottom: 1rem;
-    text-align: left;
-}
-
-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #c9c9c9;
-    font-weight: bold;
-}
-
-input, textarea, select {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #3e4a73;
-    border-radius: 8px;
-    font-size: 1rem;
-    outline: none;
-    background: #2e2e4f;
-    color: #e0e0e0;
-    transition: border-color 0.3s ease, background 0.3s ease;
-}
-
-input:focus, textarea:focus, select:focus {
-    border-color: #6a75d1;
-    background: #353566;
-    box-shadow: 0 0 5px rgba(106, 117, 209, 0.5);
-}
-
-button {
-    background: #6a75d1;
+/* Input mezők - Alapállapot */
+.form-control, .form-select {
+    background-color: #222;
+    border: 1px solid #555;
     color: white;
-    padding: 0.8rem 1.2rem;
+    padding: 10px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+/* Input mezők - Aktív állapot */
+.form-control:focus, .form-select:focus {
+    background-color: #2a2a2a;
+    border-color: #00cc00;
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.6);
+}
+
+/* PrimeNG editor (p-editor) */
+p-editor .ql-container {
+    background-color: #222 !important;
+    color: white !important;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+p-editor .ql-container.ql-snow:focus {
+    border-color: #00cc00 !important;
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.6);
+}
+
+/* Hibaüzenetek */
+.invalid-feedback {
+    color: #ff4d4d;
+    font-size: 14px;
+}
+
+/* Gomb - Alapértelmezett (PIROS, amíg nem helyes az űrlap) */
+.btn-primary {
+    background-color: #ff4d4d;
     border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
+    color: white;
+    padding: 10px;
     width: 100%;
-    transition: background 0.3s ease, transform 0.2s ease;
+    border-radius: 5px;
+    cursor: not-allowed;
+    transition: 0.3s;
 }
 
-button:hover {
-    background: #5a64c4;
-    transform: scale(1.02);
+/* Gomb - Ha minden mező helyesen kitöltött (ZÖLD lesz) */
+.btn-primary:enabled {
+    background-color: #00cc00;
+    cursor: pointer;
 }
 
-button:active {
-    transform: scale(0.98);
+.btn-primary:enabled:hover {
+    background-color: #009900;
 }
 
-@media (min-width: 768px) {
-    .container {
-        max-width: 600px;
-    }
-}
-
-@media (min-width: 1024px) {
-    .container {
-        max-width: 800px;
-    }
+/* Betöltési animáció */
+.spinner-border {
+    border-color: white;
+    border-right-color: transparent;
 }
