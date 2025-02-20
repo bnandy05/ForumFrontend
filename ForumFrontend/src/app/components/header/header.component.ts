@@ -11,41 +11,16 @@ import { MenubarModule } from 'primeng/menubar';
 })
 export class HeaderComponent implements OnInit{
   username: string = '';
-  items: any[] = [
-    {
-      label: 'Kezdőlap',
-      icon: 'pi pi-home',
-      routerLink: ['/']
-    },
-    {
-        label: 'Topic Feltöltés',
-        icon: 'pi pi-laptop',
-        routerLink: ['/create'] 
-    },
-    {
-        label: 'Én Topicjaim',
-        icon: 'pi pi-mobile',
-        routerLink: ['/My-topics']
-
-    }
-  ];
-  secondaryitems: any[] = [
-    {
-      label: 'Profil',
-      icon: 'pi pi-info-circle',
-      routerLink: ['/profile']
-    },
-    {
-      label: 'Kijelentkezés',
-      icon: 'pi pi-info-circle',
-      routerLink: ['/logout']
-    }
-  ]
 
   constructor(private authService: AuthService,
     private router: Router
   )
   {}
+
+  redirect(url:string)
+  {
+    this.router.navigate(['/'+url]);
+  }
 
   ngOnInit() {
     this.authService.getUser().subscribe(
