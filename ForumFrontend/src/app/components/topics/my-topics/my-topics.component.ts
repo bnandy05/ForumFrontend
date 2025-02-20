@@ -69,7 +69,7 @@ export class MyTopicsComponent implements OnInit {
       this.currentPage
     ).subscribe({
       next: (response) => {
-        const newTopics = response.data.map((topic: any) => ({
+        const newTopics = response.topics.data.map((topic: any) => ({
           ...topic,
           timeAgo: dayjs.utc(topic.created_at).local().fromNow(),
           upvote_count: topic.upvotes - topic.downvotes
@@ -81,7 +81,7 @@ export class MyTopicsComponent implements OnInit {
           this.topics = [...this.topics, ...newTopics];
         }
 
-        this.hasMoreTopics = this.currentPage < response.last_page;
+        this.hasMoreTopics = this.currentPage < response.topics.last_page;
         this.loadingMore = false;
       },
       error: (err) => {

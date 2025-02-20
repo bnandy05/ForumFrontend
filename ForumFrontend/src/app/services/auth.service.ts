@@ -111,6 +111,7 @@ export class AuthService {
       },
       error: (err) => {
         this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt az avatar törlése során.' });
+        console.error(err)
       }
     });
   }
