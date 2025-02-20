@@ -109,10 +109,9 @@ export class HomeComponent implements OnInit {
           this.topics = [...this.topics, ...newTopics];
         }
 
-        // **Feldolgozzuk a `user_votes` objektumot**
         this.userVotes = response.user_votes || {};
 
-        this.hasMoreTopics = this.currentPage < response.last_page;
+        this.hasMoreTopics = this.currentPage < response.topics.last_page;
         this.loadingMore = false;
       },
       error: (err) => {
