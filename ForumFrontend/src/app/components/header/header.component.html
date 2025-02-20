@@ -21,10 +21,13 @@
 
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
+          
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Üdv <b>{{username}}</b>!
+            <p-avatar image="https://berenandor.moriczcloud.hu/storage/{{  userProfile.avatar  }}" class="mr-2" shape="circle" />
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li class="text-center">Üdv {{  userProfile.name  }}!</li>
+            <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" (click)="redirect('profile')"><i class="fas fa-user me-1"></i> Profil</a></li>
             <li><a class="dropdown-item" (click)="redirect('my-topics')"><i class="fas fa-cog me-1"></i> Én Topicjaim</a></li>
             <li><a class="dropdown-item" (click)="redirect('help')"><i class="fas fa-question-circle me-1"></i>ÜRES</a></li>

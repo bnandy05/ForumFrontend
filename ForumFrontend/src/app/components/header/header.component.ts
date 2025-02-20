@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { MenubarModule } from 'primeng/menubar';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 
 @Component({
   selector: 'app-header',
-  imports: [MenubarModule],
+  imports: [AvatarModule, AvatarGroupModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit{
-  username: string = '';
+  userProfile: any = {};
 
   constructor(private authService: AuthService,
     private router: Router
@@ -25,11 +26,10 @@ export class HeaderComponent implements OnInit{
   ngOnInit() {
     this.authService.getUser().subscribe(
       (user: any) => {
-        this.username = user.name;
+        this.userProfile = user
       },
       (error) => {
         console.error('Error fetching user data:', error);
-        this.username = "";
         this.router.navigate(['/logout']);
       }
     );

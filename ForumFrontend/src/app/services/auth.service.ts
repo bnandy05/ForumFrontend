@@ -90,6 +90,31 @@ export class AuthService {
     });
   }
 
+  uploadAvatar(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    this.http.post(`${this.apiUrl}/avatar/upload`, formData, {withCredentials: true}).subscribe({
+      next: (response: any) => {
+        this.messageService.add({ severity: 'success', summary: 'Sikeres feltöltés', detail: 'Az avatar sikeresen feltöltve!' });
+      },
+      error: (err) => {
+        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt az avatar feltöltése során.' });
+      }
+    });
+  }
+
+  deleteAvatar() {
+    this.http.post(`${this.apiUrl}/avatar/delete`, {withCredentials: true}).subscribe({
+      next: (response: any) => {
+        this.messageService.add({ severity: 'success', summary: 'Sikeres törlés', detail: 'Az avatar sikeresen törölve!' });
+      },
+      error: (err) => {
+        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt az avatar törlése során.' });
+      }
+    });
+  }
+
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
   }
