@@ -97,7 +97,6 @@ export class HomeComponent implements OnInit {
 
     this.topicService.getTopics(this.categoryId, this.title, this.orderBy, false, null, this.currentPage).subscribe({
       next: (response) => {
-        console.log(response);
         const newTopics = response.topics.data.map((topic: any) => ({
           ...topic,
           timeAgo: dayjs.utc(topic.created_at).local().fromNow(),
