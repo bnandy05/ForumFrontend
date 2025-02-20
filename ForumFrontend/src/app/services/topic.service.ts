@@ -70,19 +70,14 @@ export class TopicService {
     );
   }
 
-  voteTopic(topicId: number, voteType: 'up' | 'down'): Observable<any> {
-    const data = { vote_type: voteType };
-    return this.http.post(`${this.apiUrl}/topic/${topicId}/vote`, data).pipe(
-      tap({
-        next: () => {
-          this.messageService.add({ severity: 'success', summary: 'Sikeres', detail: 'Szavazat sikeresen rögzítve!' });
-        },
-        error: (err) => {
-          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a szavazás során.' });
-        }
-      })
-    );
+  voteTopic(topicId: number, voteType: 'up' | 'down'): void {
+    this.http.post(`${this.apiUrl}/topic/${topicId}/vote`, { vote_type: voteType }).subscribe({
+      error: (err) => {
+        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: err.error.message });
+      }
+    });
   }
+  
 
   voteComment(commentId: number, voteType: 'up' | 'down'): Observable<any> {
     const data = { vote_type: voteType };

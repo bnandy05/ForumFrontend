@@ -11,12 +11,12 @@
       <!-- Primary menu items -->
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/frontend">
+          <a class="nav-link" (click)="redirect('')">
             <i class="fas fa-home me-1"></i> Kezdőlap
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/frontend/create">
+          <a class="nav-link" (click)="redirect('create')">
             <i class="fas fa-laptop me-1"></i> Topic Feltöltés
           </a>
         </li>
@@ -41,6 +41,13 @@
           <a class="nav-link" href="/frontend/logout">
             <i class="fas fa-sign-out-alt me-1"></i> Kijelentkezés
           </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" (click)="redirect('profile')"><i class="fas fa-user me-1"></i> Profil</a></li>
+            <li><a class="dropdown-item" (click)="redirect('my-topics')"><i class="fas fa-cog me-1"></i> Én Topicjaim</a></li>
+            <li><a class="dropdown-item" (click)="redirect('help')"><i class="fas fa-question-circle me-1"></i>ÜRES</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" (click)="redirect('logout')"><i class="fas fa-sign-out-alt me-1"></i> Kijelentkezés</a></li>
+          </ul>
         </li>
       </ul>
     </div>

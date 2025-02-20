@@ -1,22 +1,68 @@
-<app-header></app-header>
 <!DOCTYPE html>
 <html lang="hu">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Forum</title>
-</head>
-<body>
-    <div *ngFor="let topic of topics" class="forum-container container">
-      <div class="post">
-        <div class="post-content">
-          <h1 class="post-title">{{topic.title}}</h1>
-          <p class="post-meta">Kategória: <span class="category">{{topic.category.category_name}}</span></p>
-          <p class="post-meta">by <span class="author">{{topic.user.name}}</span> - {{topic.timeAgo}}</p>
-          <p class="post-text" [innerHTML]="topic.content | safeHtml"></p>
+  </head>
+  <app-header></app-header>
+  <body>
+    <div class="container">
+      <div *ngFor="let topic of topics" class="forum-container">
+        <div class="card post-card">
+          <div class="card-body">
+            <div class="d-flex align-items-start">
+              <div class="vote-buttons me-3">
+                <button (click)="vote('up')" [class.active]="userVote === 'up'">
+                  &#x25B2;
+                </button>
+                <span>{{ topic.upvote_count }}</span>
+                <button
+                  (click)="vote('down')"
+                  [class.active]="userVote === 'down'"
+                >
+                  &#x25BC;
+                </button>
+              </div>
+              <div class="w-100">
+                <h1 class="card-title">{{ topic.title }}</h1>
+                <p class="text-muted">
+                  Kategória:
+                  <span class="fw-bold">{{
+                    topic.category.category_name
+                  }}</span>
+                </p>
+                <p class="text-muted">
+                  by <span class="fw-bold">{{ topic.user.name }}</span> -
+                  {{ topic.timeAgo }}
+                </p>
+                <p class="card-text" [innerHTML]="topic.content | safeHtml"></p>
+              </div>
+            </div>
+            <div class="comment-section">
+              <h5>Hozzászólások</h5>
+              <div
+                *ngFor="let comment of topic.comments"
+                class="mb-2 border-bottom pb-2"
+              >
+                <p class="mb-1">
+                  <strong>{{ comment.user.name }}</strong> -
+                  {{ comment.timeAgo }}
+                </p>
+                <p class="mb-0">{{ comment.text }}</p>
+              </div>
+              <div class="comment-input">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Írj egy hozzászólást..."
+                />
+                <button class="btn btn-primary mt-2">Küldés</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-    </body>
+  </body>
 </html>

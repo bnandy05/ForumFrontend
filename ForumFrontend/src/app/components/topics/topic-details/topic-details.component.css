@@ -1,0 +1,28 @@
+button.active {
+  color: orange;
+  font-weight: bold;
+}
+
+.forum-container {
+  margin-top: 20px;
+}
+.post-card {
+  margin-bottom: 20px;
+}
+.vote-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.vote-buttons button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+.comment-section {
+  margin-top: 15px;
+}
+.comment-input {
+  margin-top: 10px;
+}
