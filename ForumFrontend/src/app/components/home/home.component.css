@@ -97,7 +97,6 @@ body {
   color: #20c75d;
 }
 
-
 .post-meta {
   font-size: 0.9rem;
   color: #a0a0a0;
@@ -142,4 +141,9 @@ body {
 
 .spinner-border {
   color: #1db954;
+}
+
+.btn.active {
+  background-color: #007bff;
+  color: white;
 }
