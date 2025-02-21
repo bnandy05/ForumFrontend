@@ -9,6 +9,8 @@ import utc from 'dayjs/plugin/utc';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/hu';
 import { Router } from '@angular/router';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 
 dayjs.extend(utc);
 dayjs.extend(relativeTime);
@@ -17,7 +19,7 @@ dayjs.locale('hu');
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule],
+  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

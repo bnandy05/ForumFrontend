@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-register',
@@ -13,9 +14,9 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
-  apiUrl = 'https://berenandor.moriczcloud.hu/api/register'; // Laravel API URL-je
+  apiUrl = 'https://berenandor.moriczcloud.hu/api/register';
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private messageService : MessageService) {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(255)]],
       email: ['', [Validators.required, Validators.email]],
@@ -30,7 +31,7 @@ export class RegisterComponent {
           this.router.navigate(['/login']);
         },
         (error) => {
-          alert('Hiba történt a regisztráció során.');
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a regisztráció során.' });
         }
       );
     } else {
