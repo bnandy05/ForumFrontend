@@ -151,6 +151,11 @@ body {
   color: #ffffff;
 }
 
+.author:hover {
+  text-decoration: underline;
+  color: #b6b6b6;
+}
+
 .btn-primary {
   background-color: #1db954;
   border: none;
