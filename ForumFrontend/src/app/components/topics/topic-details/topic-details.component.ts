@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import { EmojiEvent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 
 dayjs.extend(utc);
 dayjs.extend(relativeTime);
@@ -46,8 +47,8 @@ export class TopicDetailsComponent implements OnInit {
   id: number = 0;
   userVote: 'up' | 'down' | null = null;
   userCommentVotes: { [key: number]: 'up' | 'down' | null } = {};
-  newComment: { [key: number]: string } = {};
-  showEmojiPicker: { [key: number]: boolean } = {};
+  newComment: string = '';
+  showEmojiPicker = false;
 
   constructor(
     private topicService: TopicService,
@@ -55,15 +56,33 @@ export class TopicDetailsComponent implements OnInit {
     private messageService: MessageService
   ) {}
 
-  toggleEmojiPicker(topicId: number) {
-    this.showEmojiPicker[topicId] = !this.showEmojiPicker[topicId];
+  emojiLang = {
+    search: 'Keresés...',
+    clear: 'Törlés', 
+    notfound: 'Nem található emoji',
+    categories: {
+      search: 'Keresés eredményei',
+      recent: 'Legutóbbiak',
+      smileys: 'Hangulatjelek és érzelmek',
+      people: 'Emberek',
+      nature: 'Állatok és természet',
+      foods: 'Ételek és italok',
+      activity: 'Tevékenységek',
+      places: 'Helyek',
+      objects: 'Tárgyak',
+      symbols: 'Szimbólumok',
+      flags: 'Zászlók',
+      custom: 'Egyedi',
+    },
+  };
+  
+
+  toggleEmojiPicker() {
+    this.showEmojiPicker = !this.showEmojiPicker;
   }
 
-  addEmoji(event: any, topicId: number) {
-    if (!this.newComment[topicId]) {
-      this.newComment[topicId] = '';
-    }
-    this.newComment[topicId] += event.emoji.native;
+  addEmoji(event: EmojiEvent) {
+    this.newComment += event.emoji.native;
   }
 
   ngOnInit() {
@@ -155,7 +174,8 @@ export class TopicDetailsComponent implements OnInit {
       if (topic) {
         topic.comments.push(response);
       }
-      this.newComment[topicId] = '';
+      this.newComment = '';
+      this.showEmojiPicker = false;
       this.refreshTopic();
     });
   }

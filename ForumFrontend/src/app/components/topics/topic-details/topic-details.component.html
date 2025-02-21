@@ -76,25 +76,24 @@
                 </div>
               </div>
               <div class="comment-input">
-                <button class="btn btn-secondary" (click)="toggleEmojiPicker(topic.id)">
-                  😊
-                </button>
-              
-                <div *ngIf="showEmojiPicker[topic.id]">
-                  <emoji-mart (emojiSelect)="addEmoji($event, topic.id)"></emoji-mart>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Írj egy hozzászólást..."
+                    [(ngModel)]="newComment"
+                  />
+                  <button class="btn btn-secondary emoji-button" (click)="toggleEmojiPicker()">
+                    😊
+                  </button>
                 </div>
               
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Írj egy hozzászólást..."
-                  [(ngModel)]="newComment[topic.id]"
-                />
+                <div *ngIf="showEmojiPicker" class="emoji-picker">
+                  <emoji-mart [set]="'twitter'" [i18n]="emojiLang" (emojiSelect)="addEmoji($event)"></emoji-mart>
+                </div>
               
-                <button class="btn btn-primary mt-2" (click)="addComment(topic.id)">
-                  Küldés
-                </button>
-              </div>
+                <button class="btn btn-primary mt-2" (click)="addComment(topic.id)">Küldés</button>
+              </div>              
             </div>
           </div>
         </div>
