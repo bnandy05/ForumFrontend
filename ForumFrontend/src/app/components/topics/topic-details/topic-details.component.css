@@ -1,6 +1,15 @@
 .forum-container {
   margin-top: 20px;
 }
+
+.forum-container:hover {
+  transform: scale(1.02);
+}
+
+.card-text{
+  width: 100%;
+}
+
 .post-card {
   margin-bottom: 20px;
 }

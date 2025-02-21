@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Forum</title>
   </head>
-  <app-header></app-header>
   <body>
+    <app-header></app-header>
     <div class="container">
       <div *ngFor="let topic of topics" class="forum-container">
         <div class="card post-card">
@@ -76,16 +76,22 @@
                 </div>
               </div>
               <div class="comment-input">
+                <button class="btn btn-secondary" (click)="toggleEmojiPicker(topic.id)">
+                  😊
+                </button>
+              
+                <div *ngIf="showEmojiPicker[topic.id]">
+                  <emoji-mart (emojiSelect)="addEmoji($event, topic.id)"></emoji-mart>
+                </div>
+              
                 <input
                   type="text"
                   class="form-control"
                   placeholder="Írj egy hozzászólást..."
                   [(ngModel)]="newComment[topic.id]"
                 />
-                <button
-                  class="btn btn-primary mt-2"
-                  (click)="addComment(topic.id)"
-                >
+              
+                <button class="btn btn-primary mt-2" (click)="addComment(topic.id)">
                   Küldés
                 </button>
               </div>

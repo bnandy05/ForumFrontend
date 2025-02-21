@@ -10,6 +10,9 @@ import 'dayjs/locale/hu';
 import { SafeHtmlPipe } from '../../../safe-html.pipe';
 import { MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
 dayjs.extend(utc);
 dayjs.extend(relativeTime);
@@ -34,7 +37,7 @@ interface Comment {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule],
+  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarGroupModule, AvatarModule, PickerComponent],
   templateUrl: './topic-details.component.html',
   styleUrl: './topic-details.component.css',
 })
@@ -44,12 +47,24 @@ export class TopicDetailsComponent implements OnInit {
   userVote: 'up' | 'down' | null = null;
   userCommentVotes: { [key: number]: 'up' | 'down' | null } = {};
   newComment: { [key: number]: string } = {};
+  showEmojiPicker: { [key: number]: boolean } = {};
 
   constructor(
     private topicService: TopicService,
     private activatedRoute: ActivatedRoute,
     private messageService: MessageService
   ) {}
+
+  toggleEmojiPicker(topicId: number) {
+    this.showEmojiPicker[topicId] = !this.showEmojiPicker[topicId];
+  }
+
+  addEmoji(event: any, topicId: number) {
+    if (!this.newComment[topicId]) {
+      this.newComment[topicId] = '';
+    }
+    this.newComment[topicId] += event.emoji.native;
+  }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
