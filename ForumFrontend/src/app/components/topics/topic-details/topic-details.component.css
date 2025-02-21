@@ -139,6 +139,8 @@ body {
   .emoji-button{
     display: none !important;
   }
+}
+
 .comment-input button:hover {
   background-color: #009900;
 }

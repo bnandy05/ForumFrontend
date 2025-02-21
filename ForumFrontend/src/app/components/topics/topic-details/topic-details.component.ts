@@ -159,7 +159,7 @@ export class TopicDetailsComponent implements OnInit {
   }
 
   addComment(topicId: number): void {
-    const content = this.newComment[topicId];
+    const content = this.newComment;
     if (!content) {
       this.messageService.add({
         severity: 'error',
