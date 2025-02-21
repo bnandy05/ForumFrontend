@@ -30,6 +30,7 @@
                 </button>
               </div>
               <div class="w-100">
+                <p-avatar image="https://berenandor.moriczcloud.hu/storage/{{  topic.user.avatar  }}" size="large" class="mr-2" shape="circle" />
                 <h1 class="card-title">{{ topic.title }}</h1>
                 <p class="text-muted">
                   Kategória:
@@ -52,6 +53,7 @@
               >
                 <div>
                   <p class="mb-1">
+                    <p-avatar image="https://berenandor.moriczcloud.hu/storage/{{  comment.user.avatar  }}" class="mr-2" shape="circle" />
                     <strong>{{ comment.user.name }}</strong> -
                     {{ comment.timeAgo }}
                   </p>

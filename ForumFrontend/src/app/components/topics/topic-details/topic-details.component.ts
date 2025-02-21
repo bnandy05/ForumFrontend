@@ -10,6 +10,8 @@ import 'dayjs/locale/hu';
 import { SafeHtmlPipe } from '../../../safe-html.pipe';
 import { MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 
 dayjs.extend(utc);
 dayjs.extend(relativeTime);
@@ -34,7 +36,7 @@ interface Comment {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule],
+  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarGroupModule, AvatarModule],
   templateUrl: './topic-details.component.html',
   styleUrl: './topic-details.component.css',
 })
@@ -58,6 +60,7 @@ export class TopicDetailsComponent implements OnInit {
       this.topicService.getTopic(this.id).subscribe({
         next: (response) => {
           if (response) {
+            console.log(response)
             this.topics = [
               {
                 ...response.topic,
