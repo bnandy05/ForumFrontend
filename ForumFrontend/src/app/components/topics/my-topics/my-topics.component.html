@@ -58,28 +58,49 @@
     <h1 class="text-center" *ngIf="userId != null">{{topics[0].user.name}} Topic-jai</h1>
 
     <div
-      *ngFor="let topic of topics"
-      (mousedown)="onMouseDown($event)"
-      (mouseup)="onMouseUp(topic.id, $event)"
-      (touchstart)="onMouseDown($event)"
-      (touchend)="onMouseUp(topic.id, $event)"
-      class="forum-container container"
-    >
-      <div class="post">
-        <div class="post-content">
-          <h1 class="post-title">{{ topic.title }}</h1>
-          <p class="post-meta">
-            Kategória:
-            <span class="category">{{ topic.category.category_name }}</span>
-          </p>
-          <p class="post-meta">
-            by <span class="author">{{ topic.user.name }}</span> -
-            {{ topic.timeAgo }}
-          </p>
-          <div class="post-text" [innerHTML]="topic.content | safeHtml"></div>
+    *ngFor="let topic of topics; index as i"
+    (click)="navigateToTopic(topic.id, $event)"
+    class="forum-container container"
+  >
+    <div class="post">
+      <div class="post-content">
+        <p-avatar
+          [image]="'https://berenandor.moriczcloud.hu/storage/' + topic.user.avatar"
+          class="mr-2"
+          shape="circle"
+        />
+        <h5 class="post-title">{{ topic.title }}</h5>
+        <p class="post-meta">
+          Kategória:
+          <span class="category">{{ topic.category.category_name }}</span>
+        </p>
+        <p class="post-meta">
+          by
+          <span class="author">{{ topic.user.name }}</span>
+          - {{ topic.timeAgo }}
+        </p>
+        <div class="post-text" [innerHTML]="topic.content | safeHtml"></div>
+        <div class="vote-buttons me-3">
+          <button
+            (click)="vote(topic.id, i, 'up', $event)"
+            [class.active]="userVotes[topic.id] === 'up'"
+            class="btn btn-light"
+          >
+            &#x25B2;
+          </button>
+          <span>{{ topic.upvote_count }}</span>
+          <button
+            (click)="vote(topic.id, i, 'down', $event)"
+            [class.active]="userVotes[topic.id] === 'down'"
+            class="btn btn-light"
+          >
+            &#x25BC;
+          </button>
+          <span class="p-3">{{ topic.comments_count }} Hozzászólás</span>
         </div>
       </div>
     </div>
+  </div>
 
     <div class="text-center">
       <button

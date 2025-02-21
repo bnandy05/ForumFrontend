@@ -123,4 +123,8 @@ export class AuthService {
   getUser() {
     return this.http.get(`${this.apiUrl}/user`);
   }
+
+  getOtherUser(id: number) {
+    return this.http.post(`${this.apiUrl}/user/${id}`, { withCredentials: true });
+  }
 }

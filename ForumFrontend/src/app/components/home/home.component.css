@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-  max-width: 1100px;
+  max-width: 1400px;
   margin: auto;
 }
 
@@ -71,6 +71,7 @@ body {
   border-radius: 10px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .forum-container:hover {
@@ -78,7 +79,27 @@ body {
   box-shadow: 0px 8px 20px rgba(0, 255, 128, 0.3);
 }
 
+.vote-buttons button {
+  background-color: #333;
+  border: none;
+  color: white;
+  font-size: 18px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
 
+.vote-buttons button:hover {
+  background-color: #1db954;
+  color: black;
+}
+
+.vote-buttons button.active {
+  background-color: #1db954;
+  color: black;
+  font-weight: bold;
+}
 
 .post-title {
   font-weight: bold;
