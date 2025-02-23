@@ -11,6 +11,8 @@ import { HeaderComponent } from '../../header/header.component';
 import { SafeHtmlPipe } from '../../../safe-html.pipe';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
+import { ButtonModule } from 'primeng/button';
+import { MenuModule } from 'primeng/menu';
 
 dayjs.extend(utc);
 dayjs.extend(relativeTime);
@@ -19,7 +21,7 @@ dayjs.locale('hu');
 @Component({
   selector: 'app-my-topics',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule],
+  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule, ButtonModule, MenuModule],
   templateUrl: './my-topics.component.html',
   styleUrls: ['./my-topics.component.css']
 })
@@ -34,6 +36,9 @@ export class MyTopicsComponent implements OnInit {
   loadingMore: boolean = false;
   userVotes: { [key: number]: 'up' | 'down' | null } = {};
   userId: number | null = null;
+  menuItems: any[] = [];
+  selectedTopicId: number = -1;
+  currentUserId = localStorage.getItem('id');
 
   constructor(
     private topicService: TopicService, 
@@ -42,6 +47,10 @@ export class MyTopicsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.menuItems = [
+      { label: 'Módosítás', icon: 'pi pi-pencil', command: () => this.ModifyTopic(this.selectedTopicId) },
+      { label: 'Törlés', icon: 'pi pi-trash', command: () => this.DeleteTopic(this.selectedTopicId) }
+    ];
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       this.userId = idParam ? parseInt(idParam, 10) : null;
@@ -71,7 +80,7 @@ export class MyTopicsComponent implements OnInit {
       next: (response) => {
         const newTopics = response.topics.data.map((topic: any) => ({
           ...topic,
-          timeAgo: dayjs.utc(topic.created_at).local().fromNow(),
+          timeAgo: this.topicService.getTimeAgo(topic.created_at, topic.updated_at),
           upvote_count: topic.upvotes - topic.downvotes
         }));
 
@@ -80,6 +89,8 @@ export class MyTopicsComponent implements OnInit {
         } else {
           this.topics = [...this.topics, ...newTopics];
         }
+
+        this.userVotes = response.user_votes || {};
 
         this.hasMoreTopics = this.currentPage < response.topics.last_page;
         this.loadingMore = false;
@@ -122,6 +133,11 @@ export class MyTopicsComponent implements OnInit {
     this.topicService.vote(topicId, 'topic', type);
   }
 
+  openMenu(event: Event, topicId: number, menu: any) {
+    this.selectedTopicId = topicId;
+    menu.toggle(event);
+  }
+
   filterTopics() {
     this.currentPage = 1;
     this.hasMoreTopics = true;
@@ -143,5 +159,16 @@ export class MyTopicsComponent implements OnInit {
     }
 
     this.router.navigate(['/topics/view', topicId]);
-  } 
+  }
+
+  DeleteTopic(topicId:number)
+  {
+    this.topicService.deleteTopic(topicId);
+    this.loadTopics(true);
+  }
+
+  ModifyTopic(topicId:number)
+  {
+    this.router.navigate(['/topics/modify', topicId]);
+  }
 }
