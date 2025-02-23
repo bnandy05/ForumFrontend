@@ -11,6 +11,9 @@ import 'dayjs/locale/hu';
 import { Router } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
+import { MenuModule } from 'primeng/menu';
+import { PrimeIcons } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 
 dayjs.extend(utc);
 dayjs.extend(relativeTime);
@@ -19,7 +22,7 @@ dayjs.locale('hu');
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule],
+  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule, MenuModule, ButtonModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -33,6 +36,10 @@ export class HomeComponent implements OnInit {
   hasMoreTopics: boolean = true;
   loadingMore: boolean = false;
   userVotes: { [key: number]: 'up' | 'down' | null } = {};
+  currentUserId = localStorage.getItem('id');
+  menuItems: any[] = [];
+  selectedTopicId: number = -1;
+  
 
   constructor(private topicService: TopicService, private router: Router) {}
 
@@ -108,6 +115,10 @@ export class HomeComponent implements OnInit {
     this.topicService.vote(topicId, 'topic', type);
   }
   
+  openMenu(event: Event, topicId: number, menu: any) {
+    this.selectedTopicId = topicId;
+    menu.toggle(event);
+  }
 
   loadMore() {
     if (!this.hasMoreTopics) return;
@@ -116,6 +127,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.menuItems = [
+      { label: 'Módosítás', icon: 'pi pi-pencil', command: () => this.ModifyTopic(this.selectedTopicId) },
+      { label: 'Törlés', icon: 'pi pi-trash', command: () => this.DeleteTopic(this.selectedTopicId) }
+    ];
     this.categoryId = '';
     this.orderBy = 'created_at';
     this.loadTopics(true);
@@ -128,5 +143,16 @@ export class HomeComponent implements OnInit {
         console.error('Failed to fetch categories:', err);
       },
     });
+  }
+
+  DeleteTopic(topicId:number)
+  {
+    this.topicService.deleteTopic(topicId);
+    this.loadTopics(true);
+  }
+
+  ModifyTopic(topicId:number)
+  {
+    this.router.navigate(['/topics/modify', topicId]);
   }
 }

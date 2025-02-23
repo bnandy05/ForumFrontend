@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit{
   selectedFile: File | null = null;
   userId: number | null = null;
   ownProfile: boolean = false;
+  currentUserId = Number(localStorage.getItem('id'));
 
   constructor(
     private authService: AuthService,
@@ -35,7 +36,7 @@ export class ProfileComponent implements OnInit{
       this.userId = idParam ? parseInt(idParam, 10) : null;
     
     });
-    if(this.userId!=null)
+    if(this.userId!=null && this.userId != this.currentUserId)
       {
         this.loadOtherUserProfile(this.userId);
       }

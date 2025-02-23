@@ -1,4 +1,5 @@
 @import '@ctrl/ngx-emoji-mart/picker';
+@import "primeicons/primeicons.css";
 .loading-overlay {
     position: fixed;
     top: 0;
