@@ -110,7 +110,7 @@ export class TopicDetailsComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
       this.id = params['id'];
-
+  
       this.topicService.getTopic(this.id).subscribe({
         next: (response) => {
           console.log(response);
@@ -118,23 +118,23 @@ export class TopicDetailsComponent implements OnInit {
             if (this.currentUserId == response.topic.user_id) {
               this.topicOwner = true;
             }
-
+  
             this.topics = [
               {
                 ...response.topic,
-                timeAgo: dayjs.utc(response.topic.created_at).local().fromNow(),
+                timeAgo: this.getTimeAgo(response.topic.created_at, response.topic.updated_at),
                 upvote_count: response.topic.upvotes - response.topic.downvotes,
                 comments: response.topic.comments.map((comment: Comment) => ({
                   ...comment,
-                  timeAgo: dayjs.utc(comment.created_at).local().fromNow(),
+                  timeAgo: this.getTimeAgo(comment.created_at, comment.updated_at),
                   upvote_count: comment.upvotes - comment.downvotes,
                   menuItems: this.getMenuItems(comment),
                 })),
               },
             ];
-
+  
             this.userVote = response.user_vote;
-
+  
             this.userCommentVotes = {};
             response.topic.comments.forEach((comment: Comment) => {
               this.userCommentVotes[comment.id] =
@@ -150,10 +150,10 @@ export class TopicDetailsComponent implements OnInit {
       });
     });
   }
-
+  
   refreshTopic(): void {
     if (!this.id) return;
-
+  
     this.topicService.getTopic(this.id).subscribe({
       next: (response) => {
         if (this.currentUserId == response.topic.user_id) {
@@ -163,19 +163,19 @@ export class TopicDetailsComponent implements OnInit {
           this.topics = [
             {
               ...response.topic,
-              timeAgo: dayjs.utc(response.topic.created_at).local().fromNow(),
+              timeAgo: this.getTimeAgo(response.topic.created_at, response.topic.updated_at),
               upvote_count: response.topic.upvotes - response.topic.downvotes,
               comments: response.topic.comments.map((comment: Comment) => ({
                 ...comment,
-                timeAgo: dayjs.utc(comment.created_at).local().fromNow(),
+                timeAgo: this.getTimeAgo(comment.created_at, comment.updated_at),
                 upvote_count: comment.upvotes - comment.downvotes,
                 menuItems: this.getMenuItems(comment),
               })),
             },
           ];
-
+  
           this.userVote = response.user_vote;
-
+  
           this.userCommentVotes = {};
           response.topic.comments.forEach((comment: Comment) => {
             this.userCommentVotes[comment.id] =
@@ -187,6 +187,14 @@ export class TopicDetailsComponent implements OnInit {
         console.error('Hiba történt az adatok frissítésekor:', err);
       },
     });
+  }
+
+  getTimeAgo(createdAt: string, updatedAt: string): string {
+    const isModified = dayjs(updatedAt).isAfter(dayjs(createdAt));
+    const timeAgo = isModified
+      ? `${dayjs.utc(updatedAt).local().fromNow()} (szerkesztve)`
+      : dayjs.utc(createdAt).local().fromNow();
+    return timeAgo;
   }
 
   getMenuItems(comment: Comment): any[] {
