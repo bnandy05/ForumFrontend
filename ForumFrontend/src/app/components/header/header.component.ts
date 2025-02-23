@@ -24,14 +24,9 @@ export class HeaderComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.authService.getUser().subscribe(
-      (user: any) => {
-        this.userProfile = user
-      },
-      (error) => {
-        console.error('Error fetching user data:', error);
-        this.router.navigate(['/logout']);
-      }
-    );
+    this.userProfile= {
+      avatar: localStorage.getItem('avatar'),
+      name: localStorage.getItem('username')
+    }
   }
 }

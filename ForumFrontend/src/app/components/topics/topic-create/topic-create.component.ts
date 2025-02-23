@@ -8,14 +8,20 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TopicService } from '../../../services/topic.service';
 import { EditorModule } from 'primeng/editor';
 
 @Component({
   selector: 'app-topic-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, HeaderComponent, EditorModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HeaderComponent,
+    EditorModule,
+  ],
   templateUrl: './topic-create.component.html',
   styleUrl: './topic-create.component.css',
 })
@@ -23,12 +29,15 @@ export class TopicCreateComponent implements OnInit {
   topicForm: FormGroup;
   categories: any[] = [];
   isSubmitting = false;
-
+  topicId: number | null = null;
+  isModifying: boolean = false;
+  topics: any[] = [];
 
   constructor(
     private fb: FormBuilder,
     private topicService: TopicService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
     this.topicForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(255)]],
@@ -46,36 +55,98 @@ export class TopicCreateComponent implements OnInit {
         console.error('Failed to fetch categories:', err);
       },
     });
+    this.activatedRoute.paramMap.subscribe((params) => {
+      const idParam = params.get('id');
+      this.topicId = idParam ? parseInt(idParam, 10) : null;
+    });
+    if (this.topicId != null) {
+      this.isModifying = true;
+      this.topicService.getTopic(this.topicId).subscribe({
+        next: (response) => {
+          if (response) {
+            console.log(response);
+            this.topics = [
+              {
+                ...response.topic,
+              },
+            ];
+            this.topicForm.patchValue({
+              title: this.topics[0].title,
+              content: this.topics[0].content,
+              category_id: this.topics[0].category_id,
+            });
+          }
+        },
+        error: (err) => {
+          console.error('Hiba történt az adatok frissítésekor:', err);
+        },
+      });
+    } else {
+      this.isModifying = false;
+    }
   }
 
-  get title() { return this.topicForm.get('title'); }
-  get content() { return this.topicForm.get('content'); }
-  get category_id() { return this.topicForm.get('category_id'); }
+  get title() {
+    return this.topicForm.get('title');
+  }
+  get content() {
+    return this.topicForm.get('content');
+  }
+  get category_id() {
+    return this.topicForm.get('category_id');
+  }
 
   onSubmit() {
-    if (this.topicForm.invalid) {
-      Object.keys(this.topicForm.controls).forEach(key => {
-        const control = this.topicForm.get(key);
-        control?.markAsTouched();
-      });
-      return;
-    }
-
-    this.isSubmitting = true;
-    const { title, content, category_id } = this.topicForm.value;
-
-    this.topicService.createTopic(title, content, category_id).subscribe({
-      next: (response) => {
-        this.router.navigate(['/', response.id]);
-      },
-      error: (error) => {
-        console.error('Hiba történt:', error);
-        this.isSubmitting = false;
-      },
-      complete: () => {
-        this.isSubmitting = false;
-        this.router.navigate(['/']);
+    if (!this.isModifying) {
+      if (this.topicForm.invalid) {
+        Object.keys(this.topicForm.controls).forEach((key) => {
+          const control = this.topicForm.get(key);
+          control?.markAsTouched();
+        });
+        return;
       }
-    });
+
+      this.isSubmitting = true;
+      const { title, content, category_id } = this.topicForm.value;
+
+      this.topicService.createTopic(title, content, category_id).subscribe({
+        next: (response) => {
+          this.router.navigate(['/', response.id]);
+        },
+        error: (error) => {
+          console.error('Hiba történt:', error);
+          this.isSubmitting = false;
+        },
+        complete: () => {
+          this.isSubmitting = false;
+          this.router.navigate(['/']);
+        },
+      });
+    } else if (this.isModifying) {
+      if (this.topicForm.invalid) {
+        Object.keys(this.topicForm.controls).forEach((key) => {
+          const control = this.topicForm.get(key);
+          control?.markAsTouched();
+        });
+        return;
+      }
+
+      this.isSubmitting = true;
+      const { title, content, category_id } = this.topicForm.value;
+
+      this.topicService.modifyTopic(title, content, category_id, this.topics[0].id).subscribe({
+        next: (response) => {
+          this.router.navigate(['/', response.id]);
+        },
+        error: (error) => {
+          console.error('Hiba történt:', error);
+          this.isSubmitting = false;
+        },
+        complete: () => {
+          this.isSubmitting = false;
+          this.router.navigate(['/']);
+        },
+      });
+    }
   }
 }

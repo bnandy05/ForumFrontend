@@ -34,6 +34,11 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'profile/:id',
+    loadComponent: () => import('./components/user/profile/profile.component').then(m => m.ProfileComponent),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'create',
     loadComponent: () => import('./components/topics/topic-create/topic-create.component').then(m => m.TopicCreateComponent),
     canActivate: [AuthGuard],
@@ -51,6 +56,11 @@ export const routes: Routes = [
   {
     path: 'topics/user/:id',
     loadComponent: () => import('./components/topics/my-topics/my-topics.component').then(m => m.MyTopicsComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'topics/modify/:id',
+    loadComponent: () => import('./components/topics/topic-create/topic-create.component').then(m => m.TopicCreateComponent),
     canActivate: [AuthGuard],
   },
   {

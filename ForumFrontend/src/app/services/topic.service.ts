@@ -2,6 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/hu';
+
+
+dayjs.extend(utc);
+dayjs.extend(relativeTime);
+dayjs.locale('hu');
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +39,7 @@ export class TopicService {
     if (userTopics && userTopics != null) params.user_topics = userTopics;
     params.page = page;
 
-    return this.http.get(`${this.apiUrl}/home`, { params }).pipe(
+    return this.http.get(`${this.apiUrl}/home`, { params, withCredentials:true }).pipe(
       tap({
         error: (err) => {
           this.messageService.add({
@@ -44,7 +53,7 @@ export class TopicService {
   }
 
   getTopic(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/topic/${id}`).pipe(
+    return this.http.get(`${this.apiUrl}/topic/${id}`, {withCredentials: true}).pipe(
       tap({
         error: (err) => {
           this.messageService.add({
@@ -63,7 +72,7 @@ export class TopicService {
     categoryId: number
   ): Observable<any> {
     const data = { title, content, category_id: categoryId };
-    return this.http.post(`${this.apiUrl}/upload`, data).pipe(
+    return this.http.post(`${this.apiUrl}/upload`, data, {withCredentials: true}).pipe(
       tap({
         next: () => {
           this.messageService.add({
@@ -83,15 +92,57 @@ export class TopicService {
     );
   }
 
+  modifyTopic(
+    title: string,
+    content: string,
+    categoryId: number,
+    topicId: number
+  ): Observable<any> {
+    const data = { title, content, category_id: categoryId };
+    return this.http.post(`${this.apiUrl}/topic/${topicId}/modify`, data, {withCredentials: true}).pipe(
+      tap({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sikeres',
+            detail: 'Téma sikeresen szerkesztve!',
+          });
+        },
+        error: (err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Hiba',
+            detail: 'Hiba történt a téma szerkesztése során.',
+          });
+        },
+      })
+    );
+  }
+
   addComment(topicId: number, content: string): Observable<any> {
     const data = { content };
-    return this.http.post(`${this.apiUrl}/topic/${topicId}/comment`, data).pipe(
+    return this.http.post(`${this.apiUrl}/topic/${topicId}/comment`, data, {withCredentials: true}).pipe(
       tap({
         error: (err) => {
           this.messageService.add({
             severity: 'error',
             summary: 'Hiba',
             detail: 'Hiba történt a hozzászólás hozzáadása során.',
+          });
+        },
+      })
+    );
+  }
+
+  modifyComment(topicId: number, content: string): Observable<any> {
+    const data = { content };
+    return this.http.post(`${this.apiUrl}/comment/${topicId}/modify`, data, {withCredentials: true}).pipe(
+      tap({
+        error: (err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Hiba',
+            detail: 'Hiba történt a hozzászólás szerkesztése során.',
           });
         },
       })
@@ -116,50 +167,48 @@ export class TopicService {
       });
   }
 
-  deleteTopic(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/topic/${id}`).pipe(
-      tap({
-        next: () => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Sikeres',
-            detail: 'Téma sikeresen törölve!',
-          });
-        },
-        error: (err) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Hiba',
-            detail: 'Hiba történt a téma törlése során.',
-          });
-        },
-      })
-    );
+  deleteTopic(id: number){
+    this.http.delete(`${this.apiUrl}/topic/delete/${id}`, {withCredentials: true}).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sikeres',
+          detail: 'Topic sikeresen törölve!',
+        });
+      },
+      error: (err) => {
+        console.log(err)
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Hiba',
+          detail: 'Hiba történt a topic törlése során.',
+        });
+      },
+    });
   }
 
-  deleteComment(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/comment/${id}`).pipe(
-      tap({
-        next: () => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Sikeres',
-            detail: 'Hozzászólás sikeresen törölve!',
-          });
-        },
-        error: (err) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Hiba',
-            detail: 'Hiba történt a hozzászólás törlése során.',
-          });
-        },
-      })
-    );
+  deleteComment(id: number): void {
+    this.http.delete(`${this.apiUrl}/comment/delete/${id}` , {withCredentials: true}).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sikeres',
+          detail: 'Hozzászólás sikeresen törölve!',
+        });
+      },
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Hiba',
+          detail: 'Hiba történt a hozzászólás törlése során.',
+        });
+      },
+    });
   }
+  
 
   deleteAdminTopic(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/topic/admin/${id}`).pipe(
+    return this.http.delete(`${this.apiUrl}/topic/admin/${id}` , {withCredentials: true}).pipe(
       tap({
         next: () => {
           this.messageService.add({
@@ -180,7 +229,7 @@ export class TopicService {
   }
 
   deleteAdminComment(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/comment/admin/${id}`).pipe(
+    return this.http.delete(`${this.apiUrl}/comment/admin/${id}` , {withCredentials: true}).pipe(
       tap({
         next: () => {
           this.messageService.add({
@@ -198,6 +247,14 @@ export class TopicService {
         },
       })
     );
+  }
+
+  getTimeAgo(createdAt: string, updatedAt: string): string {
+      const isModified = dayjs(updatedAt).isAfter(dayjs(createdAt));
+      const timeAgo = isModified
+        ? `${dayjs.utc(updatedAt).local().fromNow()} (szerkesztve)`
+        : dayjs.utc(createdAt).local().fromNow();
+      return timeAgo;
   }
 
   getCategories(): Observable<any> {

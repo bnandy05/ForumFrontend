@@ -4,22 +4,17 @@ import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
 import { SafeHtmlPipe } from '../../safe-html.pipe';
 import { FormsModule } from '@angular/forms';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import 'dayjs/locale/hu';
 import { Router } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
-
-dayjs.extend(utc);
-dayjs.extend(relativeTime);
-dayjs.locale('hu');
+import { MenuModule } from 'primeng/menu';
+import { PrimeIcons } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule],
+  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule, MenuModule, ButtonModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -32,49 +27,17 @@ export class HomeComponent implements OnInit {
   currentPage: number = 1;
   hasMoreTopics: boolean = true;
   loadingMore: boolean = false;
-  isSelectingText = false;
-  startX: number = 0;
-  startY: number = 0;
   userVotes: { [key: number]: 'up' | 'down' | null } = {};
+  currentUserId = localStorage.getItem('id');
+  menuItems: any[] = [];
+  selectedTopicId: number = -1;
+  
 
   constructor(private topicService: TopicService, private router: Router) {}
 
-  onMouseDown(event: MouseEvent | TouchEvent) {
-    if (event instanceof MouseEvent) {
-      this.startX = event.clientX;
-      this.startY = event.clientY;
-    } else {
-      this.startX = event.touches[0].clientX;
-      this.startY = event.touches[0].clientY;
-    }
-  }
-
-  onMouseUp(topicId: number, event: MouseEvent | TouchEvent) {
-    const selection = window.getSelection();
-    if (selection && selection.toString().length > 0) {
-      this.isSelectingText = true;
-    }
-
-    if (this.isSelectingText) {
-      this.isSelectingText = false;
-      return;
-    }
-
-    let endX: number, endY: number;
-    if (event instanceof MouseEvent) {
-      endX = event.clientX;
-      endY = event.clientY;
-    } else {
-      endX = event.changedTouches[0].clientX;
-      endY = event.changedTouches[0].clientY;
-    }
-
-    if (Math.abs(this.startX - endX) > 5 || Math.abs(this.startY - endY) > 5) {
-      return;
-    }
-
+  navigateToTopic(topicId: number, event: MouseEvent): void {
     const target = event.target as HTMLElement;
-    const forbiddenTags = ['P', 'H1', 'SPAN', 'A', 'BUTTON'];
+    const forbiddenTags = ['BUTTON', 'A', 'SPAN'];
 
     if (forbiddenTags.includes(target.tagName)) {
       return;
@@ -83,8 +46,9 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/topics/view', topicId]);
   }
 
-  userClick(userId: number) {
-    this.router.navigate(['/topics/user', userId]);
+  userClick(userId: number, event: MouseEvent): void {
+    event.stopPropagation();
+    this.router.navigate(['/profile', userId]);
   }
 
   filterTopics() {
@@ -101,10 +65,9 @@ export class HomeComponent implements OnInit {
       next: (response) => {
         const newTopics = response.topics.data.map((topic: any) => ({
           ...topic,
-          timeAgo: dayjs.utc(topic.created_at).local().fromNow(),
+          timeAgo: this.topicService.getTimeAgo(topic.created_at, topic.updated_at),
           upvote_count: topic.upvotes - topic.downvotes
         }));
-
         if (reset) {
           this.topics = newTopics;
         } else {
@@ -123,7 +86,8 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  vote(topicId: number, index: number, type: 'up' | 'down') {
+  vote(topicId: number, index: number, type: 'up' | 'down', event: MouseEvent) {
+    event.stopPropagation();
     const topic = this.topics[index];
   
     if (!topic) return;
@@ -142,6 +106,10 @@ export class HomeComponent implements OnInit {
     this.topicService.vote(topicId, 'topic', type);
   }
   
+  openMenu(event: Event, topicId: number, menu: any) {
+    this.selectedTopicId = topicId;
+    menu.toggle(event);
+  }
 
   loadMore() {
     if (!this.hasMoreTopics) return;
@@ -150,6 +118,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.menuItems = [
+      { label: 'Módosítás', icon: 'pi pi-pencil', command: () => this.ModifyTopic(this.selectedTopicId) },
+      { label: 'Törlés', icon: 'pi pi-trash', command: () => this.DeleteTopic(this.selectedTopicId) }
+    ];
     this.categoryId = '';
     this.orderBy = 'created_at';
     this.loadTopics(true);
@@ -162,5 +134,16 @@ export class HomeComponent implements OnInit {
         console.error('Failed to fetch categories:', err);
       },
     });
+  }
+
+  DeleteTopic(topicId:number)
+  {
+    this.topicService.deleteTopic(topicId);
+    this.loadTopics(true);
+  }
+
+  ModifyTopic(topicId:number)
+  {
+    this.router.navigate(['/topics/modify', topicId]);
   }
 }
