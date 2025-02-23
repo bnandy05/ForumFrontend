@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TopicService } from '../../../services/topic.service';
 import { HeaderComponent } from '../../header/header.component';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SafeHtmlPipe } from '../../../safe-html.pipe';
 import { MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
@@ -60,11 +60,14 @@ export class TopicDetailsComponent implements OnInit {
   topicOwner: boolean = false;
   editingCommentId: number | null = null;
   editedCommentContent: string = '';
+  menuItems: any[] = [];
+  selectedTopicId: number = -1;
 
   constructor(
     private topicService: TopicService,
     private activatedRoute: ActivatedRoute,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   emojiLang = {
@@ -100,6 +103,10 @@ export class TopicDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.menuItems = [
+      { label: 'Módosítás', icon: 'pi pi-pencil', command: () => this.ModifyTopic(this.selectedTopicId) },
+      { label: 'Törlés', icon: 'pi pi-trash', command: () => this.DeleteTopic(this.selectedTopicId) }
+    ];
     this.activatedRoute.params.subscribe((params) => {
       this.id = params['id'];
   
@@ -225,8 +232,13 @@ export class TopicDetailsComponent implements OnInit {
     });
   }
 
-  openMenu(event: Event, topicId: number, menu: any) {
-    this.selectedCommentId = topicId;
+  openTopicMenu(event: Event, topicId: number, menu: any) {
+    this.selectedTopicId = topicId;
+    menu.toggle(event);
+  }
+
+  openMenu(event: Event, commentId: number, menu: any) {
+    this.selectedCommentId = commentId;
     menu.toggle(event);
   }
 
@@ -313,5 +325,16 @@ export class TopicDetailsComponent implements OnInit {
           this.refreshTopic();
         });
     }
+  }
+
+  DeleteTopic(topicId:number)
+  {
+    this.topicService.deleteTopic(topicId);
+    this.router.navigate(['/']);
+  }
+
+  ModifyTopic(topicId:number)
+  {
+    this.router.navigate(['/topics/modify', topicId]);
   }
 }
