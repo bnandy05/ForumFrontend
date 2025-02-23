@@ -4,20 +4,12 @@ import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
 import { SafeHtmlPipe } from '../../safe-html.pipe';
 import { FormsModule } from '@angular/forms';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import 'dayjs/locale/hu';
 import { Router } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { MenuModule } from 'primeng/menu';
 import { PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-
-dayjs.extend(utc);
-dayjs.extend(relativeTime);
-dayjs.locale('hu');
 
 @Component({
   selector: 'app-home',
@@ -72,11 +64,8 @@ export class HomeComponent implements OnInit {
     this.topicService.getTopics(this.categoryId, this.title, this.orderBy, false, null, this.currentPage).subscribe({
       next: (response) => {
         const newTopics = response.topics.data.map((topic: any) => {
-          const isTopicModified = dayjs(topic.updated_at).isAfter(dayjs(topic.created_at));
           
-          const timeAgo = isTopicModified
-            ? `${dayjs.utc(topic.updated_at).local().fromNow()} (szerkesztve)`
-            : dayjs.utc(topic.created_at).local().fromNow();
+          const timeAgo = this.topicService.getTimeAgo(topic.created_at, topic.updated_at)
     
           return {
             ...topic,

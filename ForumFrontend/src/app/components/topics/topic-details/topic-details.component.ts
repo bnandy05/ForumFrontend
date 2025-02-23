@@ -3,10 +3,6 @@ import { TopicService } from '../../../services/topic.service';
 import { HeaderComponent } from '../../header/header.component';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import 'dayjs/locale/hu';
 import { SafeHtmlPipe } from '../../../safe-html.pipe';
 import { MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
@@ -17,10 +13,6 @@ import { EmojiEvent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
 import { TextareaModule } from 'primeng/textarea';
-
-dayjs.extend(utc);
-dayjs.extend(relativeTime);
-dayjs.locale('hu');
 
 interface Comment {
   id: number;
@@ -122,11 +114,11 @@ export class TopicDetailsComponent implements OnInit {
             this.topics = [
               {
                 ...response.topic,
-                timeAgo: this.getTimeAgo(response.topic.created_at, response.topic.updated_at),
+                timeAgo: this.topicService.getTimeAgo(response.topic.created_at, response.topic.updated_at),
                 upvote_count: response.topic.upvotes - response.topic.downvotes,
                 comments: response.topic.comments.map((comment: Comment) => ({
                   ...comment,
-                  timeAgo: this.getTimeAgo(comment.created_at, comment.updated_at),
+                  timeAgo: this.topicService.getTimeAgo(comment.created_at, comment.updated_at),
                   upvote_count: comment.upvotes - comment.downvotes,
                   menuItems: this.getMenuItems(comment),
                 })),
@@ -163,11 +155,11 @@ export class TopicDetailsComponent implements OnInit {
           this.topics = [
             {
               ...response.topic,
-              timeAgo: this.getTimeAgo(response.topic.created_at, response.topic.updated_at),
+              timeAgo: this.topicService.getTimeAgo(response.topic.created_at, response.topic.updated_at),
               upvote_count: response.topic.upvotes - response.topic.downvotes,
               comments: response.topic.comments.map((comment: Comment) => ({
                 ...comment,
-                timeAgo: this.getTimeAgo(comment.created_at, comment.updated_at),
+                timeAgo: this.topicService.getTimeAgo(comment.created_at, comment.updated_at),
                 upvote_count: comment.upvotes - comment.downvotes,
                 menuItems: this.getMenuItems(comment),
               })),
@@ -187,14 +179,6 @@ export class TopicDetailsComponent implements OnInit {
         console.error('Hiba történt az adatok frissítésekor:', err);
       },
     });
-  }
-
-  getTimeAgo(createdAt: string, updatedAt: string): string {
-    const isModified = dayjs(updatedAt).isAfter(dayjs(createdAt));
-    const timeAgo = isModified
-      ? `${dayjs.utc(updatedAt).local().fromNow()} (szerkesztve)`
-      : dayjs.utc(createdAt).local().fromNow();
-    return timeAgo;
   }
 
   getMenuItems(comment: Comment): any[] {

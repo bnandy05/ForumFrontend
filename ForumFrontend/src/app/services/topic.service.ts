@@ -2,6 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/hu';
+
+
+dayjs.extend(utc);
+dayjs.extend(relativeTime);
+dayjs.locale('hu');
 
 @Injectable({
   providedIn: 'root',
@@ -238,6 +247,14 @@ export class TopicService {
         },
       })
     );
+  }
+
+  getTimeAgo(createdAt: string, updatedAt: string): string {
+      const isModified = dayjs(updatedAt).isAfter(dayjs(createdAt));
+      const timeAgo = isModified
+        ? `${dayjs.utc(updatedAt).local().fromNow()} (szerkesztve)`
+        : dayjs.utc(createdAt).local().fromNow();
+      return timeAgo;
   }
 
   getCategories(): Observable<any> {
