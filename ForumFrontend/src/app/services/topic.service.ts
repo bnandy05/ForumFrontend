@@ -125,6 +125,21 @@ export class TopicService {
     );
   }
 
+  modifyComment(topicId: number, content: string): Observable<any> {
+    const data = { content };
+    return this.http.post(`${this.apiUrl}/comment/${topicId}/modify`, data, {withCredentials: true}).pipe(
+      tap({
+        error: (err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Hiba',
+            detail: 'Hiba történt a hozzászólás szerkesztése során.',
+          });
+        },
+      })
+    );
+  }
+
   vote(
     id: number,
     voteObject: 'topic' | 'comment',
