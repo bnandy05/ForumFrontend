@@ -63,16 +63,11 @@ export class HomeComponent implements OnInit {
 
     this.topicService.getTopics(this.categoryId, this.title, this.orderBy, false, null, this.currentPage).subscribe({
       next: (response) => {
-        const newTopics = response.topics.data.map((topic: any) => {
-          
-          const timeAgo = this.topicService.getTimeAgo(topic.created_at, topic.updated_at)
-    
-          return {
-            ...topic,
-            timeAgo: timeAgo,
-            upvote_count: topic.upvotes - topic.downvotes
-          };
-        });
+        const newTopics = response.topics.data.map((topic: any) => ({
+          ...topic,
+          timeAgo: this.topicService.getTimeAgo(topic.created_at, topic.updated_at),
+          upvote_count: topic.upvotes - topic.downvotes
+        }));
         if (reset) {
           this.topics = newTopics;
         } else {
