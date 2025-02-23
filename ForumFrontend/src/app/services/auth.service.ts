@@ -117,7 +117,7 @@ export class AuthService {
       next: (response: any) => {
         localStorage.removeItem('avatar');
         this.messageService.add({ severity: 'success', summary: 'Sikeres törlés', detail: 'Az avatar sikeresen törölve!' });
-        this.reloadPage("profile");
+        this.reloadPage();
       },
       error: (err) => {
         this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt az avatar törlése során.' });
@@ -138,8 +138,8 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/user/${id}`, { withCredentials: true });
   }
 
-  reloadPage(url: string | null = null) {
-    this.router.navigateByUrl(`/${url}`, { skipLocationChange: false }).then(() => {
+  reloadPage() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate([this.router.url]);
     });
   }

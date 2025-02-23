@@ -92,7 +92,6 @@ export class TopicDetailsComponent implements OnInit {
       this.topicService.getTopic(this.id).subscribe({
         next: (response) => {
           if (response) {
-            console.log(response)
             this.topics = [
               {
                 ...response.topic,

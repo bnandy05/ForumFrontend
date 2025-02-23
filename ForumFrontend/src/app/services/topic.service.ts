@@ -83,6 +83,33 @@ export class TopicService {
     );
   }
 
+  modifyTopic(
+    title: string,
+    content: string,
+    categoryId: number,
+    topicId: number
+  ): Observable<any> {
+    const data = { title, content, category_id: categoryId };
+    return this.http.post(`${this.apiUrl}/topic/${topicId}/modify`, data, {withCredentials: true}).pipe(
+      tap({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sikeres',
+            detail: 'Téma sikeresen szerkesztve!',
+          });
+        },
+        error: (err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Hiba',
+            detail: 'Hiba történt a téma szerkesztése során.',
+          });
+        },
+      })
+    );
+  }
+
   addComment(topicId: number, content: string): Observable<any> {
     const data = { content };
     return this.http.post(`${this.apiUrl}/topic/${topicId}/comment`, data, {withCredentials: true}).pipe(
