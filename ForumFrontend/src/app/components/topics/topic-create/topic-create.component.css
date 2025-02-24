@@ -85,9 +85,39 @@ p-editor .ql-container.ql-snow:focus {
     border-top-right-radius: 8px;
     padding: 8px;
 }
-  
-::ng-deep .ql-toolbar .ql-picker-label {
-    border-radius: 4px;
-    padding: 4px 8px;
+
+::ng-deep .ql-toolbar button svg {
+    fill: #e4e4e7 !important;
+    filter: brightness(1.6) !important;
 }
-  
+
+::ng-deep .ql-toolbar button:hover svg {
+    fill: #ffffff !important;
+}
+
+::ng-deep .ql-toolbar .ql-picker {
+    color: #e4e4e7 !important;
+}
+
+::ng-deep .ql-toolbar .ql-picker-label:hover {
+    background-color: #27272a !important;
+    color: #ffffff !important;
+}
+
+::ng-deep .ql-toolbar .ql-picker-options {
+    background-color: #18181b !important;
+    border: 1px solid #3f3f46 !important;
+    border-radius: 8px !important;
+    color: #e4e4e7 !important;
+}
+
+::ng-deep .ql-toolbar .ql-picker-options .ql-picker-item:hover {
+    background-color: #27272a !important;
+    color: #ffffff !important;
+}
+
+::ng-deep .ql-container {
+    border: 1px solid #3f3f46 !important;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}

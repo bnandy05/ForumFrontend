@@ -53,7 +53,6 @@ export class TopicCreateComponent implements OnInit {
       toolbar: {
         container: [
           [{ 'header': [1, 2, 3, false] }],
-          [{ 'font': [] }],
           ['bold', 'italic', 'underline'],
           [{ 'color': [] }, { 'background': [] }],
           [{ 'list': 'ordered' }, { 'list': 'bullet' }],
@@ -177,7 +176,7 @@ export class TopicCreateComponent implements OnInit {
 
     const file = input.files[0];
 
-    if (file.size > 1 * 1024 * 1024) {
+    if (file.size > 2 * 1024 * 1024) {
       this.messageService.add({ severity: 'error', summary: 'Hiba', detail: '1 MB-nál nagyobb fájl feltöltése nem engedélyezett.' });
       return;
     }
@@ -189,7 +188,7 @@ export class TopicCreateComponent implements OnInit {
 
       if (contentControl) {
         const currentContent = contentControl.value || '';
-        contentControl.setValue(`${currentContent}<img src="${imageUrl}" style="max-width:100%; height:auto;">`);
+        contentControl.setValue(`${currentContent}<img src="${imageUrl}" style="max-width:100%; height:auto; max-height:800px">`);
       }
     };
     reader.readAsDataURL(file);
