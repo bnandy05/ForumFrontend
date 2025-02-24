@@ -91,6 +91,29 @@ p-editor .ql-container.ql-snow:focus {
     filter: brightness(1.6) !important;
 }
 
+::ng-deep svg{
+    fill: #e4e4e7 !important;
+    filter: brightness(1.6) !important;
+}
+
+::ng-deep svg:hover{
+    fill: #e4e4e7 !important;
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+}
+
+::ng-deep .ql-picker:hover .ql-picker-label svg .ql-stroke {
+    stroke: #ffffff !important;
+}
+  
+::ng-deep .ql-picker .ql-picker-options {
+    border: 1px solid #ccc;
+}
+  
+::ng-deep .ql-picker .ql-picker-options {
+    border: 2px solid #000;
+}
+
 ::ng-deep .ql-toolbar button:hover svg {
     fill: #ffffff !important;
 }
@@ -100,7 +123,6 @@ p-editor .ql-container.ql-snow:focus {
 }
 
 ::ng-deep .ql-toolbar .ql-picker-label:hover {
-    background-color: #27272a !important;
     color: #ffffff !important;
 }
 
