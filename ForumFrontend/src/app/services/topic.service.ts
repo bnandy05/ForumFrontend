@@ -252,8 +252,8 @@ export class TopicService {
   getTimeAgo(createdAt: string, updatedAt: string): string {
       const isModified = dayjs(updatedAt).isAfter(dayjs(createdAt));
       const timeAgo = isModified
-        ? `${dayjs.utc(updatedAt).local().fromNow()} (szerkesztve)`
-        : dayjs.utc(createdAt).local().fromNow();
+        ? `${dayjs.utc(createdAt).local().fromNow()} feltöltve, ${dayjs.utc(updatedAt).local().fromNow()} szerkesztve`
+        : `${dayjs.utc(createdAt).local().fromNow()} feltötve`;
       return timeAgo;
   }
 
