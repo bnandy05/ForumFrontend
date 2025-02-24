@@ -6,8 +6,6 @@
     <title>Forum</title>
   </head>
   <body>
-    <div class="modal" *ngIf="isImageModalOpen" (click)="isImageModalOpen = false">
-      <img [src]="selectedImage" class="full-image">
     <app-header></app-header>
     <div class="container">
       <div *ngFor="let topic of topics" >
@@ -112,6 +110,8 @@
         </div>
       </div>
     </div>
+    <div class="modal" *ngIf="isImageModalOpen" (click)="isImageModalOpen = false">
+      <img [src]="selectedImage" class="full-image">
     </div>
   </body>
 </html>

@@ -177,8 +177,8 @@ export class TopicCreateComponent implements OnInit {
 
     const file = input.files[0];
 
-    if (file.size > 2 * 1024 * 1024) {
-      this.messageService.add({ severity: 'error', summary: 'Hiba', detail: '2 MB-nál nagyobb fájl feltöltése nem engedélyezett.' });
+    if (file.size > 1 * 1024 * 1024) {
+      this.messageService.add({ severity: 'error', summary: 'Hiba', detail: '1 MB-nál nagyobb fájl feltöltése nem engedélyezett.' });
       return;
     }
 
