@@ -1,84 +1,151 @@
-.navbar {
-  background: linear-gradient(135deg, #1e1e1e 0%, #121212 100%) !important;
-  padding: 12px 20px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.6);
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--background);
+  font-family: Arial, sans-serif;
+  margin: 0;
+  animation: fadeIn 1s ease-in-out;
 }
 
-.navbar .nav-link {
-  color: #ffffff !important;
-  font-weight: 500;
-  transition: all 0.3s ease-in-out;
+/* Belépő animáció */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
-.navbar .nav-link i {
-  color: #979797 !important;
-  transition: all 0.3s ease-in-out;
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
 }
 
-.navbar .nav-link:hover i {
-  color: #1db954 !important;
-  transform: translateX(5px);
+.login-panel {
+  background-color: var(--surface);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  opacity: 0;
+  animation: slideIn 0.8s ease-in-out forwards;
 }
 
-.navbar .nav-link:hover {
-  color: #1db954 !important;
-  transform: scale(1.05);
-  cursor: pointer;
+/* Panel becsúszó animáció */
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
-.navbar-toggler {
+h2 {
+  color: var(--primary);
+  margin-bottom: 20px;
+  animation: fadeInText 1s ease-in-out forwards;
+}
+
+/* Cím fade-in animáció */
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.form-group {
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  color: var(--text-primary);
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--text-primary);
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Input mező fókusz effekt */
+input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 8px rgba(180, 142, 173, 0.7);
+}
+
+/* Hibaüzenet */
+.error {
+  color: var(--error);
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.login-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: var(--primary);
   border: none;
-}
-
-.navbar-toggler-icon {
-  filter: invert(1);
-}
-
-::ng-deep .dropdown-menu {
-  background-color: #222;
-  border: 1px solid #333;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
-  border-radius: 8px;
-}
-
-::ng-deep .dropdown-menu .dropdown-item {
-  color: #ffffff;
-  padding: 10px 15px;
-  transition: all 0.3s ease-in-out;
-}
-
-::ng-deep .dropdown-menu .dropdown-item:hover {
-  background-color: #1db954;
-  color: #000;
+  border-radius: 5px;
+  color: white;
   cursor: pointer;
+  transition: background 0.3s, transform 0.2s ease-in-out;
 }
 
-::ng-deep .dropdown-menu .dropdown-item i {
-  color: #979797;
-  transition: all 0.3s ease-in-out;
+/* Gomb hover és aktív állapot */
+.login-button:hover {
+  background-color: var(--secondary);
+  transform: translateY(-2px);
 }
 
-::ng-deep .dropdown-menu .dropdown-item:hover i {
-  color: #000;
-  transform: translateX(5px);
-  cursor: pointer;
+.login-button:active {
+  transform: scale(0.95);
 }
 
-@media (max-width: 991px) {
-  .navbar .nav-link, .navbar-nav, .dropdown-menu {
-    text-align: center;
-  }
-  .nav-item.dropdown a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .nav-item.dropdown .avatar {
-    margin: 0 auto 5px auto;
-  }
-  .nav-item.dropdown .username {
-    display: block;
-    text-align: center;
-  }
+/* Letiltott gomb */
+.login-button:disabled {
+  background-color: var(--disabled);
+  cursor: not-allowed;
+}
+
+.additional-links {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.additional-links a {
+  font-size: 14px;
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.3s, transform 0.2s;
+}
+
+/* Link hover effekte */
+.additional-links a:hover {
+  color: var(--secondary);
+  transform: scale(1.05);
 }
