@@ -34,31 +34,31 @@
   filter: invert(1);
 }
 
-.dropdown-menu {
+::ng-deep .dropdown-menu {
   background-color: #222;
   border: 1px solid #333;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
   border-radius: 8px;
 }
 
-.dropdown-menu .dropdown-item {
+::ng-deep .dropdown-menu .dropdown-item {
   color: #ffffff;
   padding: 10px 15px;
   transition: all 0.3s ease-in-out;
 }
 
-.dropdown-menu .dropdown-item:hover {
+::ng-deep .dropdown-menu .dropdown-item:hover {
   background-color: #1db954;
   color: #000;
   cursor: pointer;
 }
 
-.dropdown-menu .dropdown-item i {
+::ng-deep .dropdown-menu .dropdown-item i {
   color: #979797;
   transition: all 0.3s ease-in-out;
 }
 
-.dropdown-menu .dropdown-item:hover i {
+::ng-deep .dropdown-menu .dropdown-item:hover i {
   color: #000;
   transform: translateX(5px);
   cursor: pointer;

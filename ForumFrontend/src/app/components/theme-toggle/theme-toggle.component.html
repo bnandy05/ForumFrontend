@@ -1,8 +1,5 @@
-<a 
-      (click)="themeService.toggleTheme()" 
-      [ngClass]="{ 'dark': themeService.theme() === 'dark' }"
-      aria-label="Témaváltás">
-      <i *ngIf="themeService.theme() === 'dark'" class="pi pi-lightbulb mr-2"></i>
-      <i *ngIf="themeService.theme() === 'light'" class="pi pi-moon mr-2"></i>
-      {{ themeService.theme() === 'dark' ? 'Világos mód' : 'Sötét mód' }}
+<a class="dropdown-item" (click)="themeService.toggleTheme()" [ngClass]="{ 'dark': themeService.theme() === 'dark' }">
+    <i *ngIf="themeService.theme() === 'dark'" class="pi pi-lightbulb mr-2"></i>
+    <i *ngIf="themeService.theme() === 'light'" class="pi pi-moon mr-2"></i>
+    {{ themeService.theme() === 'dark' ? 'Világos mód' : 'Sötét mód' }}
 </a>
