@@ -1,10 +1,8 @@
-<button 
-      pButton
+<a 
       (click)="themeService.toggleTheme()" 
-      class="theme-toggle-btn"
       [ngClass]="{ 'dark': themeService.theme() === 'dark' }"
       aria-label="Témaváltás">
-      <span *ngIf="themeService.theme() === 'dark'" class="icon">☀️</span>
-      <span *ngIf="themeService.theme() === 'light'" class="icon">🌙</span>
-      {{ themeService.theme() === 'dark' ? 'Világos módra váltás' : 'Sötét módra váltás' }}
-    </button>
+      <i *ngIf="themeService.theme() === 'dark'" class="pi pi-lightbulb mr-2"></i>
+      <i *ngIf="themeService.theme() === 'light'" class="pi pi-moon mr-2"></i>
+      {{ themeService.theme() === 'dark' ? 'Világos mód' : 'Sötét mód' }}
+</a>
