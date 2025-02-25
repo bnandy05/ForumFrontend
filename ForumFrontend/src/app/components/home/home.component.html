@@ -83,8 +83,8 @@
         </p>
         <p class="post-meta">
           by
-          <span class="author" (click)="userClick(topic.user.id, $event)">{{ topic.user.name }}</span>
-          - {{ topic.timeAgo }}
+          <span class="author" (click)="userClick(topic.user.id, $event)">{{ topic.user.name }}</span><span data-bs-toggle="tooltip" data-bs-placement="top" title="{{topic.created_at}} - {{topic.updated_at}}">
+          - {{ topic.timeAgo }}</span> 
         </p>
         <div class="post-text" [innerHTML]="topic.content | safeHtml"></div>
         <div class="vote-buttons me-3">

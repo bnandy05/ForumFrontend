@@ -43,8 +43,8 @@
                   }}</span>
                 </p>
                 <p class="text-muted">
-                  by <span class="fw-bold">{{ topic.user.name }}</span> -
-                  {{ topic.timeAgo }}
+                  by <span class="fw-bold">{{ topic.user.name }}</span><span data-bs-toggle="tooltip" data-bs-placement="top" title="{{topic.created_at}} - {{topic.updated_at}}">
+                  - {{ topic.timeAgo }}</span>
                 </p>
                 <p class="card-text" [innerHTML]="topic.content | safeHtml" (click)="openImage($event)"></p>
               </div>
@@ -55,7 +55,8 @@
                 <div *ngIf="editingCommentId !== comment.id; else editCommentTemplate">
                   <p class="mb-1">
                     <p-avatar image="https://berenandor.moriczcloud.hu/storage/{{ comment.user.avatar }}" class="mr-2" shape="circle" />
-                    <strong>{{ comment.user.name }}</strong> - {{ comment.timeAgo }}
+                    <strong>{{ comment.user.name }}</strong><span data-bs-toggle="tooltip" data-bs-placement="top" title="{{comment.created_at}} - {{comment.updated_at}}">
+                    - {{ comment.timeAgo }}</span>
                   </p>
                   <p class="mb-0">{{ comment.content }}</p>
                 </div>
