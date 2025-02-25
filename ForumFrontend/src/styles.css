@@ -1,5 +1,14 @@
 @import '@ctrl/ngx-emoji-mart/picker';
 @import "primeicons/primeicons.css";
+*{
+    font-family: "Roboto", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+}
+
 .loading-overlay {
     position: fixed;
     top: 0;
