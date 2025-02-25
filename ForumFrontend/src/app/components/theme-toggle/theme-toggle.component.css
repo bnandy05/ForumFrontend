@@ -1,0 +1,20 @@
+.theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: var(--toggle-bg);
+    color: var(--toggle-text);
+  }
+  
+  .theme-toggle-btn.dark {
+    background-color: var(--toggle-bg-dark);
+    color: var(--toggle-text-dark);
+  }
+  
+  .icon {
+    margin-right: 8px;
+  }
