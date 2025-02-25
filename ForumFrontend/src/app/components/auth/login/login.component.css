@@ -3,7 +3,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #1e1e2e;
+  background-color: var(--background);
   font-family: Arial, sans-serif;
   margin: 0;
   animation: fadeIn 1s ease-in-out;

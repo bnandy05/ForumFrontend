@@ -8,3 +8,27 @@
     font-variation-settings:
     "wdth" 100;
 }
+
+:root {
+    --background: #ffffff;
+    --surface: #f8f9fa;
+    --primary: #3f51b5;
+    --secondary: #f50057;
+    --text-primary: #212121;
+    --text-secondary: #757575;
+    --border: #e0e0e0;
+    --toggle-bg: #e0e0e0;
+    --toggle-text: #212121;
+    --toggle-bg-dark: #424242;
+    --toggle-text-dark: #ffffff;
+  }
+  
+  .dark-theme {
+    --background: #121212;
+    --surface: #1e1e1e;
+    --primary: #7986cb;
+    --secondary: #ff4081;
+    --text-primary: #eeeeee;
+    --text-secondary: #aaaaaa;
+    --border: #333333;
+  }
