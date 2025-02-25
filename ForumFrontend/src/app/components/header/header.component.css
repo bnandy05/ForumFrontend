@@ -10,9 +10,20 @@
   transition: all 0.3s ease-in-out;
 }
 
+.navbar .nav-link i {
+  color: #979797 !important;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar .nav-link:hover i {
+  color: #1db954 !important;
+  transform: translateX(5px);
+}
+
 .navbar .nav-link:hover {
   color: #1db954 !important;
   transform: scale(1.05);
+  cursor: pointer;
 }
 
 .navbar-toggler {
@@ -39,17 +50,22 @@
 .dropdown-menu .dropdown-item:hover {
   background-color: #1db954;
   color: #000;
+  cursor: pointer;
+}
+
+.dropdown-menu .dropdown-item i {
+  color: #979797;
+  transition: all 0.3s ease-in-out;
+}
+
+.dropdown-menu .dropdown-item:hover i {
+  color: #000;
   transform: translateX(5px);
+  cursor: pointer;
 }
 
 @media (max-width: 991px) {
-  .navbar .nav-link {
-    text-align: center;
-  }
-  .navbar-nav {
-    text-align: center;
-  }
-  .dropdown-menu {
+  .navbar .nav-link, .navbar-nav, .dropdown-menu {
     text-align: center;
   }
   .nav-item.dropdown a {
@@ -58,7 +74,11 @@
     align-items: center;
     justify-content: center;
   }
-  .nav-item.dropdown img {
-    margin: 0 auto;
+  .nav-item.dropdown .avatar {
+    margin: 0 auto 5px auto;
+  }
+  .nav-item.dropdown .username {
+    display: block;
+    text-align: center;
   }
 }
