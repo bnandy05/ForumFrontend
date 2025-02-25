@@ -9,6 +9,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TopicService } from '../../../services/topic.service';
 import { HeaderComponent } from '../../header/header.component';
 import { SafeHtmlPipe } from '../../../safe-html.pipe';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { ButtonModule } from 'primeng/button';
+import { MenuModule } from 'primeng/menu';
 
 dayjs.extend(utc);
 dayjs.extend(relativeTime);
@@ -17,7 +21,7 @@ dayjs.locale('hu');
 @Component({
   selector: 'app-my-topics',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule],
+  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule, ButtonModule, MenuModule],
   templateUrl: './my-topics.component.html',
   styleUrls: ['./my-topics.component.css']
 })
@@ -30,10 +34,11 @@ export class MyTopicsComponent implements OnInit {
   currentPage: number = 1;
   hasMoreTopics: boolean = true;
   loadingMore: boolean = false;
-  isSelectingText = false;
-  startX: number = 0;
-  startY: number = 0;
+  userVotes: { [key: number]: 'up' | 'down' | null } = {};
   userId: number | null = null;
+  menuItems: any[] = [];
+  selectedTopicId: number = -1;
+  currentUserId = localStorage.getItem('id');
 
   constructor(
     private topicService: TopicService, 
@@ -42,6 +47,10 @@ export class MyTopicsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.menuItems = [
+      { label: 'Módosítás', icon: 'pi pi-pencil', command: () => this.ModifyTopic(this.selectedTopicId) },
+      { label: 'Törlés', icon: 'pi pi-trash', command: () => this.DeleteTopic(this.selectedTopicId) }
+    ];
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       this.userId = idParam ? parseInt(idParam, 10) : null;
@@ -69,9 +78,9 @@ export class MyTopicsComponent implements OnInit {
       this.currentPage
     ).subscribe({
       next: (response) => {
-        const newTopics = response.data.map((topic: any) => ({
+        const newTopics = response.topics.data.map((topic: any) => ({
           ...topic,
-          timeAgo: dayjs.utc(topic.created_at).local().fromNow(),
+          timeAgo: this.topicService.getTimeAgo(topic.created_at, topic.updated_at),
           upvote_count: topic.upvotes - topic.downvotes
         }));
 
@@ -81,7 +90,9 @@ export class MyTopicsComponent implements OnInit {
           this.topics = [...this.topics, ...newTopics];
         }
 
-        this.hasMoreTopics = this.currentPage < response.last_page;
+        this.userVotes = response.user_votes || {};
+
+        this.hasMoreTopics = this.currentPage < response.topics.last_page;
         this.loadingMore = false;
       },
       error: (err) => {
@@ -102,6 +113,31 @@ export class MyTopicsComponent implements OnInit {
     });
   }
 
+  vote(topicId: number, index: number, type: 'up' | 'down', event: MouseEvent) {
+    event.stopPropagation();
+    const topic = this.topics[index];
+  
+    if (!topic) return;
+  
+    if (this.userVotes[topicId] === type) {
+      this.userVotes[topicId] = null;
+      topic.upvote_count += type === 'up' ? -1 : 1;
+    } else if (this.userVotes[topicId] && this.userVotes[topicId] !== type) {
+      topic.upvote_count += type === 'up' ? 2 : -2;
+      this.userVotes[topicId] = type;
+    } else {
+      this.userVotes[topicId] = type;
+      topic.upvote_count += type === 'up' ? 1 : -1;
+    }
+  
+    this.topicService.vote(topicId, 'topic', type);
+  }
+
+  openMenu(event: Event, topicId: number, menu: any) {
+    this.selectedTopicId = topicId;
+    menu.toggle(event);
+  }
+
   filterTopics() {
     this.currentPage = 1;
     this.hasMoreTopics = true;
@@ -114,48 +150,25 @@ export class MyTopicsComponent implements OnInit {
     this.loadTopics();
   }
 
-  onMouseDown(event: MouseEvent | TouchEvent) {
-    if (event instanceof MouseEvent) {
-      this.startX = event.clientX;
-      this.startY = event.clientY;
-    } else {
-      this.startX = event.touches[0].clientX;
-      this.startY = event.touches[0].clientY;
-    }
-  }
-
-  onMouseUp(topicId: number, event: MouseEvent | TouchEvent) {
-    const selection = window.getSelection();
-    if (selection && selection.toString().length > 0) {
-      this.isSelectingText = true;
-    }
-  
-    if (this.isSelectingText) {
-      this.isSelectingText = false;
-      return;
-    }
-  
-    let endX: number, endY: number;
-    if (event instanceof MouseEvent) {
-      endX = event.clientX;
-      endY = event.clientY;
-    } else {
-      endX = event.changedTouches[0].clientX;
-      endY = event.changedTouches[0].clientY;
-    }
-  
-    if (Math.abs(this.startX - endX) > 5 || Math.abs(this.startY - endY) > 5) {
-      return;
-    }
-  
+  navigateToTopic(topicId: number, event: MouseEvent): void {
     const target = event.target as HTMLElement;
-    const forbiddenTags = ['P', 'H1', 'SPAN', 'A', 'BUTTON'];
+    const forbiddenTags = ['BUTTON', 'A', 'SPAN'];
 
     if (forbiddenTags.includes(target.tagName)) {
       return;
     }
-  
+
     this.router.navigate(['/topics/view', topicId]);
   }
-  
+
+  DeleteTopic(topicId:number)
+  {
+    this.topicService.deleteTopic(topicId);
+    this.loadTopics(true);
+  }
+
+  ModifyTopic(topicId:number)
+  {
+    this.router.navigate(['/topics/modify', topicId]);
+  }
 }

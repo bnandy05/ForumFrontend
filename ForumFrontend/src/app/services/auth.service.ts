@@ -22,6 +22,9 @@ export class AuthService {
       next: (response) => {
         localStorage.setItem('token', response.token);
         this.token.next(response.token);
+        localStorage.setItem('id', response.user.id);
+        localStorage.setItem('avatar', response.user.avatar);
+        localStorage.setItem('username', response.user.name);
         this.router.navigate(['/']);
         this.messageService.add({ severity: 'success', summary: 'Sikeres bejelentkezés', detail: 'Üdvözöljük!' });
       },
@@ -36,6 +39,9 @@ export class AuthService {
       next: () => {
         localStorage.removeItem('token');
         this.token.next(null);
+        localStorage.removeItem('id');
+        localStorage.removeItem('avatar');
+        localStorage.removeItem('username');
         this.router.navigate(['/login']);
         this.messageService.add({ severity: 'success', summary: 'Sikeres kijelentkezés', detail: 'Viszontlátásra!' });
       },
@@ -90,11 +96,51 @@ export class AuthService {
     });
   }
 
+  uploadAvatar(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    this.http.post(`${this.apiUrl}/avatar/upload`, formData, {withCredentials: true}).subscribe({
+      next: (response: any) => {
+        localStorage.setItem('avatar', response.url);
+        this.messageService.add({ severity: 'success', summary: 'Sikeres feltöltés', detail: 'Az avatar sikeresen feltöltve!' });
+        this.reloadPage();
+      },
+      error: (err) => {
+        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt az avatar feltöltése során.' });
+      }
+    });
+  }
+
+  deleteAvatar() {
+    this.http.delete(`${this.apiUrl}/avatar/delete`, {withCredentials: true}).subscribe({
+      next: (response: any) => {
+        localStorage.removeItem('avatar');
+        this.messageService.add({ severity: 'success', summary: 'Sikeres törlés', detail: 'Az avatar sikeresen törölve!' });
+        this.reloadPage();
+      },
+      error: (err) => {
+        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt az avatar törlése során.' });
+        console.error(err)
+      }
+    });
+  }
+
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
   }
 
   getUser() {
     return this.http.get(`${this.apiUrl}/user`);
+  }
+
+  getOtherUser(id: number) {
+    return this.http.post(`${this.apiUrl}/user/${id}`, { withCredentials: true });
+  }
+
+  reloadPage() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([this.router.url]);
+    });
   }
 }

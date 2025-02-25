@@ -9,22 +9,65 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <img [src]="userProfile.picture" alt="Profil kép" class="img-fluid rounded-circle">
+                            <p-avatar image="https://berenandor.moriczcloud.hu/storage/{{userProfile.avatar}}" class="mr-2" size="xlarge" shape="circle" />
                         </div>
                         <div class="col-md-8 text-end">
                             <h4 class="mb-3">{{ userProfile.name }}</h4>
-                            <p><strong>Email:</strong> {{ userProfile.email }}</p>
+                            <p *ngIf="ownProfile"><strong>Email:</strong> {{ userProfile.email }}</p>
                             <p><strong>Regisztráció dátuma:</strong> {{ userProfile.created_at | date }}</p>
                         </div>
                     </div>
                     <hr>
+                    <div *ngIf="ownProfile">
+                    <div class="row">
+                        <div class="profile-container">
+                            <div class="row mb-3">
+                            <h2 class="text-center">Profilkép feltöltése</h2>
+                            <p-fileUpload
+                            mode="basic"
+                            name="file"
+                            chooseLabel="Select File"
+                            (onSelect)="onFileSelect($event)"
+                            accept="image/*"
+                            [showUploadButton]="false"
+                            [showCancelButton]="false"
+                            >
+                            </p-fileUpload>
+                        </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+                                    <button pButton type="button" (click)="uploadAvatar()" severity="success">Feltöltés</button>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+                                    <button pButton type="button" (click)="deleteAvatar()" severity="danger">Jelenlegi Avatar Törlése</button>  
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                          </div>
+                    </div>
+                    <hr>
                     <div class="row">
                         <div class="col-md-6">
-                            <a href="change-password"><button href="password/change" class="btn btn-warning btn-block mb-2">Jelszó változtatása</button></a>
-                            
+                            <button pButton type="button" (click)="passwordChange()" severity="warn">Jelszó változtatás</button>
                         </div>
                         <div class="col-md-6">
-                            <a href="logout"><button class="btn btn-danger btn-block">Kijelentkezés</button></a>
+                            <button pButton type="button" (click)="logout()" severity="danger">Kijelentkezés</button>
+                        </div>
+                    </div>
+                    </div>
+                    <div *ngIf="!ownProfile">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <button pButton type="button" (click)="topics()" severity="success">Felhasználó Topic-jai</button>
+                            </div>
+                            <div class="col-md-2"></div>
                         </div>
                     </div>
                 </div>

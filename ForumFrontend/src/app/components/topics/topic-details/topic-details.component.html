@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Forum</title>
   </head>
-  <app-header></app-header>
   <body>
+    <app-header></app-header>
     <div class="container">
       <div *ngFor="let topic of topics" >
         <div class="card post-card">
           <div class="card-body">
             <div class="d-flex align-items-start">
+              <div class="menu-container" *ngIf="topicOwner">
+                <p-menu #menu [popup]="true" [model]="menuItems" appendTo="body"></p-menu>
+                <p-button class="menu-button" (click)="openTopicMenu($event, topic.id, menu)" icon="pi pi-ellipsis-v" />
+              </div>
               <div class="vote-buttons me-3">
                 <button
                   (click)="voteTopic('up')"
@@ -30,6 +34,7 @@
                 </button>
               </div>
               <div class="w-100">
+                <p-avatar image="https://berenandor.moriczcloud.hu/storage/{{  topic.user.avatar  }}" size="large" class="mr-2" shape="circle" />
                 <h1 class="card-title">{{ topic.title }}</h1>
                 <p class="text-muted">
                   Kategória:
@@ -41,58 +46,72 @@
                   by <span class="fw-bold">{{ topic.user.name }}</span> -
                   {{ topic.timeAgo }}
                 </p>
-                <p class="card-text" [innerHTML]="topic.content | safeHtml"></p>
+                <p class="card-text" [innerHTML]="topic.content | safeHtml" (click)="openImage($event)"></p>
               </div>
             </div>
             <div class="comment-section">
               <h5>Hozzászólások</h5>
-              <div
-                *ngFor="let comment of topic.comments; index as i"
-                class="mb-2 border-bottom pb-2 d-flex justify-content-between align-items-start"
-              >
-                <div>
+              <div *ngFor="let comment of topic.comments; index as i" class="mb-2 border-bottom pb-2 d-flex justify-content-between align-items-start">
+                <div *ngIf="editingCommentId !== comment.id; else editCommentTemplate">
                   <p class="mb-1">
-                    <strong>{{ comment.user.name }}</strong> -
-                    {{ comment.timeAgo }}
+                    <p-avatar image="https://berenandor.moriczcloud.hu/storage/{{ comment.user.avatar }}" class="mr-2" shape="circle" />
+                    <strong>{{ comment.user.name }}</strong> - {{ comment.timeAgo }}
                   </p>
                   <p class="mb-0">{{ comment.content }}</p>
                 </div>
+                <ng-template #editCommentTemplate>
+                  <div class="w-100">
+                    <textarea pTextarea class="form-control mb-2" [(ngModel)]="editedCommentContent"></textarea>
+                    <div class="input-group">
+                      <button class="btn btn-secondary emoji-button" (click)="toggleEmojiPicker()">😊</button>
+                    </div>
+                    <div *ngIf="showEmojiPicker" class="emoji-picker">
+                      <emoji-mart [set]="'twitter'" [i18n]="emojiLang" (emojiSelect)="addEmoji($event)"></emoji-mart>
+                    </div>
+                    <button class="btn btn-primary btn-sm" (click)="saveEditedComment(comment.id)">Mentés</button>
+                    <button class="btn btn-secondary btn-sm" (click)="cancelEdit()">Mégse</button>
+                  </div>
+                </ng-template>
+                <div class="menu-container" *ngIf="comment.user_id == currentUserId || topicOwner">
+                  <p-menu #menu [popup]="true" [model]="comment.menuItems" appendTo="body"></p-menu>
+                  <p-button class="menu-button" (click)="openMenu($event, comment.id, menu)" icon="pi pi-ellipsis-v" />
+                </div>
                 <div class="comment-vote-buttons ms-3 text-center">
-                  <button
-                    (click)="voteComment(comment.id, i, 'up')"
-                    [class.active]="userCommentVotes[comment.id] === 'up'"
-                    class="btn"
-                  >
+                  <button (click)="voteComment(comment.id, i, 'up')" [class.active]="userCommentVotes[comment.id] === 'up'" class="btn">
                     &#x25B2;
                   </button>
                   <span>{{ comment.upvote_count }}</span>
-                  <button
-                    (click)="voteComment(comment.id, i, 'down')"
-                    [class.active]="userCommentVotes[comment.id] === 'down'"
-                    class="btn"
-                  >
+                  <button (click)="voteComment(comment.id, i, 'down')" [class.active]="userCommentVotes[comment.id] === 'down'" class="btn">
                     &#x25BC;
                   </button>
                 </div>
               </div>
               <div class="comment-input">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Írj egy hozzászólást..."
-                  [(ngModel)]="newComment[topic.id]"
-                />
-                <button
-                  class="btn btn-primary mt-2"
-                  (click)="addComment(topic.id)"
-                >
-                  Küldés
-                </button>
-              </div>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Írj egy hozzászólást..."
+                    [(ngModel)]="newComment"
+                  />
+                  <button class="btn btn-secondary emoji-button" (click)="toggleEmojiPicker()">
+                    😊
+                  </button>
+                </div>
+              
+                <div *ngIf="showEmojiPicker" class="emoji-picker">
+                  <emoji-mart [set]="'twitter'" [i18n]="emojiLang" (emojiSelect)="addEmoji($event)"></emoji-mart>
+                </div>
+              
+                <button class="btn btn-primary mt-2" (click)="addComment(topic.id)">Küldés</button>
+              </div>              
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="modal" *ngIf="isImageModalOpen" (click)="isImageModalOpen = false">
+      <img [src]="selectedImage" class="full-image">
     </div>
   </body>
 </html>

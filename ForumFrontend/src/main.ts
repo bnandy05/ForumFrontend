@@ -7,7 +7,7 @@ import { authInterceptor } from './app/auth.interceptor';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
 import { MessageService } from 'primeng/api';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ToastModule } from 'primeng/toast';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
@@ -17,7 +17,7 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor])),
     importProvidersFrom(ToastModule),
-    provideAnimations(),
+    provideAnimationsAsync(),
     providePrimeNG({
       theme: {
           preset: Aura

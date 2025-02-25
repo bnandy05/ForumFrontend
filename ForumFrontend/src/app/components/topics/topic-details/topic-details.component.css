@@ -1,20 +1,17 @@
-/* Alap beállítások */
 body {
   font-family: Arial, sans-serif;
-  background-color: #121212;
+  background-color: #1e1e1e;
   color: white;
   margin: 0;
   padding: 0;
 }
 
-/* Konténer középre igazítása */
 .container {
-  max-width: 800px;
+  max-width: 1400px;
   margin: 20px auto;
   padding: 20px;
 }
 
-/* Fórum kártyák */
 .forum-container {
   background-color: #1e1e1e;
   border-radius: 10px;
@@ -28,7 +25,10 @@ body {
   transform: scale(1.02);
 }
 
-/* Kártyák */
+.card-text{
+  width: 100%;
+}
+
 .post-card {
   background-color: #242424;
   border-radius: 10px;
@@ -41,7 +41,6 @@ body {
   box-shadow: 0px 4px 15px rgba(0, 255, 0, 0.7);
 }
 
-/* Szavazás gombok */
 .vote-buttons, .comment-vote-buttons {
   display: flex;
   flex-direction: column;
@@ -64,13 +63,11 @@ body {
   color: #00ff00;
 }
 
-/* Aktív gomb */
 .vote-buttons .active, .comment-vote-buttons .active {
   color: #00ff00;
   font-weight: bold;
 }
 
-/* Komment szekció */
 .comment-section {
   margin-top: 20px;
   padding-top: 15px;
@@ -82,16 +79,9 @@ body {
   margin-bottom: 10px;
 }
 
-/* Kommentek */
 .comment-section .border-bottom {
   padding-bottom: 10px;
   margin-bottom: 10px;
-}
-
-.comment-input {
-  margin-top: 15px;
-  display: flex;
-  flex-direction: column;
 }
 
 .comment-input input {
@@ -113,11 +103,48 @@ body {
   transition: 0.3s;
 }
 
+.comment-input {
+  position: relative;
+  margin-top: 10px;
+}
+
+.emoji-button {
+  font-size: 1.5em;
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.emoji-button:hover {
+  background-color: #e0e0e0;
+}
+
+.emoji-picker {
+  position: absolute;
+  bottom: 100%;
+  left: 80%;
+  z-index: 1000;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  max-width: 300px;
+}
+
+@media (max-width: 768px) {
+  .emoji-picker {
+    display: none !important;
+  }
+  .emoji-button{
+    display: none !important;
+  }
+}
+
 .comment-input button:hover {
   background-color: #009900;
 }
 
-/* Gombok */
 .btn-primary {
   background-color: #00cc00;
   border: none;
@@ -130,4 +157,28 @@ body {
 
 .btn-primary:hover {
   background-color: #009900;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.full-image {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.full-image:hover {
+  transform: scale(1.05);
 }
