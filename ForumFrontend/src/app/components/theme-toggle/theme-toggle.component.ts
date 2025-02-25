@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { NgClass, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { ThemeService } from '../../services/theme.service';
 
