@@ -1,151 +1,91 @@
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: var(--background);
-  font-family: Arial, sans-serif;
-  margin: 0;
-  animation: fadeIn 1s ease-in-out;
+/* Navbar */
+.navbar {
+  background-color: var(--navbar-bg) !important;
+  border-bottom: 2px solid var(--navbar-border);
+  transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
-/* Belépő animáció */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.login-container {
-  width: 100%;
-  max-width: 400px;
-  padding: 20px;
-}
-
-.login-panel {
-  background-color: var(--surface);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  text-align: center;
-  opacity: 0;
-  animation: slideIn 0.8s ease-in-out forwards;
-}
-
-/* Panel becsúszó animáció */
-@keyframes slideIn {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-h2 {
-  color: var(--primary);
-  margin-bottom: 20px;
-  animation: fadeInText 1s ease-in-out forwards;
-}
-
-/* Cím fade-in animáció */
-@keyframes fadeInText {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.form-group {
-  text-align: left;
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  font-size: 14px;
-  color: var(--text-primary);
-  margin-bottom: 5px;
-}
-
-input {
-  width: 100%;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid var(--border);
-  background-color: var(--surface);
-  color: var(--text-primary);
-  border-radius: 5px;
-  outline: none;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-/* Input mező fókusz effekt */
-input:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 8px rgba(180, 142, 173, 0.7);
-}
-
-/* Hibaüzenet */
-.error {
-  color: var(--error);
-  font-size: 14px;
-  margin-top: 5px;
-}
-
-.login-button {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
+.navbar-nav .nav-link {
+  color: var(--navbar-text);
   font-weight: bold;
-  background-color: var(--primary);
-  border: none;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.2s ease-in-out;
+  transition: color 0.3s ease-in-out;
 }
 
-/* Gomb hover és aktív állapot */
-.login-button:hover {
-  background-color: var(--secondary);
-  transform: translateY(-2px);
+.navbar-nav .nav-link:hover {
+  color: var(--navbar-hover);
 }
 
-.login-button:active {
-  transform: scale(0.95);
+/* Menü ikonok */
+.navbar-nav .nav-link i {
+  font-size: 16px;
+  color: inherit;
 }
 
-/* Letiltott gomb */
-.login-button:disabled {
-  background-color: var(--disabled);
-  cursor: not-allowed;
-}
-
-.additional-links {
+/* Felhasználói dropdown */
+.nav-item.dropdown .nav-link {
   display: flex;
-  justify-content: center;
-  margin-top: 10px;
+  align-items: center;
+  gap: 5px;
+  font-weight: bold;
 }
 
-.additional-links a {
-  font-size: 14px;
-  color: var(--primary);
-  text-decoration: none;
-  transition: color 0.3s, transform 0.2s;
+.nav-item.dropdown img {
+  border: 2px solid var(--navbar-hover);
+  transition: border-color 0.3s ease-in-out;
 }
 
-/* Link hover effekte */
-.additional-links a:hover {
-  color: var(--secondary);
-  transform: scale(1.05);
+.nav-item.dropdown:hover img {
+  border-color: var(--navbar-text);
+}
+
+/* Dropdown menü */
+.dropdown-menu {
+  background-color: var(--dropdown-bg);
+  border: 1px solid var(--navbar-border);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.dropdown-item {
+  color: var(--navbar-text);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.dropdown-item:hover {
+  background-color: var(--navbar-hover);
+  color: white;
+}
+
+/* Elválasztó vonal */
+.dropdown-divider {
+  border-color: var(--navbar-border);
+}
+
+/* Kijelentkezés piros kiemeléssel */
+.dropdown-item.text-danger {
+  font-weight: bold;
+  color: #dc3545;
+}
+
+.dropdown-item.text-danger:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Gombok */
+.navbar-toggler {
+  border: none;
+  color: var(--navbar-text);
+}
+
+.navbar-toggler-icon {
+  background-color: var(--navbar-text);
+  transition: background-color 0.3s;
+}
+
+/* Reszponzív támogatás */
+@media (max-width: 992px) {
+  .navbar-nav {
+    text-align: center;
+  }
 }

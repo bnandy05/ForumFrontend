@@ -19,7 +19,15 @@
     --border: #d6c4b2;      
     --highlight: #b08968;    
     --vote-up: #28a745;      
-    --vote-down: #dc3545;   
+    --vote-down: #dc3545;  
+    --navbar-bg: #f5ebe0; 
+    --navbar-text: #2c2c2c;   
+    --navbar-hover: #b08968;
+    --navbar-border: #d6c4b2;  
+    --dropdown-bg: #e3dac9;     
+    --icon-color: #6f4e37;      
+    --icon-hover: #8b5e3b;  
+    --list-hover: #d4b59e;      
 }
   .dark-theme {
     --background: #121212;
@@ -30,6 +38,14 @@
     --text-secondary: #aaaaaa;
     --border: #333333;
     --highlight: #dba7e0;
+    --navbar-bg: #1e1e2e;
+    --navbar-text: #eeeeee;
+    --navbar-hover: #a36fa8;
+    --navbar-border: #333333;
+    --dropdown-bg: #2a2a3a;
+    --icon-color: #c59ac7;     
+    --icon-hover: #dba8e3;      
+    --list-hover: #3c3c50;  
     --vote-up: #44c767;
     --vote-down: #ff4c4c;
   }
