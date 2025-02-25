@@ -23,6 +23,7 @@ body {
 
 .navbar .nav-link:hover {
   color: #1db954 !important;
+  cursor: pointer;
 }
 
 .dropdown-menu {

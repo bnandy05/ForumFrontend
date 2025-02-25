@@ -62,6 +62,8 @@ export class TopicDetailsComponent implements OnInit {
   editedCommentContent: string = '';
   menuItems: any[] = [];
   selectedTopicId: number = -1;
+  selectedImage: string | null = null;
+  isImageModalOpen = false;
 
   constructor(
     private topicService: TopicService,
@@ -99,6 +101,15 @@ export class TopicDetailsComponent implements OnInit {
       this.editedCommentContent += event.emoji.native;
     } else {
       this.newComment += event.emoji.native;
+    }
+  }
+
+  openImage(event: Event) {
+    const target = event.target as HTMLElement;
+
+    if (target.tagName === 'IMG') {
+      this.selectedImage = target.getAttribute('src');
+      this.isImageModalOpen = true;
     }
   }
 

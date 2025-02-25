@@ -77,3 +77,69 @@ p-editor .ql-container.ql-snow:focus {
     border-color: white;
     border-right-color: transparent;
 }
+
+::ng-deep .ql-toolbar {
+    background-color: #18181b !important;
+    border: 1px solid #3f3f46 !important;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 8px;
+}
+
+::ng-deep .ql-toolbar button svg {
+    fill: #e4e4e7 !important;
+    filter: brightness(1.6) !important;
+}
+
+::ng-deep svg{
+    fill: #e4e4e7 !important;
+    filter: brightness(1.6) !important;
+}
+
+::ng-deep svg:hover{
+    fill: #e4e4e7 !important;
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+}
+
+::ng-deep .ql-picker:hover .ql-picker-label svg .ql-stroke {
+    stroke: #ffffff !important;
+}
+  
+::ng-deep .ql-picker .ql-picker-options {
+    border: 1px solid #ccc;
+}
+  
+::ng-deep .ql-picker .ql-picker-options {
+    border: 2px solid #000;
+}
+
+::ng-deep .ql-toolbar button:hover svg {
+    fill: #ffffff !important;
+}
+
+::ng-deep .ql-toolbar .ql-picker {
+    color: #e4e4e7 !important;
+}
+
+::ng-deep .ql-toolbar .ql-picker-label:hover {
+    color: #ffffff !important;
+}
+
+::ng-deep .ql-toolbar .ql-picker-options {
+    background-color: #18181b !important;
+    border: 1px solid #3f3f46 !important;
+    border-radius: 8px !important;
+    color: #e4e4e7 !important;
+}
+
+::ng-deep .ql-toolbar .ql-picker-options .ql-picker-item:hover {
+    background-color: #27272a !important;
+    color: #ffffff !important;
+}
+
+::ng-deep .ql-container {
+    border: 1px solid #3f3f46 !important;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}

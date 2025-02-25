@@ -46,7 +46,7 @@
                   by <span class="fw-bold">{{ topic.user.name }}</span> -
                   {{ topic.timeAgo }}
                 </p>
-                <p class="card-text" [innerHTML]="topic.content | safeHtml"></p>
+                <p class="card-text" [innerHTML]="topic.content | safeHtml" (click)="openImage($event)"></p>
               </div>
             </div>
             <div class="comment-section">
@@ -109,6 +109,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="modal" *ngIf="isImageModalOpen" (click)="isImageModalOpen = false">
+      <img [src]="selectedImage" class="full-image">
     </div>
   </body>
 </html>

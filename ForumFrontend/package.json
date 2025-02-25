@@ -25,6 +25,8 @@
     "primeicons": "^7.0.0",
     "primeng": "^19.0.6",
     "quill": "^2.0.3",
+    "quill-image-drop-module": "^1.0.3",
+    "quill-image-resize-module": "^3.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

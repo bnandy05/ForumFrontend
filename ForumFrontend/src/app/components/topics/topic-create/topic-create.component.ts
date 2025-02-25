@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
 import {
@@ -11,6 +11,9 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { TopicService } from '../../../services/topic.service';
 import { EditorModule } from 'primeng/editor';
+import { MessageService, PrimeIcons } from 'primeng/api';
+import { Editor } from 'primeng/editor';
+import Quill from 'quill';
 
 @Component({
   selector: 'app-topic-create',
@@ -32,18 +35,35 @@ export class TopicCreateComponent implements OnInit {
   topicId: number | null = null;
   isModifying: boolean = false;
   topics: any[] = [];
+  toolbarOptions: any;
 
   constructor(
     private fb: FormBuilder,
     private topicService: TopicService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private messageService: MessageService
   ) {
     this.topicForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(255)]],
       content: ['', [Validators.required]],
       category_id: ['', [Validators.required]],
     });
+    this.toolbarOptions = {
+      toolbar: {
+        container: [
+          [{ 'header': [1, 2, 3, false] }],
+          ['bold', 'italic', 'underline'],
+          [{ 'color': [] }, { 'background': [] }],
+          [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+          [{ 'align': [] }],
+          ['link', 'image'],
+        ],
+        handlers: {
+          'image': () => this.triggerFileInput()
+        }
+      }
+    };
   }
 
   ngOnInit(): void {
@@ -148,5 +168,33 @@ export class TopicCreateComponent implements OnInit {
         },
       });
     }
+  }
+
+  imageHandler(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return;
+
+    const file = input.files[0];
+
+    if (file.size > 2 * 1024 * 1024) {
+      this.messageService.add({ severity: 'error', summary: 'Hiba', detail: '2 MB-nál nagyobb fájl feltöltése nem engedélyezett.' });
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e: ProgressEvent<FileReader>) => {
+      const imageUrl = e.target?.result as string;
+      const contentControl = this.topicForm.get('content');
+
+      if (contentControl) {
+        const currentContent = contentControl.value || '';
+        contentControl.setValue(`${currentContent}<img src="${imageUrl}" style="max-width:100%; height:auto; max-height:800px">`);
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  triggerFileInput() {
+    document.getElementById('imageUpload')?.click();
   }
 }
