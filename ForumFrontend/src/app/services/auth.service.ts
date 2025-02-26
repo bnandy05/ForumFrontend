@@ -102,6 +102,7 @@ export class AuthService {
 
     this.http.post(`${this.apiUrl}/avatar/upload`, formData, {withCredentials: true}).subscribe({
       next: (response: any) => {
+        localStorage.removeItem('avatar');
         localStorage.setItem('avatar', response.url);
         this.messageService.add({ severity: 'success', summary: 'Sikeres feltöltés', detail: 'Az avatar sikeresen feltöltve!' });
         this.reloadPage();

@@ -81,7 +81,8 @@
         <p class="post-meta">
           by
           <span class="author">{{ topic.user.name }}</span>
-          - {{ topic.timeAgo }}
+          <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{topic.created_at}} - {{topic.updated_at}}">
+          - {{ topic.timeAgo }}</span>
         </p>
         <div class="post-text" [innerHTML]="topic.content | safeHtml"></div>
         <div class="vote-buttons me-3">
