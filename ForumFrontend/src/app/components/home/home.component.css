@@ -176,3 +176,13 @@ body {
 .btn-primary:hover {
   background-color: var(--primary);
 }
+
+::ng-deep .p-button
+{
+  background-color: var(--icon-color) !important;
+  border: var(--primary) !important;
+}
+::ng-deep .p-button:hover{
+  background-color: var(--icon-hover) !important;
+  border: var(--primary) !important;
+}
