@@ -1,10 +1,17 @@
-/* Navbar */
 .navbar {
   background-color: var(--navbar-bg) !important;
   border-bottom: 2px solid var(--navbar-border);
   transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
+li{
+  cursor: pointer;
+}
 
+
+li.span
+{
+  cursor: none;
+}
 .navbar-nav .nav-link {
   color: var(--navbar-text);
   font-weight: bold;
@@ -15,13 +22,11 @@
   color: var(--navbar-hover);
 }
 
-/* Menü ikonok */
 .navbar-nav .nav-link i {
   font-size: 16px;
   color: inherit;
 }
 
-/* Felhasználói dropdown */
 .nav-item.dropdown .nav-link {
   display: flex;
   align-items: center;
@@ -38,7 +43,6 @@
   border-color: var(--navbar-text);
 }
 
-/* Dropdown menü */
 .dropdown-menu {
   background-color: var(--dropdown-bg);
   border: 1px solid var(--navbar-border);
@@ -56,12 +60,10 @@
   color: white;
 }
 
-/* Elválasztó vonal */
 .dropdown-divider {
   border-color: var(--navbar-border);
 }
 
-/* Kijelentkezés piros kiemeléssel */
 .dropdown-item.text-danger {
   font-weight: bold;
   color: #dc3545;
@@ -69,10 +71,10 @@
 
 .dropdown-item.text-danger:hover {
   background-color: #dc3545;
-  color: white;
+  color: var(--navbar-border);
 }
 
-/* Gombok */
+
 .navbar-toggler {
   border: none;
   color: var(--navbar-text);
@@ -83,7 +85,6 @@
   transition: background-color 0.3s;
 }
 
-/* Reszponzív támogatás */
 @media (max-width: 992px) {
   .navbar-nav {
     text-align: center;

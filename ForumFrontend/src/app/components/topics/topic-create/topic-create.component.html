@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="container mt-4">
     <h2>Új Topic létrehozása</h2>
-    
+
     <form [formGroup]="topicForm" (ngSubmit)="onSubmit()" class="needs-validation">
       <div class="mb-3">
         <label for="title" class="form-label">Cím</label>
@@ -10,8 +10,8 @@
 
       <div class="mb-3">
         <label for="content" class="form-label">Tartalom</label>
-        
-        <p-editor #editor formControlName="content" [style]="{ height: '320px' }" 
+
+        <p-editor #editor formControlName="content" [style]="{ height: '320px' }"
           [modules]="toolbarOptions">
           <p-header hidden></p-header>
         </p-editor>
