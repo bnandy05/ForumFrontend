@@ -71,7 +71,7 @@ li.span
 
 .dropdown-item.text-danger:hover {
   background-color: #dc3545;
-  color: var(--navbar-border);
+  color: var(--logout-color) !important;
 }
 
 

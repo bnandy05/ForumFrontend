@@ -1,13 +1,13 @@
 body {
-  background-color: var(--background);
+  background-color: var(--navbar-bg);
   color: var(--text-primary);
-  font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
 }
 
 .container {
-  max-width: 800px;
+  position: relative;
+  max-width: 81rem;
   margin: 20px auto;
   padding: 20px;
   background-color: var(--surface);
@@ -16,7 +16,6 @@ body {
   transition: background-color 0.3s ease-in-out;
 }
 
-/* Kategória és kereső formázás */
 .form-label {
   font-weight: bold;
   color: var(--text-primary);
@@ -40,7 +39,6 @@ body {
   outline: none;
 }
 
-/* Fórum téma konténerek */
 .forum-container {
   background-color: var(--surface);
   padding: 15px;
@@ -56,7 +54,6 @@ body {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Post */
 .post {
   display: flex;
   flex-direction: column;
@@ -95,7 +92,6 @@ body {
   color: var(--highlight);
 }
 
-/* Menü */
 .menu-container {
   position: absolute;
   right: 10px;
@@ -155,7 +151,6 @@ body {
   transform: scale(0.9);
 }
 
-/* Upvote és Downvote */
 .vote-buttons button:nth-child(1) {
   color: var(--vote-up);
 }
@@ -164,12 +159,10 @@ body {
   color: var(--vote-down);
 }
 
-/* Betöltés */
 .spinner-border {
   color: var(--primary);
 }
 
-/* Betöltés gomb */
 .btn-primary {
   background-color: var(--highlight);
   border: none;

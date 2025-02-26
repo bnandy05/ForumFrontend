@@ -10,24 +10,25 @@
 }
 
 :root {
-    --background: #f5ebe0;   
-    --surface: #e3dac9;    
-    --primary: #3a3a3a;  
-    --secondary: #6c757d;    
-    --text-primary: #2c2c2c; 
+    --background: #f5ebe0;
+    --surface: #e3dac9;
+    --primary: #3a3a3a;
+    --secondary: #6c757d;
+    --text-primary: #2c2c2c;
     --text-secondary: #5a5a5a;
-    --border: #d6c4b2;      
-    --highlight: #b08968;    
-    --vote-up: #28a745;      
-    --vote-down: #dc3545;  
-    --navbar-bg: #f5ebe0; 
-    --navbar-text: #2c2c2c;   
+    --border: #d6c4b2;
+    --highlight: #b08968;
+    --vote-up: #28a745;
+    --vote-down: #dc3545;
+    --navbar-bg: #f5ebe0;
+    --navbar-text: #2c2c2c;
     --navbar-hover: #b08968;
-    --navbar-border: #d6c4b2;  
-    --dropdown-bg: #e3dac9;     
-    --icon-color: #6f4e37;      
-    --icon-hover: #8b5e3b;  
-    --list-hover: #d4b59e;      
+    --navbar-border: #d6c4b2;
+    --dropdown-bg: #e3dac9;
+    --icon-color: #6f4e37;
+    --icon-hover: #8b5e3b;
+    --list-hover: #d4b59e;
+    --logout-color: #fff;
 }
   .dark-theme {
     --background: #121212;
@@ -43,10 +44,10 @@
     --navbar-hover: #a36fa8;
     --navbar-border: #333333;
     --dropdown-bg: #2a2a3a;
-    --icon-color: #c59ac7;     
-    --icon-hover: #dba8e3;      
-    --list-hover: #3c3c50;  
+    --icon-color: #c59ac7;
+    --icon-hover: #dba8e3;
+    --list-hover: #3c3c50;
     --vote-up: #44c767;
     --vote-down: #ff4c4c;
+    --logout-color: #000000;
   }
-  

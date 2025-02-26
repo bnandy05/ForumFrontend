@@ -25,7 +25,7 @@
             <span class="d-none d-lg-inline">{{ userProfile.name }}</span>
           </a>
           <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="userDropdown">
-            <span class="px-3 py-2 fw-bold">Üdv, {{ userProfile.name }}!</span>
+            <span class="px-3 py-2 fw-bold" style="cursor: default;">Üdv, {{ userProfile.name }}!</span>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" (click)="redirect('profile')"><i class="me-1 pi pi-user"></i> Profil</a></li>
             <li><a class="dropdown-item" (click)="redirect('my-topics')"><i class="me-1 pi pi-folder"></i> Én Topicjaim</a></li>
