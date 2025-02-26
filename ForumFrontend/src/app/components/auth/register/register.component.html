@@ -1,6 +1,10 @@
 <body>
   <app-theme-toggle style="display: none;"></app-theme-toggle>
   <div class="register-container">
+    <div class="logo-container">
+      <img src="https://berenandor.moriczcloud.hu/storage/logo-dark.png" *ngIf="themeService.theme() === 'dark'" class="register-logo">
+      <img src="https://berenandor.moriczcloud.hu/storage/logo.png" *ngIf="themeService.theme() === 'light'" class="register-logo">
+    </div>
     <div class="register-panel">
       <h2 class="text-center mb-4">Regisztráció</h2>
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">

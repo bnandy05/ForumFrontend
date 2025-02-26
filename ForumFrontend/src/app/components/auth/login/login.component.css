@@ -25,6 +25,25 @@ body {
   padding: 20px;
 }
 
+/* Logo stílusok */
+.logo-container {
+  text-align: center;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+.login-logo {
+  max-width: 150px;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.login-logo:hover {
+  transform: scale(1.05);
+}
+/* Logo stílusok vége */
+
 .login-panel {
   background-color: var(--surface);
   padding: 20px;

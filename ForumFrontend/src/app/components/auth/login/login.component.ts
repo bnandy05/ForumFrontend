@@ -3,6 +3,7 @@ import { AuthService } from '../../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ThemeToggleComponent } from '../../theme-toggle/theme-toggle.component';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent {
   errorMessage: string = '';
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    public themeService: ThemeService
   ) {}
 
   onSubmit() {

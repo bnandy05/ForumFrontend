@@ -2,7 +2,8 @@
   <div class="container">
 
     <a class="navbar-brand fw-bold" (click)="redirect('')">
-      <img src="https://berenandor.moriczcloud.hu/storage/logo.png" style="height: 5rem;">
+      <img src="https://berenandor.moriczcloud.hu/storage/logo-header-dark.png" *ngIf="themeService.theme() === 'dark'" style="height: 5rem;">
+      <img src="https://berenandor.moriczcloud.hu/storage/logo-header.png" *ngIf="themeService.theme() === 'light'" style="height: 5rem;">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
       <span class="navbar-toggler-icon"></span>

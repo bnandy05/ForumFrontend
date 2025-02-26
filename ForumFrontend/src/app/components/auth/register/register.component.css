@@ -24,6 +24,25 @@ body {
     max-width: 400px;
     padding: 20px;
 }
+
+/* Logo stílusok */
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+.register-logo {
+    max-width: 150px;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.register-logo:hover {
+    transform: scale(1.05);
+}
+/* Logo stílusok vége */
   
 .register-panel {
     background-color: var(--surface);
