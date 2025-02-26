@@ -188,7 +188,7 @@ export class TopicCreateComponent implements OnInit {
 
       if (contentControl) {
         const currentContent = contentControl.value || '';
-        contentControl.setValue(`${currentContent}<img src="${imageUrl}" style="max-width:100%; height:auto; max-height:800px">`);
+        contentControl.setValue(`${currentContent}<img src="${imageUrl}">`);
       }
     };
     reader.readAsDataURL(file);
