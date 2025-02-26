@@ -1,3 +1,24 @@
+/* a{
+    text-decoration: none;
+    color: #ffffff;
+    padding: 10px 15px;
+    transition: all 0.3s ease-in-out;
+}
+
+a:hover{
+    color: #000;
+    transform: translateX(5px);
+    cursor: pointer;
+    background-color: #1db954;
+
+}
+a:hover i{
+    color: #000;
+    transition: all 0.3s ease-in-out;
+    transform: translateX(5px);
+    cursor: pointer;
+} */
+
 .navbar {
   background-color: var(--navbar-bg) !important;
   border-bottom: 2px solid var(--navbar-border);
@@ -71,7 +92,7 @@ li.span
 
 .dropdown-item.text-danger:hover {
   background-color: #dc3545;
-  color: var(--logout-color) !important;
+  color: white;
 }
 
 

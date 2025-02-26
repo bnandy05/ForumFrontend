@@ -4,7 +4,6 @@
     <a class="navbar-brand fw-bold" (click)="redirect('')">
       <img src="https://berenandor.moriczcloud.hu/storage/logo.png" style="height: 5rem;">
     </a>
-    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -29,10 +28,11 @@
             <span class="d-none d-lg-inline">{{ userProfile.name }}</span>
           </a>
           <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="userDropdown">
-            <li class="px-3 py-2 fw-bold">Üdv, {{ userProfile.name }}!</li>
+            <span class="px-3 py-2 fw-bold" style="cursor: default;">Üdv, {{ userProfile.name }}!</span>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" (click)="redirect('profile')"><i class="me-1 pi pi-user"></i> Profil</a></li>
             <li><a class="dropdown-item" (click)="redirect('my-topics')"><i class="me-1 pi pi-folder"></i> Én Topicjaim</a></li>
+            <li><app-theme-toggle></app-theme-toggle></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item text-danger" (click)="redirect('logout')"><i class="me-1 pi pi-sign-out"></i> Kijelentkezés</a></li>
           </ul>
