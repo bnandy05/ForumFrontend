@@ -1,6 +1,7 @@
 <body>
-  <div class="login-container">
-    <div class="login-panel">
+  <app-theme-toggle style="display: none;"></app-theme-toggle>
+  <div class="register-container">
+    <div class="register-panel">
       <h2 class="text-center mb-4">Regisztráció</h2>
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="mb-3">
@@ -27,9 +28,9 @@
           </div>
         </div>
 
-        <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary w-100">Regisztráció</button>
+        <button type="submit" [disabled]="registerForm.invalid" class="btn w-100 register-button">Regisztráció</button>
 
-        <div class="mt-3 text-center">
+        <div class="mt-3 text-center additional-links">
           <a href="login" class="text-decoration-none">Már van fiókom</a>
         </div>
       </form>

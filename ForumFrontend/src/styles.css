@@ -29,6 +29,7 @@
     --icon-hover: #8b5e3b;
     --list-hover: #d4b59e;
     --logout-color: #fff;
+    --disabled: #474747;
 }
   .dark-theme {
     --background: #121212;
@@ -50,5 +51,6 @@
     --vote-up: #44c767;
     --vote-down: #ff4c4c;
     --logout-color: #000000;
+    --disabled: #474747;
   }
 
