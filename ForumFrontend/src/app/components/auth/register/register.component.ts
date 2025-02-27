@@ -4,19 +4,21 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { ThemeToggleComponent } from '../../theme-toggle/theme-toggle.component';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, ThemeToggleComponent],
 })
 export class RegisterComponent {
   registerForm: FormGroup;
   apiUrl = 'https://berenandor.moriczcloud.hu/api/register';
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private messageService : MessageService) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private messageService: MessageService, public themeService: ThemeService) {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(255)]],
       email: ['', [Validators.required, Validators.email]],

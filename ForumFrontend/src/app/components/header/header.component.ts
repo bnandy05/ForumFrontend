@@ -5,10 +5,12 @@ import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { PrimeIcons } from 'primeng/api';
 import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
+import { CommonModule } from '@angular/common';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-header',
-  imports: [AvatarModule, AvatarGroupModule,ThemeToggleComponent],
+  imports: [AvatarModule, AvatarGroupModule,ThemeToggleComponent, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -16,7 +18,8 @@ export class HeaderComponent implements OnInit{
   userProfile: any = {};
 
   constructor(private authService: AuthService,
-    private router: Router
+    private router: Router,
+    public themeService: ThemeService
   )
   {}
 

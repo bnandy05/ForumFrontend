@@ -1,5 +1,10 @@
 <body>
+  <app-theme-toggle style="display: none;"></app-theme-toggle>
   <div class="login-container">
+    <div class="logo-container">
+      <img src="https://berenandor.moriczcloud.hu/storage/logo-dark.png" *ngIf="themeService.theme() === 'dark'" class="login-logo">
+      <img src="https://berenandor.moriczcloud.hu/storage/logo.png" *ngIf="themeService.theme() === 'light'" class="login-logo">
+    </div>
     <div class="login-panel">
       <h2>Bejelentkezés</h2>
       <form (ngSubmit)="onSubmit()">
@@ -17,7 +22,7 @@
           {{ errorMessage }}
         </div>
         <button type="submit" class="login-button">Bejelentkezés</button>
-        <div class="additional-links">
+        <div class="additional-links gap-5">
           <a href="forgot-password">Elfelejtett jelszó?</a>
           <a href="register">Regisztráció</a>
         </div>

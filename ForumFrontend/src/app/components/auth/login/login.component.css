@@ -8,7 +8,6 @@ body {
   margin: 0;
 }
 
-/* Belépő animáció */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -26,6 +25,25 @@ body {
   padding: 20px;
 }
 
+/* Logo stílusok */
+.logo-container {
+  text-align: center;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+.login-logo {
+  max-width: 150px;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.login-logo:hover {
+  transform: scale(1.05);
+}
+/* Logo stílusok vége */
+
 .login-panel {
   background-color: var(--surface);
   padding: 20px;
@@ -37,7 +55,6 @@ body {
   transition: background-color 0.3s ease-in-out;
 }
 
-/* Panel becsúszó animáció */
 @keyframes slideIn {
   from {
     transform: translateY(-20px);
@@ -55,7 +72,6 @@ h2 {
   animation: fadeInText 1s ease-in-out forwards;
 }
 
-/* Cím fade-in animáció */
 @keyframes fadeInText {
   from {
     opacity: 0;
@@ -89,13 +105,11 @@ input {
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/* Input mező fókusz effekt */
 input:focus {
   border-color: var(--primary);
   box-shadow: 0 0 8px rgba(180, 142, 173, 0.7);
 }
 
-/* Hibaüzenet */
 .error {
   color: var(--error);
   font-size: 14px;
@@ -115,7 +129,6 @@ input:focus {
   transition: background 0.3s, transform 0.2s ease-in-out;
 }
 
-/* Gomb hover és aktív állapot */
 .login-button:hover {
   background-color: var(--secondary);
   transform: translateY(-2px);
@@ -125,7 +138,6 @@ input:focus {
   transform: scale(0.95);
 }
 
-/* Letiltott gomb */
 .login-button:disabled {
   background-color: var(--disabled);
   cursor: not-allowed;
@@ -144,7 +156,6 @@ input:focus {
   transition: color 0.3s, transform 0.2s;
 }
 
-/* Link hover effekte */
 .additional-links a:hover {
   color: var(--secondary);
   transform: scale(1.05);

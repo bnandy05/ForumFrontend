@@ -19,59 +19,59 @@
                     </div>
                     <hr>
                     <div *ngIf="ownProfile">
-                    <div class="row">
-                        <div class="profile-container">
-                            <div class="row mb-3">
+                        <div class="row">
                             <h2 class="text-center">Profilkép feltöltése</h2>
-                            <p-fileUpload
-                            mode="basic"
-                            name="file"
-                            chooseLabel="Select File"
-                            (onSelect)="onFileSelect($event)"
-                            accept="image/*"
-                            [showUploadButton]="false"
-                            [showCancelButton]="false"
-                            >
-                            </p-fileUpload>
+                            <input type="file" accept="image/*" (change)="onFileSelect($event)" class="form-control"/>
                         </div>
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <div class="col-md-8">
-                                    <button pButton type="button" (click)="uploadAvatar()" severity="success">Feltöltés</button>
-                                </div>
-                                <div class="col-md-2"></div>
+                        <div class="row mb-3 mt-3">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <button pButton type="button" (click)="uploadAvatar()" severity="success">Feltöltés</button>
                             </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-2"></div>
+                            <div class="col-md-2"></div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-2"></div>
                                 <div class="col-md-8">
                                     <button pButton type="button" (click)="deleteAvatar()" severity="danger">Jelenlegi Avatar Törlése</button>  
                                 </div>
                                 <div class="col-md-2"></div>
-                            </div>
-                          </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button pButton type="button" (click)="passwordChange()" severity="warn">Jelszó változtatás</button>
                         </div>
-                        <div class="col-md-6">
-                            <button pButton type="button" (click)="logout()" severity="danger">Kijelentkezés</button>
-                        </div>
-                    </div>
-                    </div>
-                    <div *ngIf="!ownProfile">
+                        <hr>
                         <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-8">
-                                <button pButton type="button" (click)="topics()" severity="success">Felhasználó Topic-jai</button>
+                            <div class="col-md-6">
+                                <button pButton type="button" (click)="passwordChange()" severity="warn">Jelszó változtatás</button>
                             </div>
-                            <div class="col-md-2"></div>
+                            <div class="col-md-6">
+                                <button pButton type="button" (click)="logout()" severity="danger">Kijelentkezés</button>
                         </div>
+                    </div>
+                </div>
+                <div *ngIf="!ownProfile">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <button pButton type="button" (click)="topics()" severity="success">Felhasználó Topic-jai</button>
+                        </div>
+                        <div class="col-md-2"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<p-dialog [(visible)]="cropperDialogVisible" header="Képvágás" [modal]="true" [closable]="false" [style]="{width: '500px'}">
+    <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="1 / 1"
+        format="png"
+        (imageCropped)="imageCropped($event)">
+    </image-cropper>
+    <div class="text-center mt-3">
+        <button pButton type="button" (click)="cropperDialogVisible = false" severity="secondary">Mégse</button>
+        <button pButton type="button" (click)="confirmCrop()" severity="success">Mentés</button>
+    </div>
+</p-dialog>
