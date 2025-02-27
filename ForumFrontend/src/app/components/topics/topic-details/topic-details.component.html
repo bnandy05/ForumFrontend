@@ -8,7 +8,7 @@
   <body>
     <app-header></app-header>
     <div class="container">
-      <div *ngFor="let topic of topics" >
+      <div *ngFor="let topic of topics" class="almafa">
         <div class="card post-card">
           <div class="card-body">
             <div class="d-flex align-items-start">
@@ -88,9 +88,9 @@
                     &#x25BC;
                   </button>
                 </div>
-              </div>
+              </div>                <div class="input-group"></div>
               <div class="comment-input">
-                <div class="input-group">
+
                   <input
                     type="text"
                     class="form-control"
@@ -112,7 +112,6 @@
           </div>
         </div>
       </div>
-    </div>
     <div class="modal" *ngIf="isImageModalOpen" (click)="isImageModalOpen = false">
       <img [src]="selectedImage" class="full-image">
     </div>
