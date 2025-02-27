@@ -70,8 +70,14 @@
         format="png"
         (imageCropped)="imageCropped($event)">
     </image-cropper>
-    <div class="text-center mt-3">
-        <button pButton type="button" (click)="cropperDialogVisible = false" severity="secondary">Mégse</button>
-        <button pButton type="button" (click)="confirmCrop()" severity="success">Mentés</button>
+    <div class="text-center mt-3 row">
+        <div class="col-md-6">
+            <button pButton type="button" (click)="cropperDialogVisible = false" severity="danger" class="mb-3">Mégse</button>
+        </div>
+        <div class="col-md-6">
+            <button pButton type="button" (click)="confirmCrop()" severity="success">Mentés</button>
+        </div>
+        
+        
     </div>
 </p-dialog>
