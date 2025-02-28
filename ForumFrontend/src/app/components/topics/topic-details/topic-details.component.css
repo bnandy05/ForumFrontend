@@ -272,3 +272,7 @@ textarea {
   width: 2rem;
   height: 2rem;
 }
+
+::ng-deep almafa{
+  border: 1px solid var(--border);
+}
