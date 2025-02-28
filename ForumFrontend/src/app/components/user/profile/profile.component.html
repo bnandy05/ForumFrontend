@@ -16,7 +16,48 @@
                             <p *ngIf="ownProfile"><strong>Email:</strong> {{ userProfile.email }}</p>
                             <p><strong>Regisztráció dátuma:</strong> {{ userProfile.created_at | date }}</p>
                         </div>
-                    </div>
+                            <hr>
+                            <div class="text-center">
+                                <h4>Felhasználó Statisztikái</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Topicok száma: {{ userProfile.stats.topic_count }}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>Kommentek száma: {{ userProfile.stats.comment_count }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Topic upvoteok: {{ userProfile.stats.topic_upvotes }}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>Topic downvoteok: {{ userProfile.stats.topic_downvotes }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Komment upvoteok: {{ userProfile.stats.comment_upvotes }}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>Komment downvoteok: {{ userProfile.stats.comment_downvotes }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Összes upvoteok: {{ userProfile.stats.total_upvotes }}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>Összes downvoteok: {{ userProfile.stats.total_downvotes }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4>Elismertség: {{userProfile.stats.total_votes_balance}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <hr>
                     <div *ngIf="ownProfile">
                         <div class="row">
