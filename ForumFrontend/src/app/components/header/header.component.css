@@ -3,6 +3,7 @@
   border-bottom: 2px solid var(--navbar-border);
   transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
+
 li{
   cursor: pointer;
 }
@@ -12,6 +13,11 @@ li.span
 {
   cursor: none;
 }
+
+.navbar-brand{
+  cursor: pointer;
+}
+
 .navbar-nav .nav-link {
   color: var(--navbar-text);
   font-weight: bold;
@@ -48,6 +54,10 @@ li.span
   border: 1px solid var(--navbar-border);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease-in-out;
+}
+
+.navbar-toggler-icon {
+  fill: var(--text-primary) !important;
 }
 
 .dropdown-item {

@@ -3,6 +3,11 @@ body {
   color: var(--text-primary);
   margin: 0;
   padding: 0;
+  transition: background-color 0.3s ease-in-out;
+}
+
+body input::placeholder {
+  color: var(--text-primary);
 }
 
 .container {
@@ -13,7 +18,6 @@ body {
   background-color: var(--surface);
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease-in-out;
 }
 
 .form-label {
