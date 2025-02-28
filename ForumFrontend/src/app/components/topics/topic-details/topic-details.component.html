@@ -18,7 +18,18 @@
               </div>
               
               <div class="w-100">
-                <p-avatar image="https://berenandor.moriczcloud.hu/storage/{{  topic.user.avatar  }}" size="large" class="mr-2" shape="circle" />
+                <div class="avatar-container">
+                  <p-avatar image="https://berenandor.moriczcloud.hu/storage/{{ topic.user.avatar }}" 
+                            size="large" class="mr-2 kep" shape="circle" />
+                  <span>
+                      <span class="fw-bold">{{ topic.user.name }}</span>
+                      <span data-bs-toggle="tooltip" data-bs-placement="top" 
+                            title="{{topic.created_at}} - {{topic.updated_at}}">
+                          - {{ topic.timeAgo }}
+                      </span>
+                  </span>
+              </div>
+              
                 <h1 class="card-title">{{ topic.title }}</h1>
                 <p class="text-muted">
                   Kategória:
@@ -27,8 +38,7 @@
                   }}</span>
                 </p>
                 <p class="text-muted">
-                  by <span class="fw-bold">{{ topic.user.name }}</span><span data-bs-toggle="tooltip" data-bs-placement="top" title="{{topic.created_at}} - {{topic.updated_at}}">
-                  - {{ topic.timeAgo }}</span>
+
                 </p>
                 <p class="card-text" [innerHTML]="topic.content | safeHtml" (click)="openImage($event)"></p>
               </div>
