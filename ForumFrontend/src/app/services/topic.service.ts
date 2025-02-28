@@ -253,7 +253,7 @@ export class TopicService {
       const isModified = dayjs(updatedAt).isAfter(dayjs(createdAt));
       const timeAgo = isModified
         ? `${dayjs.utc(createdAt).local().fromNow()} feltöltve, ${dayjs.utc(updatedAt).local().fromNow()} szerkesztve`
-        : `${dayjs.utc(createdAt).local().fromNow()} feltötve`;
+        : `${dayjs.utc(createdAt).local().fromNow()} feltöltve`;
       return timeAgo;
   }
 

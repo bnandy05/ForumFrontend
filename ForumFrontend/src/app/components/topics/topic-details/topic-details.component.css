@@ -146,6 +146,11 @@ body {
 
 .comment-input {
   margin-top: 20px;
+  color: var(--text-primary) !important;
+}
+
+.comment-input input::placeholder {
+  color: var(--text-primary) !important;
 }
 
 .input-group {
@@ -157,6 +162,14 @@ body {
   max-width: 100% !important;
   height: auto !important;
   max-height:800px !important;
+}
+
+.date {
+  color: var(--text-secondary) !important;
+}
+
+.upvote_count {
+  color: var(--text-primary) !important;
 }
 
 .form-control {
