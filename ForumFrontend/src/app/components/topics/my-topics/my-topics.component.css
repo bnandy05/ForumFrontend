@@ -177,3 +177,9 @@ body {
 .btn-primary:hover {
   background-color: var(--primary);
 }
+
+::ng-deep .post-text img {
+  max-width: 100% !important;
+  height: auto !important;
+  max-height:800px !important;
+}

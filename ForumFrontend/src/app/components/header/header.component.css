@@ -85,6 +85,10 @@ li.span
   transition: background-color 0.3s;
 }
 
+.udv{
+  font-weight: normal;
+  color: var(--navbar-text);
+}
 @media (max-width: 992px) {
   .navbar-nav {
     text-align: center;
