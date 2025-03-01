@@ -1,145 +1,117 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: white;
+    background-color: var(--background) !important;
+    color: var(--text-primary);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
 }
 
-.container {
-    max-width: 1400px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #1e1e1e;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 255, 0, 0.4);
+.topic-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.topic-card {
+    background-color: var(--surface);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
 }
 
 h2 {
-    text-align: center;
-    color: #00ff00;
+    color: var(--primary);
     margin-bottom: 20px;
 }
 
-.form-control, .form-select {
-    background-color: #222;
-    border: 1px solid #555;
-    color: white;
+.topic-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.input-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group select {
     padding: 10px;
-    border-radius: 5px;
-    transition: 0.3s;
+    font-size: 16px;
+    border: 1px solid var(--border);
+    background-color: var(--surface);
+    color: var(--text-primary);
+    border-radius: 6px;
+    transition: border-color 0.3s ease-in-out;
 }
 
-.form-control:focus, .form-select:focus {
-    background-color: #2a2a2a;
-    border-color: #00cc00;
-    box-shadow: 0 0 5px rgba(0, 255, 0, 0.6);
+.input-group input:focus,
+.input-group select:focus {
+    border-color: var(--highlight);
+    outline: none;
 }
 
-p-editor .ql-container {
-    background-color: #222 !important;
-    color: white !important;
-    border-radius: 5px;
-    transition: 0.3s;
+.file-upload {
+    text-align: center;
 }
 
-p-editor .ql-container.ql-snow:focus {
-    border-color: #00cc00 !important;
-    box-shadow: 0 0 5px rgba(0, 255, 0, 0.6);
+.file-upload input {
+    display: none;
 }
 
-.invalid-feedback {
-    color: #ff4d4d;
-    font-size: 14px;
-}
-
-.btn-primary {
-    background-color: #ff4d4d;
-    border: none;
+.file-upload label {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: var(--highlight);
     color: white;
-    padding: 10px;
-    width: 100%;
-    border-radius: 5px;
-    cursor: not-allowed;
-    transition: 0.3s;
-}
-
-.btn-primary:enabled {
-    background-color: #00cc00;
+    font-size: 16px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
 }
 
-.btn-primary:enabled:hover {
-    background-color: #009900;
+.file-upload label:hover {
+    background-color: var(--primary);
 }
 
-.spinner-border {
-    border-color: white;
-    border-right-color: transparent;
+button {
+    padding: 12px 18px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.1s;
+    background-color: var(--highlight);
+    color: white;
 }
 
-::ng-deep .ql-toolbar {
-    background-color: #18181b !important;
-    border: 1px solid #3f3f46 !important;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    padding: 8px;
+button:hover {
+    background-color: var(--primary);
+    transform: scale(1.05);
 }
 
-::ng-deep .ql-toolbar button svg {
-    fill: #e4e4e7 !important;
-    filter: brightness(1.6) !important;
+button:disabled {
+    background-color: var(--border);
+    cursor: not-allowed;
 }
 
-::ng-deep svg{
-    fill: #e4e4e7 !important;
-    filter: brightness(1.6) !important;
-}
+@media (max-width: 600px) {
+    .topic-card {
+        padding: 20px;
+    }
 
-::ng-deep svg:hover{
-    fill: #e4e4e7 !important;
-    color: #ffffff !important;
-    stroke: #ffffff !important;
-}
-
-::ng-deep .ql-picker:hover .ql-picker-label svg .ql-stroke {
-    stroke: #ffffff !important;
-}
-  
-::ng-deep .ql-picker .ql-picker-options {
-    border: 1px solid #ccc;
-}
-  
-::ng-deep .ql-picker .ql-picker-options {
-    border: 2px solid #000;
-}
-
-::ng-deep .ql-toolbar button:hover svg {
-    fill: #ffffff !important;
-}
-
-::ng-deep .ql-toolbar .ql-picker {
-    color: #e4e4e7 !important;
-}
-
-::ng-deep .ql-toolbar .ql-picker-label:hover {
-    color: #ffffff !important;
-}
-
-::ng-deep .ql-toolbar .ql-picker-options {
-    background-color: #18181b !important;
-    border: 1px solid #3f3f46 !important;
-    border-radius: 8px !important;
-    color: #e4e4e7 !important;
-}
-
-::ng-deep .ql-toolbar .ql-picker-options .ql-picker-item:hover {
-    background-color: #27272a !important;
-    color: #ffffff !important;
-}
-
-::ng-deep .ql-container {
-    border: 1px solid #3f3f46 !important;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    button {
+        width: 100%;
+    }
 }
