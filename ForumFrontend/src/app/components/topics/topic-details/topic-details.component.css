@@ -289,3 +289,8 @@ textarea {
 ::ng-deep almafa{
   border: 1px solid var(--border);
 }
+
+.almafa
+{
+  color: var(--text-primary) !important;
+}
