@@ -14,7 +14,9 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: auto;
+  background-color: var(--background) !important;
 }
+
 
 :root {
     --background: #f5ebe0;
