@@ -147,6 +147,7 @@ body {
 .comment-input {
   margin-top: 20px;
   color: var(--text-primary) !important;
+  inline-size: auto;
 }
 
 .comment-input input::placeholder {
@@ -290,3 +291,72 @@ textarea {
   border: 1px solid var(--border);
 }
 
+.avatar-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.avatar-container span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 1rem;
+}
+
+.avatar-container .fw-bold {
+  font-weight: bold;
+}
+
+.comment-item {
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #444;
+}
+
+.comment-content {
+  flex-grow: 1;
+}
+
+.comment-vote-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.comment-vote-buttons .btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #888;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.comment-vote-buttons .btn:hover {
+  color: #fff;
+}
+
+.comment-vote-buttons .btn.active {
+  color: #0d6efd;
+  font-weight: bold;
+}
+
+.comment-vote-buttons span {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ddd;
+}
+
+@media (max-width: 576px) {
+  .comment-item {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .comment-vote-buttons {
+      flex-direction: row;
+      gap: 10px;
+      margin-top: 5px;
+  }
+}

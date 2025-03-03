@@ -98,12 +98,10 @@
             </div>
             <div class="input-group"></div>
             <div class="comment-input">
-<div>
-  <input type="text" class="form-control" placeholder="Írj egy hozzászólást..." [(ngModel)]="newComment" />
-  <button class="btn btn-secondary emoji-button" (click)="toggleEmojiPicker()">
-    😊
-  </button>
-</div>
+              <div class="d-flex align-items-center comment-input">
+                <input type="text" class="form-control me-2" placeholder="Írj egy hozzászólást..." [(ngModel)]="newComment" />
+                <button class="btn btn-secondary emoji-button" (click)="toggleEmojiPicker()">😊</button>
+              </div>
 
 
             </div>
