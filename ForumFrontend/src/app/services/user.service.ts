@@ -5,7 +5,5 @@ import { Injectable } from '@angular/core';
 })
 export class UserService {
   private apiUrl = 'https://berenandor.moriczcloud.hu/api/forum';
-
-
   constructor() { }
 }

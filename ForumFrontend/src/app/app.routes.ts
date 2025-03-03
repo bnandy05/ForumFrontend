@@ -67,5 +67,10 @@ export const routes: Routes = [
     path: 'topics/view/:id',
     loadComponent: () => import('./components/topics/topic-details/topic-details.component').then(m => m.TopicDetailsComponent),
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'admin-home',
+    loadComponent: () => import('./components/admin/admin-home/admin-home.component').then(m => m.AdminHomeComponent),
+    // canActivate: [AuthGuard],
   }
 ];
