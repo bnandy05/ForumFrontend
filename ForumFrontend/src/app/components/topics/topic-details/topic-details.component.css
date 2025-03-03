@@ -1,4 +1,3 @@
-/* Base Styles */
 :root {
   --background: #f5f5f5;
   --surface: #e3e3e3;
@@ -53,14 +52,12 @@ body {
   transition: all 0.3s ease;
 }
 
-/* Container */
 .container {
   max-width: 1200px;
   margin: 2rem auto;
   padding: 0 1rem;
 }
 
-/* Card Styling */
 .card {
   background-color: var(--surface);
   border-radius: 8px;
@@ -74,7 +71,6 @@ body {
   padding: 1.5rem;
 }
 
-/* Topic Header */
 .topic-header {
   position: relative;
   margin-bottom: 1.5rem;
@@ -112,7 +108,6 @@ body {
   font-size: 0.9rem;
 }
 
-/* Topic Content */
 .title {
   font-size: 1.8rem;
   margin: 0.5rem 0;
@@ -142,7 +137,6 @@ body {
   border: 1px solid var(--border);
 }
 
-/* Comment Section */
 .comment-section {
   border-top: 1px solid var(--border);
   padding-top: 1.5rem;
@@ -153,7 +147,6 @@ body {
   color: var(--primary);
 }
 
-/* Vote Buttons */
 .vote-buttons, .comment-vote {
   display: flex;
   align-items: center;
@@ -182,7 +175,6 @@ body {
   font-weight: bold;
 }
 
-/* Comments */
 .comment {
   position: relative;
   padding: 1rem;
@@ -206,8 +198,6 @@ body {
 .comment .avatar-container {
   margin-bottom: 0.5rem;
 }
-
-/* Edit Form */
 .edit-form {
   margin-top: 1rem;
 }
@@ -266,7 +256,6 @@ body {
   color: var(--text-primary);
 }
 
-/* Improved Emoji Button */
 .emoji-button {
   position: absolute;
   right: 0.75rem;
@@ -285,7 +274,6 @@ body {
   transform: translateY(-50%) scale(1.2);
 }
 
-/* Improved Emoji Picker */
 .emoji-picker {
   position: absolute;
   z-index: 100;
@@ -299,7 +287,6 @@ body {
   width: 100%;
 }
 
-/* Fix for emoji-mart specific styling */
 emoji-mart {
   font-family: 'Roboto', Arial, sans-serif !important;
 }
@@ -343,7 +330,6 @@ emoji-mart .emoji-mart-category .emoji-mart-emoji:hover:before {
   background-color: var(--dropdown-bg);
 }
 
-/* Comment form with emoji */
 .comment-form .input-wrapper {
   display: flex;
   position: relative;
@@ -371,7 +357,6 @@ emoji-mart .emoji-mart-category .emoji-mart-emoji:hover:before {
   background-color: var(--icon-hover);
 }
 
-/* Image Modal */
 .modal {
   position: fixed;
   top: 0;
@@ -391,7 +376,6 @@ emoji-mart .emoji-mart-category .emoji-mart-emoji:hover:before {
   object-fit: contain;
 }
 
-/* PrimeNG Components Styling */
 :host ::ng-deep .p-button.p-button-icon-only {
   width: 2rem;
   height: 2rem;
@@ -423,7 +407,6 @@ emoji-mart .emoji-mart-category .emoji-mart-emoji:hover:before {
   object-fit: cover;
 }
 
-/* Media Queries */
 @media (max-width: 768px) {
   .comment .menu-container {
     position: static;
@@ -455,7 +438,6 @@ emoji-mart .emoji-mart-category .emoji-mart-emoji:hover:before {
   }
 }
 
-/* Theme Toggle Button */
 .theme-toggle {
   position: fixed;
   bottom: 2rem;
@@ -478,22 +460,11 @@ emoji-mart .emoji-mart-category .emoji-mart-emoji:hover:before {
   font-size: 1.2rem;
 }
 
-/* App Header */
-app-header {
-  background-color: var(--navbar-bg);
-  padding: 1rem 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid var(--navbar-border);
-  display: block;
-}
-
-/* Emoji-mart container specific overrides */
 emoji-mart .emoji-mart-scroll {
   overflow-y: auto;
   max-height: 270px;
 }
 
-/* Fix emoji container for both textarea and input */
 .edit-form .input-wrapper,
 .comment-form .input-wrapper {
   position: relative;
@@ -507,18 +478,15 @@ emoji-mart .emoji-mart-scroll {
   z-index: 1000;
 }
 
-/* Fix emoji picker position in edit mode */
 .edit-form .emoji-picker {
   margin-top: 0.5rem;
 }
 
-/* Set visible emoji picker to appear above other elements */
 .emoji-picker.visible {
   display: block;
   z-index: 2000;
 }
 
-/* Transition effects for emoji picker */
 .emoji-picker {
   transition: opacity 0.3s ease, transform 0.3s ease;
   opacity: 0;
@@ -532,7 +500,6 @@ emoji-mart .emoji-mart-scroll {
   pointer-events: auto;
 }
 
-/* Add proper styling for emoji-mart component */
 :host ::ng-deep .emoji-mart {
   width: 100% !important;
   border: 1px solid var(--border);
