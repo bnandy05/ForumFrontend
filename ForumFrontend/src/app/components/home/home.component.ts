@@ -10,7 +10,6 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { MenuModule } from 'primeng/menu';
 import { PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -43,10 +42,6 @@ export class HomeComponent implements OnInit{
     if (forbiddenTags.includes(target.tagName)) {
       return;
     }
-
-    sessionStorage.removeItem('scrollPosition');
-    sessionStorage.setItem('scrollPosition', window.scrollY.toString());
-    console.log(window.pageYOffset)
     
     this.router.navigate(['/topics/view', topicId]);
   }
@@ -60,6 +55,7 @@ export class HomeComponent implements OnInit{
     this.currentPage = 1;
     this.hasMoreTopics = true;
     this.loadTopics(true);
+    console.log(this.title)
   }
 
   loadTopics(reset: boolean = false) {
@@ -123,13 +119,6 @@ export class HomeComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: any) => {
-        if (event.urlAfterRedirects === '/home') { 
-          this.setScrollStatus();
-        }
-      });
     this.menuItems = [
       { label: 'Módosítás', icon: 'pi pi-pencil', command: () => this.ModifyTopic(this.selectedTopicId) },
       { label: 'Törlés', icon: 'pi pi-trash', command: () => this.DeleteTopic(this.selectedTopicId) }
@@ -148,12 +137,6 @@ export class HomeComponent implements OnInit{
     });
   }
 
-  setScrollStatus(): void {
-    window.scrollTo(0, Number(sessionStorage.getItem('scrollPosition')));
-
-    sessionStorage.removeItem('scrollPosition');
-  }
-
   DeleteTopic(topicId:number)
   {
     this.topicService.deleteTopic(topicId);
@@ -162,8 +145,6 @@ export class HomeComponent implements OnInit{
 
   ModifyTopic(topicId:number)
   {
-    sessionStorage.removeItem('scrollPosition');
-    sessionStorage.setItem('scrollPosition', window.scrollY.toString());
     this.router.navigate(['/topics/modify', topicId]);
   }
 }
