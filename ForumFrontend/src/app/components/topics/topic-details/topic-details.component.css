@@ -262,8 +262,8 @@ textarea {
   display: flex;
   align-items: center;
   gap: 8px;
-  white-space: nowrap; 
-  overflow: hidden; 
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .avatar-container span {
@@ -278,7 +278,7 @@ textarea {
 
 .avatar-container .fw-bold {
   font-weight: bold;
-  
+
 }
 
 .kep{
@@ -289,3 +289,4 @@ textarea {
 ::ng-deep almafa{
   border: 1px solid var(--border);
 }
+

@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="hu">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Forum</title>
 </head>
-
 <body>
   <app-header></app-header>
   <div class="container">
@@ -100,11 +98,13 @@
             </div>
             <div class="input-group"></div>
             <div class="comment-input">
+<div>
+  <input type="text" class="form-control" placeholder="Írj egy hozzászólást..." [(ngModel)]="newComment" />
+  <button class="btn btn-secondary emoji-button" (click)="toggleEmojiPicker()">
+    😊
+  </button>
+</div>
 
-              <input type="text" class="form-control" placeholder="Írj egy hozzászólást..." [(ngModel)]="newComment" />
-              <button class="btn btn-secondary emoji-button" (click)="toggleEmojiPicker()">
-                😊
-              </button>
 
             </div>
 
