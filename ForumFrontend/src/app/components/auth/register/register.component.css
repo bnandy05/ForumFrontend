@@ -7,7 +7,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
 }
-  
+
 @keyframes fadeIn {
     from {
       opacity: 0;
@@ -18,14 +18,13 @@ body {
       transform: scale(1);
     }
 }
-  
+
 .register-container {
     width: 100%;
     max-width: 400px;
     padding: 20px;
 }
 
-/* Logo stílusok */
 .logo-container {
     text-align: center;
     margin-bottom: 20px;
@@ -42,8 +41,7 @@ body {
 .register-logo:hover {
     transform: scale(1.05);
 }
-/* Logo stílusok vége */
-  
+
 .register-panel {
     background-color: var(--surface);
     padding: 20px;
@@ -54,7 +52,7 @@ body {
     animation: slideIn 0.8s ease-in-out forwards;
     transition: background-color 0.3s ease-in-out;
 }
-  
+
 @keyframes slideIn {
     from {
       transform: translateY(-20px);
@@ -65,13 +63,13 @@ body {
       opacity: 1;
     }
 }
-  
+
 h2 {
     color: var(--primary);
     margin-bottom: 20px;
     animation: fadeInText 1s ease-in-out forwards;
 }
-  
+
 @keyframes fadeInText {
     from {
       opacity: 0;
@@ -80,42 +78,50 @@ h2 {
       opacity: 1;
     }
 }
-  
+
 .form-group {
     text-align: left;
     margin-bottom: 15px;
 }
-  
+
 label {
     display: block;
     font-size: 14px;
     color: var(--text-primary);
     margin-bottom: 5px;
 }
-  
+
 input {
     width: 100%;
     padding: 10px;
     font-size: 14px;
-    border: 1px solid var(--border);
-    background-color: var(--surface);
+    border: 1px solid var(--border);    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: var(--surface) !important;
     color: var(--text-primary);
     border-radius: 5px;
     outline: none;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
-  
+  input::placeholder{
+    color: var(--text-primary)  ;
+  }
 input:focus {
     border-color: var(--primary);
     box-shadow: 0 0 8px rgba(180, 142, 173, 0.7);
   }
-  
+  input:focus, input:active {
+    background-color: var(--surface) !important;
+    color: var(--text-primary);
+}
+
 .error {
     color: var(--error);
     font-size: 14px;
     margin-top: 5px;
 }
-  
+
 .register-button {
     width: 100%;
     padding: 10px;
@@ -128,35 +134,45 @@ input:focus {
     cursor: pointer;
     transition: background 0.3s, transform 0.2s ease-in-out;
 }
-  
+
 .register-button:hover {
     background-color: var(--secondary);
     transform: translateY(-2px);
 }
-  
+
 .register-button:active {
     transform: scale(0.95);
 }
-  
+
 .register-button:disabled {
     background-color: var(--disabled);
     cursor: not-allowed;
 }
-  
+
 .additional-links {
     display: flex;
     justify-content: center;
     margin-top: 10px;
 }
-  
+
 .additional-links a {
     font-size: 14px;
     color: var(--primary);
     text-decoration: none;
     transition: color 0.3s, transform 0.2s;
 }
-  
+
 .additional-links a:hover {
     color: var(--secondary);
     transform: scale(1.05);
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    background-color: var(--surface) !important;
+    color: var(--text-primary) !important;
+    -webkit-box-shadow: 0 0 0px 1000px var(--surface) inset !important;
+    box-shadow: 0 0 0px 1000px var(--surface) inset !important;
+    transition: background-color 5000s ease-in-out 0s;
 }

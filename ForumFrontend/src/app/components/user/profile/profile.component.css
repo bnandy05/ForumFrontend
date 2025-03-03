@@ -1,37 +1,134 @@
-.card {
-    border-radius: 8px;
+::ng-deep html,body{
+    background-color: var(--background) !important;
 }
 
-.card-header {
-    border-radius: 8px 8px 0 0;
-    background-color: #25274d;
-}
 
-.card-body {
-    border-radius: 0 0 8px 8px;
-}
-
-h3 {
-    font-size: 1.8rem;
-}
-
-h4 {
-    font-size: 1.5rem;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-button {
-    width: 100%;
-    padding: 12px;
-    font-size: 1rem;
-    border-radius: 8px;
-}
-
-button:hover {
-    transform: scale(1.02);
-    transition: transform 0.2s ease;
-}
+body {
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .profile-container {
+    background-color: var(--background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+  }
+  
+  .profile-card {
+    background-color: var(--surface);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+  }
+  
+  .profile-header {
+    color: white;
+    padding: 15px;
+    border-radius: 12px 12px 0 0;
+  }
+  
+  .avatar-section {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  p-avatar {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .user-info h3 {
+    color: var(--primary);
+    margin-bottom: 5px;
+  }
+  
+  .profile-actions {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .custom-file-input {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid var(--border);
+    background-color: var(--surface);
+    color: var(--text-primary);
+    border-radius: 6px;
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  .custom-file-input:focus {
+    border-color: var(--highlight);
+    outline: none;
+  }
+  
+  button[pButton] {
+    padding: 12px 18px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.1s;
+    border: none;
+  }
+  
+  button[pButton]:hover {
+    transform: scale(1.05);
+  }
+  
+  button[severity="success"] {
+    background-color: var(--highlight);
+    color: white;
+  }
+  
+  button[severity="success"]:hover {
+    background-color: var(--primary);
+  }
+  
+  button[severity="danger"] {
+    background-color: var(--danger);
+    color: white;
+  }
+  
+  button[severity="danger"]:hover {
+    background-color: darkred;
+  }
+  
+  button[severity="warn"] {
+    background-color: var(--warning);
+    color: white;
+  }
+  
+  button[severity="warn"]:hover {
+    background-color: darkorange;
+  }
+  
+  button[severity="secondary"] {
+    background-color: var(--border);
+    color: var(--text-primary);
+  }
+  
+  button[severity="secondary"]:hover {
+    background-color: var(--text-secondary);
+  }
+  
+  @media (max-width: 600px) {
+    .profile-card {
+      padding: 20px;
+    }
+  
+    button[pButton] {
+      width: 100%;
+    }
+  }
+  
