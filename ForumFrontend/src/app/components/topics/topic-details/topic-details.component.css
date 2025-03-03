@@ -318,36 +318,6 @@ textarea {
   flex-grow: 1;
 }
 
-.comment-vote-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.comment-vote-buttons .btn {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: #888;
-  transition: 0.3s ease;
-  cursor: pointer;
-}
-
-.comment-vote-buttons .btn:hover {
-  color: #fff;
-}
-
-.comment-vote-buttons .btn.active {
-  color: #0d6efd;
-  font-weight: bold;
-}
-
-.comment-vote-buttons span {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #ddd;
-}
-
 @media (max-width: 576px) {
   .comment-item {
       flex-direction: column;
@@ -359,4 +329,18 @@ textarea {
       gap: 10px;
       margin-top: 5px;
   }
+}
+.comment-input .d-flex {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.comment-input textarea {
+  flex-grow: 1;
+  margin-bottom: 0; /* Eltávolítja a felesleges alsó margót */
+}
+
+.comment-input .emoji-button {
+  flex-shrink: 0; /* Nem engedi, hogy a gomb összenyomódjon */
 }
