@@ -1,9 +1,39 @@
 body {
-    background-color: var(--background) !important;
-    color: var(--text-primary);
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--background) !important;
+    color: var(--text-primary) !important;
     margin: 0;
     padding: 0;
+}
+
+label {
+    color: var(--text-secondary) !important;
+}
+
+input {
+    border-radius: 8px !important;
+}
+
+::ng-deep select{
+    border-radius: 8px !important;
+}
+
+::ng-deep p-editor .ql-container {
+    background-color: var(--background) !important;
+    color: var(--text-primary) !important;
+    border-bottom-right-radius: 8px !important;
+    border-bottom-left-radius: 8px !important;
+    transition: 0.3s;
+    border: 1px solid var(--border);
+}
+
+::ng-deep p-editor .ql-content .ql-editor {
+    background: var(--background) !important;
+    color: var(--text-primary) !important;
+}
+
+::ng-deep p-editor .ql-editor {
+    background: var(--surface) !important;
+    color: var(--text-primary) !important;
 }
 
 .topic-container {
