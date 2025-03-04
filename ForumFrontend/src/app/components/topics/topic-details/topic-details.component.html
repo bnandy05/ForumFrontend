@@ -52,6 +52,7 @@
               <button (click)="voteTopic('down')" [class.active]="userVote === 'down'" class="btn">
                 &#x25BC;
               </button>
+            
             </div>
             <br>
             <h5>Hozzászólások</h5>
@@ -61,23 +62,29 @@
                 <p class="mb-1">
                   <p-avatar image="https://berenandor.moriczcloud.hu/storage/{{ comment.user.avatar }}" class="mr-2"
                     shape="circle" />
-                  <strong>{{ comment.user.name }}</strong><span data-bs-toggle="tooltip" data-bs-placement="top"
+                  <strong class="fw-bold">{{ comment.user.name }}</strong><span data-bs-toggle="tooltip" class="date" data-bs-placement="top"
                     title="{{comment.created_at}} - {{comment.updated_at}}">
                     - {{ comment.timeAgo }}</span>
                 </p>
-                <p class="mb-0">{{ comment.content }}</p>
+                <p class="mb-0" class="date">{{ comment.content }}</p>
               </div>
               <ng-template #editCommentTemplate>
                 <div class="w-100">
-                  <textarea pTextarea class="form-control mb-2" [(ngModel)]="editedCommentContent"></textarea>
-                  <div class="input-group">
-                    <button class="btn btn-secondary emoji-button" (click)="toggleEmojiPicker()">😊</button>
+                  
+            <div class="comment-input" style="display: flex; align-items: center; gap: 1rem;"> 
+              <input class="form-control mb-2 editedinput" [(ngModel)]="editedCommentContent">
+              <div class="input-group">
+                <button class="btn btn-secondary emoji-button" (click)="toggleEmojiPicker()">😊</button>
+                
+              </div>
+
                   </div>
                   <div *ngIf="showEmojiPicker" class="emoji-picker">
                     <emoji-mart [set]="'twitter'" [i18n]="emojiLang" (emojiSelect)="addEmoji($event)"></emoji-mart>
+                  </div><div *ngIf="isEditing">
+                    <button class="btn btn-primary btn-sm" (click)="saveEditedComment(comment.id)">Mentés</button>
+                    <button class="btn btn-primary btn-sm" (click)="cancelEdit()">Mégse</button>
                   </div>
-                  <button class="btn btn-primary btn-sm" (click)="saveEditedComment(comment.id)">Mentés</button>
-                  <button class="btn btn-secondary btn-sm" (click)="cancelEdit()">Mégse</button>
                 </div>
               </ng-template>
               <div class="menu-container" *ngIf="comment.user_id == currentUserId || topicOwner">
@@ -94,18 +101,13 @@
                   [class.active]="userCommentVotes[comment.id] === 'down'" class="btn">
                   &#x25BC;
                 </button>
+                <button *ngIf="!isEditing" (click)="ModifyComment(comment.id)"> xd</button>
               </div>
             </div>
             <div class="input-group"></div>
-            <div class="comment-input">
-<div>
-  <input type="text" class="form-control" placeholder="Írj egy hozzászólást..." [(ngModel)]="newComment" />
-  <button class="btn btn-secondary emoji-button" (click)="toggleEmojiPicker()">
-    😊
-  </button>
-</div>
-
-
+            <div class="comment-input" style="display: flex; align-items: center; gap: 1rem;">   
+              <input type="text" class="form-control" placeholder="Írj egy hozzászólást..." [(ngModel)]="newComment" />
+              <button class="btn btn-secondary emoji-button" (click)="toggleEmojiPicker()">😊</button>
             </div>
 
             <div *ngIf="showEmojiPicker" class="emoji-picker">
