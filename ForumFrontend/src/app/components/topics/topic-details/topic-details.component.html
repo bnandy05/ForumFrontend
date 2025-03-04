@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Forum</title>
   </head>
+  
+  <app-header></app-header>
   <body>
-    <app-header></app-header>
     <div class="container">
       <div *ngFor="let topic of topics">
         <div class="card">
@@ -51,7 +52,7 @@
                   <span>{{ topic.category.category_name }}</span>
                 </p>
                 <div
-                  class="content"
+                  class="content author-name"
                   [innerHTML]="topic.content | safeHtml"
                   (click)="openImage($event)"
                 ></div>
@@ -66,7 +67,7 @@
                 >
                   &#x25B2;
                 </button>
-                <span>{{ topic.upvote_count }}</span>
+                <span class="author-name">{{ topic.upvote_count }}</span>
                 <button
                   (click)="voteTopic('down')"
                   [class.active]="userVote === 'down'"
@@ -91,6 +92,7 @@
                     <span>
                       <span class="author-name">{{ topic.user.name }}</span>
                       <span
+                      class="date"
                         data-bs-toggle="tooltip"
                         data-bs-placement="top"
                         title="{{ topic.created_at }} - {{ topic.updated_at }}"
@@ -99,16 +101,16 @@
                       </span>
                     </span>
                   </div>
-                  <p class="comment-text">{{ comment.content }}</p>
+                  <p class="comment-text author-name">{{ comment.content }}</p>
                 </div>
 
                 <ng-template #editCommentTemplate>
                   <div class="edit-form">
                     <div class="input-wrapper">
-                      <textarea
+                      <input
                         pTextarea
                         [(ngModel)]="editedCommentContent"
-                      ></textarea>
+                      >
                       <button
                         class="emoji-button"
                         (click)="toggleEmojiPicker()"
@@ -165,7 +167,7 @@
                   >
                     &#x25B2;
                   </button>
-                  <span>{{ comment.upvote_count }}</span>
+                  <span class="author-name">{{ comment.upvote_count }}</span>
                   <button
                     (click)="voteComment(comment.id, i, 'down')"
                     [class.active]="userCommentVotes[comment.id] === 'down'"
