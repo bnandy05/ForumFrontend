@@ -57,10 +57,10 @@ export class TopicCreateComponent implements OnInit {
           [{ 'color': [] }, { 'background': [] }],
           [{ 'list': 'ordered' }, { 'list': 'bullet' }],
           [{ 'align': [] }],
-          ['link', 'image'],
+          ['image'],
         ],
         handlers: {
-          'image': () => this.triggerFileInput()
+          'image': () => this.imageHandler(event: Event)
         }
       }
     };
@@ -192,9 +192,5 @@ export class TopicCreateComponent implements OnInit {
       }
     };
     reader.readAsDataURL(file);
-  }
-
-  triggerFileInput() {
-    document.getElementById('imageUpload')?.click();
   }
 }
