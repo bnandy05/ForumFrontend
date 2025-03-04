@@ -56,7 +56,6 @@ body {
 .author-name {
   font-weight: bold;
   color: var(--text-primary);
-  margin-right: 0.5rem;
 }
 
 .date {
