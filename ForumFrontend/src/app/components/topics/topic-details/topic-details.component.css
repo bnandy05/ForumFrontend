@@ -226,6 +226,7 @@ textarea {
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s ease-in-out;
+  margin: 0.1rem;
 }
 
 .btn-primary:hover {
@@ -296,3 +297,6 @@ textarea {
   color: var(--text-primary) !important;
 }
 
+.editedinput{
+  max-width: 75%;
+}

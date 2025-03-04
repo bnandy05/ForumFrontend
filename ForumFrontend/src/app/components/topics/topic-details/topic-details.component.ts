@@ -64,7 +64,7 @@ export class TopicDetailsComponent implements OnInit {
   selectedTopicId: number = -1;
   selectedImage: string | null = null;
   isImageModalOpen = false;
-
+  isEditing = false;
   constructor(
     private topicService: TopicService,
     private activatedRoute: ActivatedRoute,
@@ -315,11 +315,13 @@ export class TopicDetailsComponent implements OnInit {
       this.editingCommentId = commentId;
       this.editedCommentContent = comment.content;
     }
+    this.isEditing = true;
   }
 
   cancelEdit() {
     this.editingCommentId = null;
     this.editedCommentContent = '';
+    this.isEditing = false;
   }
 
   saveEditedComment(commentId: number) {
@@ -336,6 +338,7 @@ export class TopicDetailsComponent implements OnInit {
           this.refreshTopic();
         });
     }
+    this.isEditing = false;
   }
 
   DeleteTopic(topicId:number)
