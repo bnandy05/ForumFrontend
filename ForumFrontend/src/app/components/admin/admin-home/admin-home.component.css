@@ -1,62 +1,31 @@
+
 body {
-    background-color: var(--background);
+    background: var(--navbar-bg);
     color: var(--text-primary);
-    font-family: Arial, sans-serif;
-    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
-
-.table-container {
-    overflow-x: auto;
+.container {
+    background: var(--surface);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: var(--surface);
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-th, td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid var(--border);
-}
-
-th {
-    background-color: var(--highlight);
+.button {
+    background: var(--highlight);
     color: white;
-}
-
-tr:hover {
-    background-color: var(--list-hover);
-}
-
-.btn {
-    padding: 8px 12px;
-    margin: 4px;
     border: none;
-    cursor: pointer;
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
     border-radius: 5px;
-    color: white;
+    cursor: pointer;
+    transition: 0.3s;
 }
-
-.btn-edit { background-color: var(--primary); }
-.btn-ban { background-color: var(--vote-down); }
-.btn-admin { background-color: var(--highlight); }
-.btn-delete { background-color: red; }
-
-.btn:hover {
-    opacity: 0.8;
-}
-
-@media (max-width: 600px) {
-    table, th, td {
-        font-size: 14px;
-    }
-
-    .btn {
-        padding: 6px 10px;
-        font-size: 12px;
-    }
+.button:hover {
+    background: var(--primary);
 }
