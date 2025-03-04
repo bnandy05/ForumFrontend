@@ -1,0 +1,62 @@
+body {
+    background-color: var(--background);
+    color: var(--text-primary);
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--surface);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+th {
+    background-color: var(--highlight);
+    color: white;
+}
+
+tr:hover {
+    background-color: var(--list-hover);
+}
+
+.btn {
+    padding: 8px 12px;
+    margin: 4px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+}
+
+.btn-edit { background-color: var(--primary); }
+.btn-ban { background-color: var(--vote-down); }
+.btn-admin { background-color: var(--highlight); }
+.btn-delete { background-color: red; }
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+@media (max-width: 600px) {
+    table, th, td {
+        font-size: 14px;
+    }
+
+    .btn {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}
