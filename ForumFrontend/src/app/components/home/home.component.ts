@@ -15,7 +15,7 @@ import { AdminHomeComponent } from '../admin/admin-home/admin-home.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule, MenuModule, ButtonModule,AdminHomeComponent],
+  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule, MenuModule, ButtonModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
