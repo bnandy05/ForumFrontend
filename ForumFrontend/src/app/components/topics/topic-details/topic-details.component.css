@@ -176,10 +176,11 @@ body {
   width: 100%;
   padding: 10px;
   font-size: 14px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--icon-color);
   background-color: var(--surface);
   color: var(--text-primary);
   border-radius: 5px;
+  box-shadow: 1px solid var(--icon-color);
 }
 
 textarea {
@@ -294,3 +295,4 @@ textarea {
 {
   color: var(--text-primary) !important;
 }
+

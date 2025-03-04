@@ -54,6 +54,7 @@
               <button (click)="voteTopic('down')" [class.active]="userVote === 'down'" class="btn">
                 &#x25BC;
               </button>
+            
             </div>
             <br>
             <h5>Hozzászólások</h5>
@@ -63,15 +64,15 @@
                 <p class="mb-1">
                   <p-avatar image="https://berenandor.moriczcloud.hu/storage/{{ comment.user.avatar }}" class="mr-2"
                     shape="circle" />
-                  <strong>{{ comment.user.name }}</strong><span data-bs-toggle="tooltip" data-bs-placement="top"
+                  <strong class="fw-bold">{{ comment.user.name }}</strong><span data-bs-toggle="tooltip" class="date" data-bs-placement="top"
                     title="{{comment.created_at}} - {{comment.updated_at}}">
                     - {{ comment.timeAgo }}</span>
                 </p>
-                <p class="mb-0">{{ comment.content }}</p>
+                <p class="mb-0" class="date">{{ comment.content }}</p>
               </div>
               <ng-template #editCommentTemplate>
                 <div class="w-100">
-                  <textarea pTextarea class="form-control mb-2" [(ngModel)]="editedCommentContent"></textarea>
+                  <input class="form-control mb-2" [(ngModel)]="editedCommentContent">
                   <div class="input-group">
                     <button class="btn btn-secondary emoji-button" (click)="toggleEmojiPicker()">😊</button>
                   </div>
@@ -96,6 +97,7 @@
                   [class.active]="userCommentVotes[comment.id] === 'down'" class="btn">
                   &#x25BC;
                 </button>
+                <button (click)="ModifyComment(comment.id)"> xd</button>
               </div>
             </div>
             <div class="input-group"></div>
