@@ -60,7 +60,7 @@ export class TopicCreateComponent implements OnInit {
           ['image'],
         ],
         handlers: {
-          'image': () => this.imageHandler(event: Event)
+          'image': () => this.triggerFileInput()
         }
       }
     };
@@ -192,5 +192,9 @@ export class TopicCreateComponent implements OnInit {
       }
     };
     reader.readAsDataURL(file);
+  }
+
+  triggerFileInput() {
+    document.getElementById('imageUpload')?.click();
   }
 }
