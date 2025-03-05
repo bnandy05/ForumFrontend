@@ -29,7 +29,8 @@ export class AuthService {
         this.messageService.add({ severity: 'success', summary: 'Sikeres bejelentkezés', detail: 'Üdvözöljük!' });
       },
       error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Bejelentkezési hiba', detail: 'Hibás email vagy jelszó.' });
+        console.error(err)
+        this.messageService.add({ severity: 'error', summary: 'Bejelentkezési hiba', detail: err.error.message });
       }
     });
   }
@@ -109,20 +110,6 @@ export class AuthService {
       },
       error: (err) => {
         this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt az avatar feltöltése során.' });
-      }
-    });
-  }
-
-  deleteAvatar() {
-    this.http.delete(`${this.apiUrl}/avatar/delete`, {withCredentials: true}).subscribe({
-      next: (response: any) => {
-        localStorage.removeItem('avatar');
-        this.messageService.add({ severity: 'success', summary: 'Sikeres törlés', detail: 'Az avatar sikeresen törölve!' });
-        this.reloadPage();
-      },
-      error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt az avatar törlése során.' });
-        console.error(err)
       }
     });
   }
