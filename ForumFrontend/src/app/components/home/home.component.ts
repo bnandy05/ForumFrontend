@@ -10,6 +10,7 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { MenuModule } from 'primeng/menu';
 import { PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { AdminHomeComponent } from '../admin/admin-home/admin-home.component';
 
 @Component({
   selector: 'app-home',

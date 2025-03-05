@@ -205,3 +205,22 @@ body input::placeholder {
   background-color: var(--icon-hover) !important;
   border: var(--primary) !important;
 }
+.dropdown-menu{
+  background-color: var(--navbar-bg) !important;
+}
+.custom-dropdown {
+  width: 300px;
+  position: absolute;
+  right: 100;
+  top: 100%;
+  transform: translateX(20px);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  background-color: var(--surface);
+  color: var(--text-primary);
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+

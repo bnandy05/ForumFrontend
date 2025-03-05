@@ -24,6 +24,7 @@ html, body {
     --secondary: #6c757d;
     --text-primary: #2c2c2c;
     --text-secondary: #5a5a5a;
+    --text-negative: #eeeeee;
     --border: #d6c4b2;
     --highlight: #b08968;
     --vote-up: #28a745;
@@ -46,6 +47,7 @@ html, body {
     --secondary: #bbbbbb;
     --text-primary: #eeeeee;
     --text-secondary: #aaaaaa;
+    --text-negative: #2c2c2c;
     --border: #333333;
     --highlight: #dba7e0;
     --navbar-bg: #1e1e2e;

@@ -57,7 +57,7 @@ export class TopicCreateComponent implements OnInit {
           [{ 'color': [] }, { 'background': [] }],
           [{ 'list': 'ordered' }, { 'list': 'bullet' }],
           [{ 'align': [] }],
-          ['link', 'image'],
+          ['image'],
         ],
         handlers: {
           'image': () => this.triggerFileInput()
