@@ -8,6 +8,8 @@ interface User {
   id: number;
   name: string;
   email: string;
+  is_banned: number;
+  is_admin: number;
 }
 
 interface UsersResponse {
@@ -29,12 +31,13 @@ export class AdminTableComponent implements OnInit {
     current_page: 0,
     last_page: 0
   };
+  currentUserId = Number(localStorage.getItem('id'));
   loading = false;
   allLoaded = false;
 
   constructor(
     private router: Router, 
-    private adminService: AdminService
+    private adminService: AdminService,
   ) {}
 
   ngOnInit(): void {
@@ -45,11 +48,54 @@ export class AdminTableComponent implements OnInit {
     this.router.navigate(['/profile', userId]);
   }
 
+  makeAdmin(userId: number): void {
+    this.adminService.makeAdmin(userId).subscribe({
+      next: () => this.refreshCurrentPage()
+    });
+  }
+
+  revokeAdmin(userId: number): void {
+    this.adminService.revokeAdmin(userId).subscribe({
+      next: () => this.refreshCurrentPage()
+    });
+  }
+
+  banUser(userId: number): void {
+    this.adminService.banUser(userId).subscribe({
+      next: () => this.refreshCurrentPage()
+    });
+  }
+
+  unbanUser(userId: number): void {
+    this.adminService.unbanUser(userId).subscribe({
+      next: () => this.refreshCurrentPage()
+    });
+  }
+
+  refreshCurrentPage(): void {
+    if (this.loading) return;
+
+    this.loading = true;
+    this.adminService.getUsers(this.users.current_page).subscribe({
+      next: (response) => {
+        this.users.data = response.users.data;
+        
+        this.users.current_page = response.users.current_page;
+        this.users.last_page = response.users.last_page;
+
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Felhasználók frissítése sikertelen:', err);
+        this.loading = false;
+      }
+    });
+  }
+
   loadMore(): void {
     if (this.loading || this.allLoaded) return;
 
     this.loading = true;
-
     const nextPage = this.users.current_page + 1;
 
     this.adminService.getUsers(nextPage).subscribe({

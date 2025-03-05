@@ -14,22 +14,26 @@
         <tbody>
           <tr *ngFor="let user of users.data">
             <td>{{ user.id }}</td>
-            <td>{{ user.name }}</td>
+            <td>{{ user.name }}<b *ngIf="currentUserId == user.id"> (Te)</b></td>
             <td>{{ user.email }}</td>
             <td>
+              <div *ngIf="currentUserId != user.id">
               <button class="btn btn-edit" (click)="userClick(user.id)">Profil Megtekintése</button>
-              <button class="btn btn-admin">Admin jog</button>
-              <button class="btn btn-ban">Ban</button>
-              <button class="btn btn-delete">Törlés</button>
+              <button class="btn btn-admin" *ngIf="user.is_admin == 0" (click)="makeAdmin(user.id)">Admin jog adása</button>
+              <button class="btn btn-admin" *ngIf="user.is_admin == 1" (click)="revokeAdmin(user.id)">Admin jog elvétele</button>
+              <button class="btn btn-ban" *ngIf="user.is_banned == 0" (click)="banUser(user.id)">Ban</button>
+              <button class="btn btn-ban" *ngIf="user.is_banned == 1" (click)="unbanUser(user.id)">Unban</button>
+              <button class="btn btn-delete" (click)="userClick(user.id)">Törlés</button>
+              </div>
             </td>
           </tr>
         </tbody>
       </table>
   
-      <div *ngIf="!loading && !allLoaded" class="load-more-container">
-        <button class="btn btn-load-more" (click)="loadMore()">Több betöltése</button>
+      <div *ngIf="!loading && !allLoaded" class="load-more-container text-center">
+        <button class="btn btn-edit" (click)="loadMore()">Több betöltése</button>
       </div>
   
-      <div *ngIf="loading" class="loading-spinner">Töltés...</div>
+      <div *ngIf="loading" class="loading-spinner text-center">Töltés...</div>
     </div>
   </div>
