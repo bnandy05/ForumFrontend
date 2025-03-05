@@ -65,6 +65,7 @@ export class TopicDetailsComponent implements OnInit {
   selectedImage: string | null = null;
   isImageModalOpen = false;
   isEditing = false;
+  
   constructor(
     private topicService: TopicService,
     private activatedRoute: ActivatedRoute,
