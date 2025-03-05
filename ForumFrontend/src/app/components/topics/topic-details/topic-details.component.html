@@ -45,7 +45,6 @@
                     </span>
                   </span>
                 </div>
-
                 <h1 class="title">{{ topic.title }}</h1>
                 <p class="category">
                   Kategória:
@@ -74,6 +73,7 @@
                 >
                   &#x25BC;
                 </button>
+                <button *ngIf="!isEditing" (click)="ModifyComment(comment.id)"> xd</button>
               </div>
 
               <h5>Hozzászólások</h5>
