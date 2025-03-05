@@ -11,6 +11,7 @@ import { MenuModule } from 'primeng/menu';
 import { PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { AuthService } from '../../services/auth.service';
+import { AdminHomeComponent } from '../admin/admin-home/admin-home.component';
 
 @Component({
   selector: 'app-home',

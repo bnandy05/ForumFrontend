@@ -1,5 +1,5 @@
 <app-header></app-header>
-
+<body>
 <div class="topic-container">
     <div class="topic-card">
         <h2>Új Topic létrehozása</h2>
@@ -15,6 +15,8 @@
                 <p-editor #editor formControlName="content" [style]="{ height: '320px' }" [modules]="toolbarOptions">
                     <p-header hidden></p-header>
                 </p-editor>
+                
+                <input type="file" id="imageUpload" (change)="imageHandler($event)" accept="image/*" hidden>
             </div>
 
             <div class="input-group">
@@ -25,13 +27,8 @@
                     </option>
                 </select>
             </div>
-
-            <div class="file-upload">
-                <input type="file" id="imageUpload" (change)="imageHandler($event)" accept="image/*">
-                <label for="imageUpload"> Kép feltöltése</label>
-            </div>
-
             <button type="submit" [disabled]="topicForm.invalid || isSubmitting">Téma létrehozása</button>
         </form>
     </div>
 </div>
+</body>

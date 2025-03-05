@@ -1,9 +1,108 @@
 body {
-    background-color: var(--background) !important;
-    color: var(--text-primary);
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--background) !important;
+    color: var(--text-primary) !important;
     margin: 0;
     padding: 0;
+}
+
+label {
+    color: var(--text-secondary) !important;
+}
+
+input {
+    border-radius: 8px !important;
+}
+
+::ng-deep select{
+    border-radius: 8px !important;
+}
+
+::ng-deep p-editor .ql-container {
+    background-color: var(--background) !important;
+    color: var(--text-primary) !important;
+    border-bottom-right-radius: 8px !important;
+    border-bottom-left-radius: 8px !important;
+    transition: 0.3s;
+    border: 1px solid var(--border);
+}
+
+::ng-deep p-editor .ql-content .ql-editor {
+    background: var(--background) !important;
+    color: var(--text-primary) !important;
+}
+
+::ng-deep p-editor .ql-editor {
+    background: var(--surface) !important;
+    color: var(--text-primary) !important;
+}
+
+::ng-deep .ql-toolbar {
+    background-color: var(--background) !important;
+    border: 1px solid var(--border) !important;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 8px;
+}
+
+::ng-deep .ql-toolbar button svg {
+    fill: var(--text-primary) !important;
+    filter: brightness(1.6) !important;
+}
+
+::ng-deep .ql-snow .ql-stroke {
+    stroke: var(--text-primary);
+}
+
+::ng-deep svg{
+    fill: var(--text-primary) !important;
+    filter: brightness(1.6) !important;
+}
+
+::ng-deep svg:hover{
+    fill: var(--text-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+::ng-deep .ql-picker:hover .ql-picker-label svg .ql-stroke {
+    stroke: var(--text-primary) !important;
+}
+  
+::ng-deep .ql-picker .ql-picker-options {
+    border: 1px solid var(--text-primary);
+}
+  
+::ng-deep .ql-picker .ql-picker-options {
+    border: 2px solid var(--text-primary);
+}
+
+::ng-deep .ql-toolbar button:hover svg {
+    fill: var(--text-primary) !important;
+}
+
+::ng-deep .ql-toolbar .ql-picker {
+    color: var(--text-primary) !important;
+}
+
+::ng-deep .ql-toolbar .ql-picker-label:hover {
+    color: var(--text-primary) !important;
+}
+
+::ng-deep .ql-toolbar .ql-picker-options {
+    background-color: var(--background) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    color: var(--text-primary) !important;
+}
+
+::ng-deep .ql-toolbar .ql-picker-options .ql-picker-item:hover {
+    background-color: var(--surface) !important;
+    color: var(--text-primary) !important;
+}
+
+::ng-deep .ql-container {
+    border: 1px solid var(--border) !important;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 .topic-container {
@@ -18,7 +117,7 @@ body {
     border-radius: 12px;
     padding: 25px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-    max-width: 600px;
+    max-width: 1200px;
     width: 90%;
     text-align: center;
 }

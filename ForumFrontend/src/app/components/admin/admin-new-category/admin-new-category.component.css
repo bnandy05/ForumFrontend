@@ -1,0 +1,75 @@
+body {
+  background-color: var(--navbar-bg);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.container {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+}
+
+h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  transition: border-color 0.3s;
+  background: var(--background);
+  color: var(--text-primary);
+}
+
+.input-field:focus {
+  border-color: var(--highlight);
+  outline: none;
+}
+
+.btn {
+  background: var(--highlight);
+  color: var(--button-text);
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.btn:hover {
+  background: var(--highlight);
+  transform: scale(1.05);
+}
+
+.toggle-theme {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--highlight);
+  border: none;
+  color: var(--button-text);
+  padding: 8px 12px;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.toggle-theme:hover {
+  background: var(--button-hover);
+}
