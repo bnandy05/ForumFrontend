@@ -10,6 +10,7 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { MenuModule } from 'primeng/menu';
 import { PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -31,9 +32,10 @@ export class HomeComponent implements OnInit{
   currentUserId = localStorage.getItem('id');
   menuItems: any[] = [];
   selectedTopicId: number = -1;
+  kaka: any ="";
   
 
-  constructor(private topicService: TopicService, private router: Router) {}
+  constructor(private topicService: TopicService, private router: Router, private authService: AuthService) {}
 
   navigateToTopic(topicId: number, event: MouseEvent): void {
     const target = event.target as HTMLElement;
@@ -126,6 +128,17 @@ export class HomeComponent implements OnInit{
     this.categoryId = '';
     this.orderBy = 'created_at';
     this.loadTopics(true);
+
+    this.topicService.admintest().subscribe({
+      next: (response) => {
+        this.kaka = response;
+        console.log(response)
+      },
+      error: (err) => {
+        console.error('Failed to fetch categories:', err);
+        console.log(err)
+      },
+    });
 
     this.topicService.getCategories().subscribe({
       next: (response) => {

@@ -66,11 +66,7 @@ export class AuthService {
         this.router.navigate(['/login']);
       },
       error: (err) => {
-        if (err.status === 404) {
-          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Az e-mail cím nem található az adatbázisban.' });
-        } else {
-          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a jelszó-visszaállítás során. Kérjük, próbáld újra később.' });
-        }
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: err.error.message });
       }
     });
   }
@@ -109,7 +105,7 @@ export class AuthService {
         this.reloadPage();
       },
       error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt az avatar feltöltése során.' });
+        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: err.error.message });
       }
     });
   }

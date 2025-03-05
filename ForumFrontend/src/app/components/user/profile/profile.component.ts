@@ -61,7 +61,7 @@ export class ProfileComponent implements OnInit {
 
   confirmCrop(): void {
     this.cropperDialogVisible = false;
-  }
+}
 
   loadUserProfile(): void {
     this.authService.getUser().subscribe({
@@ -72,7 +72,7 @@ export class ProfileComponent implements OnInit {
         this.ownProfile = true;
       },
       error: (err: any) => {
-        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a profil betöltése során.' });
+        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: err.error.message });
       }
     });
   }
@@ -84,7 +84,7 @@ export class ProfileComponent implements OnInit {
         this.ownProfile = false;
       },
       error: (err: any) => {
-        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a profil betöltése során.' });
+        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: err.error.message });
       }
     });
   }
@@ -94,11 +94,6 @@ export class ProfileComponent implements OnInit {
       this.authService.uploadAvatar(this.croppedFile);
       this.loadUserProfile();
     }
-  }
-
-  deleteAvatar(): void {
-    this.authService.deleteAvatar();
-    this.loadUserProfile();
   }
 
   passwordChange(): void {
