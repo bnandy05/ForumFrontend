@@ -1,3 +1,4 @@
+import { AdminNewCategoryComponent } from './components/admin/admin-new-category/admin-new-category.component';
 import { Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { NoAuthGuard } from './no-auth.guard';
@@ -76,5 +77,10 @@ export const routes: Routes = [
   {
     path: 'admin-table',
     loadComponent: ()=> import('./components/admin/admin-table/admin-table.component').then(m => m.AdminTableComponent),
+  },
+  {
+    path: 'admin-new-category',
+    loadComponent: ()=> import('./components/admin/admin-new-category/admin-new-category.component').then(m => m.AdminNewCategoryComponent),
   }
+
 ];

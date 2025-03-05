@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="hu">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-</head>
+<app-header></app-header>
 <body>
     <div class="container">
         <button class="button" (click)="redirect('admin-table')">Felhasználók</button>
-        <button class="button">Új Topic Category</button>
-        <button class="button">Felhasználó keresés</button>
+        <button class="button" (click)="redirect('admin-new-category')">Új Topic Category</button>
     </div>
 </body>
-</html>
+

@@ -7,11 +7,21 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-home',
-  imports: [AdminHomeComponent,CommonModule],
+  imports: [CommonModule,HeaderComponent],
   standalone: true,
   templateUrl: './admin-home.component.html',
   styleUrl: './admin-home.component.css'
 })
 export class AdminHomeComponent {
 
+  constructor(
+    private router: Router,
+    public themeService: ThemeService
+  )
+  {}
+
+  redirect(url:string)
+  {
+    this.router.navigate(['/'+url]);
+  }
 }
