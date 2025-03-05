@@ -5,9 +5,14 @@ import { NoAuthGuard } from './no-auth.guard';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     loadComponent: () => import('./components/home/home.component').then(m => m.HomeComponent),
     canActivate: [AuthGuard],
+  },
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
   },
   {
     path: 'login',

@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { TopicService } from '../../services/topic.service';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
 import { SafeHtmlPipe } from '../../safe-html.pipe';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { MenuModule } from 'primeng/menu';
 import { PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { AuthService } from '../../services/auth.service';
 import { AdminHomeComponent } from '../admin/admin-home/admin-home.component';
 
 @Component({
@@ -19,7 +20,7 @@ import { AdminHomeComponent } from '../admin/admin-home/admin-home.component';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit{
   topics: any[] = [];
   title: string = "";
   orderBy: string = "";
@@ -32,9 +33,10 @@ export class HomeComponent implements OnInit {
   currentUserId = localStorage.getItem('id');
   menuItems: any[] = [];
   selectedTopicId: number = -1;
+  kaka: any ="";
   
 
-  constructor(private topicService: TopicService, private router: Router) {}
+  constructor(private topicService: TopicService, private router: Router, private authService: AuthService) {}
 
   navigateToTopic(topicId: number, event: MouseEvent): void {
     const target = event.target as HTMLElement;
@@ -43,7 +45,7 @@ export class HomeComponent implements OnInit {
     if (forbiddenTags.includes(target.tagName)) {
       return;
     }
-
+    
     this.router.navigate(['/topics/view', topicId]);
   }
 
@@ -56,6 +58,7 @@ export class HomeComponent implements OnInit {
     this.currentPage = 1;
     this.hasMoreTopics = true;
     this.loadTopics(true);
+    console.log(this.title)
   }
 
   loadTopics(reset: boolean = false) {
@@ -126,6 +129,17 @@ export class HomeComponent implements OnInit {
     this.categoryId = '';
     this.orderBy = 'created_at';
     this.loadTopics(true);
+
+    this.topicService.admintest().subscribe({
+      next: (response) => {
+        this.kaka = response;
+        console.log(response)
+      },
+      error: (err) => {
+        console.error('Failed to fetch categories:', err);
+        console.log(err)
+      },
+    });
 
     this.topicService.getCategories().subscribe({
       next: (response) => {

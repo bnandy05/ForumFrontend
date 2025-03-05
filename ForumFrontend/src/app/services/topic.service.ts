@@ -52,6 +52,10 @@ export class TopicService {
     );
   }
 
+  admintest(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/admin/test`, { withCredentials: true });
+  }
+
   getTopic(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/topic/${id}`, {withCredentials: true}).pipe(
       tap({
@@ -204,49 +208,6 @@ export class TopicService {
         });
       },
     });
-  }
-  
-
-  deleteAdminTopic(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/topic/admin/${id}` , {withCredentials: true}).pipe(
-      tap({
-        next: () => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Sikeres',
-            detail: 'Téma adminként sikeresen törölve!',
-          });
-        },
-        error: (err) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Hiba',
-            detail: 'Hiba történt a téma adminkénti törlése során.',
-          });
-        },
-      })
-    );
-  }
-
-  deleteAdminComment(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/comment/admin/${id}` , {withCredentials: true}).pipe(
-      tap({
-        next: () => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Sikeres',
-            detail: 'Hozzászólás adminként sikeresen törölve!',
-          });
-        },
-        error: (err) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Hiba',
-            detail: 'Hiba történt a hozzászólás adminkénti törlése során.',
-          });
-        },
-      })
-    );
   }
 
   getTimeAgo(createdAt: string, updatedAt: string): string {

@@ -23,7 +23,6 @@
             <h3>Profilkép frissítése</h3>
             <input type="file" accept="image/*" (change)="onFileSelect($event)" class="custom-file-input"/>
             <button pButton (click)="uploadAvatar()" severity="success">Feltöltés</button>
-            <button pButton (click)="deleteAvatar()" severity="danger">Törlés</button>
         </div>
         <div class="profile-actions" *ngIf="ownProfile">
             <button pButton (click)="passwordChange()" severity="warn">Jelszó módosítás</button>
@@ -35,7 +34,6 @@
     </div>
 </div>
 
-<!-- Képvágó modal -->
 <p-dialog [(visible)]="cropperDialogVisible" header="Képvágás" [modal]="true" [closable]="false" [style]="{width: '500px'}">
     <image-cropper
         [imageChangedEvent]="imageChangedEvent"
