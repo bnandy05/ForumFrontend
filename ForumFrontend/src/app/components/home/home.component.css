@@ -205,3 +205,6 @@ body input::placeholder {
   background-color: var(--icon-hover) !important;
   border: var(--primary) !important;
 }
+.dropdown-menu{
+  background-color: var(--navbar-bg) !important;
+}

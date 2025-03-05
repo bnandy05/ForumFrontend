@@ -1,31 +1,101 @@
+:root {
+  --background: #f5ebe0;
+  --surface: #e3dac9;
+  --primary: #3a3a3a;
+  --secondary: #6c757d;
+  --text-primary: #2c2c2c;
+  --text-secondary: #5a5a5a;
+  --border: #d6c4b2;
+  --highlight: #b08968;
+  --button-bg: #b08968;
+  --button-text: #ffffff;
+  --input-bg: #ffffff;
+  --input-border: #d6c4b2;
+}
+
+.dark-theme {
+  --background: #121212;
+  --surface: #191925;
+  --primary: #a36fa8;
+  --secondary: #bbbbbb;
+  --text-primary: #eeeeee;
+  --text-secondary: #aaaaaa;
+  --border: #333333;
+  --highlight: #dba7e0;
+  --button-bg: #a36fa8;
+  --button-text: #ffffff;
+  --input-bg: #2a2a3a;
+  --input-border: #444444;
+}
 
 body {
-  background: var(--navbar-bg);
+  background-color: var(--background);
   color: var(--text-primary);
+  font-family: Arial, sans-serif;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   height: 100vh;
   margin: 0;
+  transition: background-color 0.3s, color 0.3s;
 }
+
 .container {
   background: var(--surface);
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 400px;
   text-align: center;
 }
-.button {
-  background: var(--highlight);
-  color: white;
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--input-border);
+  border-radius: 5px;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  transition: all 0.3s;
+}
+
+input:focus {
+  border-color: var(--highlight);
+  outline: none;
+}
+
+button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: var(--button-bg);
+  color: var(--button-text);
   border: none;
-  padding: 10px 20px;
-  margin: 10px;
-  font-size: 16px;
   border-radius: 5px;
   cursor: pointer;
-  transition: 0.3s;
+  font-size: 1rem;
+  transition: background 0.3s;
 }
-.button:hover {
-  background: var(--primary);
+
+button:hover {
+  background-color: var(--highlight);
+}
+
+@media (max-width: 600px) {
+  .container {
+      width: 100%;
+      padding: 1.5rem;
+  }
+
+  h1 {
+      font-size: 1.2rem;
+  }
 }
