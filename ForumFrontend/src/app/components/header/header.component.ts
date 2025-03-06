@@ -16,9 +16,9 @@ import { ThemeService } from '../../services/theme.service';
 })
 export class HeaderComponent implements OnInit{
   userProfile: any = {};
+  admin: boolean = false;
 
-  constructor(private authService: AuthService,
-    private router: Router,
+  constructor(private router: Router,
     public themeService: ThemeService
   )
   {}
@@ -29,6 +29,10 @@ export class HeaderComponent implements OnInit{
   }
 
   ngOnInit() {
+    if(localStorage.getItem('admin') !== null)
+      {
+        this.admin = true;
+      }
     this.userProfile= {
       avatar: localStorage.getItem('avatar'),
       name: localStorage.getItem('username')

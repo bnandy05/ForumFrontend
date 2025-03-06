@@ -74,6 +74,10 @@ export class AdminService {
     );
   }
 
+  isAdmin(): boolean {
+    return !!localStorage.getItem('admin');
+  }
+
   deleteTopic(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/admin/topic/delete/${id}`,).pipe(
       tap(response => {

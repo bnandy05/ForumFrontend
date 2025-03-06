@@ -1,7 +1,7 @@
-import { AdminNewCategoryComponent } from './components/admin/admin-new-category/admin-new-category.component';
 import { Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { NoAuthGuard } from './no-auth.guard';
+import { AdminGuard } from './admin.guard';
 
 export const routes: Routes = [
   {
@@ -75,17 +75,19 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'admin-home',
+    path: 'admin/home',
     loadComponent: () => import('./components/admin/admin-home/admin-home.component').then(m => m.AdminHomeComponent),
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard, AdminGuard],
   },
   {
-    path: 'admin-table',
+    path: 'admin/table',
     loadComponent: ()=> import('./components/admin/admin-table/admin-table.component').then(m => m.AdminTableComponent),
+    canActivate: [AuthGuard, AdminGuard],
   },
   {
-    path: 'admin-new-category',
+    path: 'admin/new-category',
     loadComponent: ()=> import('./components/admin/admin-new-category/admin-new-category.component').then(m => m.AdminNewCategoryComponent),
+    canActivate: [AuthGuard, AdminGuard],
   }
 
 ];
