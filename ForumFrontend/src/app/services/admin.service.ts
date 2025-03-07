@@ -178,8 +178,8 @@ export class AdminService {
     );
   }
 
-  getUsers(page: number = 1): Observable<any> {
-    return this.http.get(`${this.baseUrl}/admin/users/get?page=${page}`, { withCredentials: true }).pipe(
+  getUsers(page: number = 1, name: string|null = null): Observable<any> {
+    return this.http.post(`${this.baseUrl}/admin/users/get?page=${page}`, { name }, { withCredentials: true }).pipe(
       tap(response => {}),
       catchError(error => {
         this.messageService.add({ 

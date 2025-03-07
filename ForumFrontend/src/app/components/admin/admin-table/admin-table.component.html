@@ -1,6 +1,6 @@
 <div class="admin-table-container">
     <app-header></app-header>
-  
+    <input type="text" [(ngModel)]="category" (input)="filterTopics()" class="input-field" placeholder="Add meg a felhasználónevet/emailt...">
     <div class="table-container">
       <table>
         <thead>

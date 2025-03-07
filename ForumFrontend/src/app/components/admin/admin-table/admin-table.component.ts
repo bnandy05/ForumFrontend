@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AdminService } from '../../../services/admin.service';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
+import { FormControl, FormsModule } from '@angular/forms';
 
 interface User {
   id: number;
@@ -22,7 +23,7 @@ interface UsersResponse {
   selector: 'app-admin-table',
   templateUrl: './admin-table.component.html',
   standalone: true,
-  imports: [CommonModule, HeaderComponent],
+  imports: [CommonModule, HeaderComponent, FormsModule],
   styleUrls: ['./admin-table.component.css']
 })
 export class AdminTableComponent implements OnInit {
@@ -34,6 +35,7 @@ export class AdminTableComponent implements OnInit {
   currentUserId = Number(localStorage.getItem('id'));
   loading = false;
   allLoaded = false;
+  category: string| null = "";
 
   constructor(
     private router: Router, 
@@ -42,6 +44,17 @@ export class AdminTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMore();
+  }
+
+  filterTopics(): void
+  {
+    this.users.current_page=0;
+    this.users.data=[];
+    if(this.category == '')
+    {
+      this.category = null;
+    }
+    this.loadMore(this.category);
   }
 
   userClick(userId: number): void {
@@ -92,13 +105,13 @@ export class AdminTableComponent implements OnInit {
     });
   }
 
-  loadMore(): void {
+  loadMore(filter : string | null = null): void {
     if (this.loading || this.allLoaded) return;
 
     this.loading = true;
     const nextPage = this.users.current_page + 1;
 
-    this.adminService.getUsers(nextPage).subscribe({
+    this.adminService.getUsers(nextPage, filter).subscribe({
       next: (response) => {
         this.users.data = [
           ...this.users.data, 
