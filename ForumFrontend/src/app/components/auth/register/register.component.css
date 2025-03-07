@@ -165,6 +165,7 @@ input:focus {
 .additional-links a:hover {
     color: var(--secondary);
     transform: scale(1.05);
+    cursor: pointer;
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover,

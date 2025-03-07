@@ -23,8 +23,8 @@
         </div>
         <button type="submit" class="login-button">Bejelentkezés</button>
         <div class="additional-links gap-5">
-          <a href="forgot-password">Elfelejtett jelszó?</a>
-          <a href="register">Regisztráció</a>
+          <a (click)="redirect('forgot-password')">Elfelejtett jelszó?</a>
+          <a (click)="redirect('register')">Regisztráció</a>
         </div>
       </form>
     </div>
