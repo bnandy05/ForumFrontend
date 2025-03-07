@@ -52,10 +52,6 @@ export class TopicService {
     );
   }
 
-  admintest(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/admin/test`, { withCredentials: true });
-  }
-
   getTopic(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/topic/${id}`, {withCredentials: true}).pipe(
       tap({

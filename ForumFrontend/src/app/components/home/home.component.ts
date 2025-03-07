@@ -130,17 +130,6 @@ export class HomeComponent implements OnInit{
     this.orderBy = 'created_at';
     this.loadTopics(true);
 
-    this.topicService.admintest().subscribe({
-      next: (response) => {
-        this.kaka = response;
-        console.log(response)
-      },
-      error: (err) => {
-        console.error('Failed to fetch categories:', err);
-        console.log(err)
-      },
-    });
-
     this.topicService.getCategories().subscribe({
       next: (response) => {
         this.categories = response;

@@ -25,6 +25,10 @@ export class AuthService {
         localStorage.setItem('id', response.user.id);
         localStorage.setItem('avatar', response.user.avatar);
         localStorage.setItem('username', response.user.name);
+        if(response.user.is_admin == 1)
+        {
+          localStorage.setItem('admin', "1");
+        }
         this.router.navigate(['/']);
         this.messageService.add({ severity: 'success', summary: 'Sikeres bejelentkezés', detail: 'Üdvözöljük!' });
       },
@@ -38,25 +42,33 @@ export class AuthService {
   logout() {
     this.http.post(`${this.apiUrl}/logout`, {}, { withCredentials: true }).subscribe({
       next: () => {
-        localStorage.removeItem('token');
-        this.token.next(null);
-        localStorage.removeItem('id');
-        localStorage.removeItem('avatar');
-        localStorage.removeItem('username');
+        this.clearLocalStorage();
         this.router.navigate(['/login']);
         this.messageService.add({ severity: 'success', summary: 'Sikeres kijelentkezés', detail: 'Viszontlátásra!' });
       },
       error: (err) => {
         if (err.status === 401 || err.status === 403) {
           this.messageService.add({ severity: 'warn', summary: 'Érvénytelen token', detail: 'A token már nem érvényes.' });
-          localStorage.removeItem('token');
-          this.token.next(null);
+          this.clearLocalStorage();
           this.router.navigate(['/login']);
         } else {
           this.messageService.add({ severity: 'error', summary: 'Kijelentkezési hiba', detail: 'Hiba történt a kijelentkezés során.' });
         }
       }      
     });
+  }
+
+  clearLocalStorage() : void
+  {
+    localStorage.removeItem('token');
+    this.token.next(null);
+    localStorage.removeItem('id');
+    localStorage.removeItem('avatar');
+    localStorage.removeItem('username');
+    if(localStorage.getItem('admin') !== null)
+    {
+      localStorage.removeItem('admin');
+    }
   }
 
   forgot(email: string) {

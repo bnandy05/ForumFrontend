@@ -29,7 +29,7 @@ body {
   }
   
   .profile-header {
-    color: white;
+    color: var(--text-primary);
     padding: 15px;
     border-radius: 12px 12px 0 0;
   }
