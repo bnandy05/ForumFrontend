@@ -85,12 +85,12 @@
                 <div *ngIf="editingCommentId !== comment.id; else editCommentTemplate">
                   <div class="avatar-container">
                     <p-avatar
-                      image="https://berenandor.moriczcloud.hu/storage/{{topic.user.avatar}}"
+                      image="https://berenandor.moriczcloud.hu/storage/{{comment.user.avatar}}"
                       size="large"
                       shape="circle"
                     />
                     <span>
-                      <span class="author-name">{{ topic.user.name }}</span>
+                      <span class="author-name">{{ comment.user.name }}</span>
                       <span
                       class="date"
                         data-bs-toggle="tooltip"
