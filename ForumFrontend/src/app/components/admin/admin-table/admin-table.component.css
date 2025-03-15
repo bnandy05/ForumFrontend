@@ -1,8 +1,23 @@
-body {
+.admin-table-container {
     background-color: var(--background);
     color: var(--text-primary);
-    font-family: Arial, sans-serif;
-    padding: 20px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background-color: var(--surface);
+    color: var(--text-primary);
+    transition: border-color 0.3s ease-in-out;
+}
+
+.input-field:focus {
+    border-color: var(--highlight);
+    outline: none;
 }
 
 .table-container {
@@ -15,17 +30,19 @@ table {
     background-color: var(--surface);
     border-radius: 10px;
     overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
-    padding: 12px;
+    padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid var(--border);
 }
 
 th {
     background-color: var(--highlight);
-    color: white;
+    color: var(--text-negative);
+    font-weight: bold;
 }
 
 tr:hover {
@@ -34,29 +51,55 @@ tr:hover {
 
 .btn {
     padding: 8px 12px;
-    margin: 4px;
     border: none;
-    cursor: pointer;
     border-radius: 5px;
-    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease-in-out;
 }
 
-.btn-edit { background-color: var(--primary); }
-.btn-ban { background-color: var(--vote-down); }
-.btn-admin { background-color: var(--highlight); }
-.btn-delete { background-color: red; }
-
-.btn:hover {
-    opacity: 0.8;
+.btn-edit {
+    background-color: var(--primary);
+    color: var(--text-negative);
 }
 
-@media (max-width: 600px) {
-    table, th, td {
-        font-size: 14px;
-    }
+.btn-edit:hover {
+    background-color: var(--highlight);
+}
 
-    .btn {
-        padding: 6px 10px;
-        font-size: 12px;
-    }
+.btn-admin {
+    background-color: var(--vote-up);
+    color: var(--text-negative);
+}
+
+.btn-admin:hover {
+    background-color: #218838;
+}
+
+.btn-ban {
+    background-color: var(--vote-down);
+    color: var(--text-negative);
+}
+
+.btn-ban:hover {
+    background-color: #c82333;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: var(--text-negative);
+}
+
+.btn-delete:hover {
+    background-color: #b52b3a;
+}
+
+.load-more-container {
+    margin-top: 15px;
+}
+
+.loading-spinner {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-secondary);
 }
