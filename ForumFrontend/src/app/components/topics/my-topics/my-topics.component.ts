@@ -13,6 +13,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
+import { AdminService } from '../../../services/admin.service';
 
 dayjs.extend(utc);
 dayjs.extend(relativeTime);
@@ -36,20 +37,27 @@ export class MyTopicsComponent implements OnInit {
   loadingMore: boolean = false;
   userVotes: { [key: number]: 'up' | 'down' | null } = {};
   userId: number | null = null;
-  menuItems: any[] = [];
+  ownMenuItems: any[] = [];
+  adminMenuItems: any[] = [];
   selectedTopicId: number = -1;
+  selectedUserId: number = -1;
   currentUserId = localStorage.getItem('id');
 
   constructor(
     private topicService: TopicService, 
     private router: Router, 
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private adminService: AdminService
   ) {}
 
   ngOnInit() {
-    this.menuItems = [
+    this.ownMenuItems = [
       { label: 'Módosítás', icon: 'pi pi-pencil', command: () => this.ModifyTopic(this.selectedTopicId) },
       { label: 'Törlés', icon: 'pi pi-trash', command: () => this.DeleteTopic(this.selectedTopicId) }
+    ];
+    this.adminMenuItems = [
+      { label: 'Felhasználó Kitiltása', icon: 'pi pi-ban', command: () => this.BanUser(this.selectedUserId) },
+      { label: 'Topic Törlése', icon: 'pi pi-trash', command: () => this.AdminDeleteTopic(this.selectedTopicId) }
     ];
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
@@ -133,8 +141,9 @@ export class MyTopicsComponent implements OnInit {
     this.topicService.vote(topicId, 'topic', type);
   }
 
-  openMenu(event: Event, topicId: number, menu: any) {
+  openMenu(event: Event, topicId: number, userId: number, menu: any) {
     this.selectedTopicId = topicId;
+    this.selectedUserId = userId;
     menu.toggle(event);
   }
 
@@ -170,5 +179,22 @@ export class MyTopicsComponent implements OnInit {
   ModifyTopic(topicId:number)
   {
     this.router.navigate(['/topics/modify', topicId]);
+  }
+
+  IsAdmin():boolean
+  {
+    return this.adminService.isAdmin();
+  }
+
+  BanUser(userId:number)
+  {
+    this.adminService.banUser(userId).subscribe();
+    this.loadTopics(true);
+  }
+
+  AdminDeleteTopic(topicId:number)
+  {
+    this.adminService.deleteTopic(topicId).subscribe();
+    this.loadTopics(true);
   }
 }

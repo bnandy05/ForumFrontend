@@ -78,8 +78,12 @@
           shape="circle"
         />
         <div class="menu-container" *ngIf="topic.user_id == currentUserId">
-          <p-menu #menu [popup]="true" [model]="menuItems" appendTo="body"></p-menu>
-          <p-button class="menu-button" (click)="openMenu($event, topic.id, menu)" icon="pi pi-ellipsis-v"/>
+          <p-menu #menu [popup]="true" [model]="ownMenuItems" appendTo="body"></p-menu>
+          <p-button class="menu-button" (click)="openMenu($event, topic.id, topic.user.id, menu)" icon="pi pi-ellipsis-v"/>
+        </div>
+        <div class="menu-container" *ngIf="topic.user_id != currentUserId && IsAdmin()">
+          <p-menu #menu [popup]="true" [model]="adminMenuItems" appendTo="body"></p-menu>
+          <p-button class="menu-button" (click)="openMenu($event, topic.id, topic.user.id, menu)" icon="pi pi-ellipsis-v"/>
         </div>
         <h5 class="post-title">{{ topic.title }}</h5>
         <p class="post-meta">

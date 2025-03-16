@@ -9,6 +9,7 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { ImageCropperComponent, ImageCroppedEvent } from 'ngx-image-cropper';
+import { AdminService } from '../../../services/admin.service';
 
 @Component({
   selector: 'app-profile',
@@ -30,7 +31,8 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private adminService: AdminService
   ) {}
 
   ngOnInit(): void {
@@ -80,6 +82,7 @@ export class ProfileComponent implements OnInit {
   loadOtherUserProfile(userId: number): void {
     this.authService.getOtherUser(userId).subscribe({
       next: (profile) => {
+        console.log(profile);
         this.userProfile = profile;
         this.ownProfile = false;
       },
@@ -106,5 +109,20 @@ export class ProfileComponent implements OnInit {
 
   topics(): void {
     this.router.navigate(['topics/user', this.userProfile.id]);
+  }
+
+  IsAdmin():boolean
+  {
+    return this.adminService.isAdmin();
+  }
+
+  BanUser(userId:number)
+  {
+    this.adminService.banUser(userId).subscribe();
+  }
+
+  UnbanUser(userId:number)
+  {
+    this.adminService.unbanUser(userId).subscribe();
   }
 }

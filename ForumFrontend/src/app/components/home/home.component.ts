@@ -12,6 +12,7 @@ import { PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { AuthService } from '../../services/auth.service';
 import { AdminHomeComponent } from '../admin/admin-home/admin-home.component';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-home',
@@ -31,12 +32,13 @@ export class HomeComponent implements OnInit{
   loadingMore: boolean = false;
   userVotes: { [key: number]: 'up' | 'down' | null } = {};
   currentUserId = localStorage.getItem('id');
-  menuItems: any[] = [];
+  ownMenuItems: any[] = [];
+  adminMenuItems: any[] = [];
   selectedTopicId: number = -1;
-  kaka: any ="";
+  selectedUserId: number = -1;
   
 
-  constructor(private topicService: TopicService, private router: Router, private authService: AuthService) {}
+  constructor(private topicService: TopicService, private router: Router, public adminService: AdminService) {}
 
   navigateToTopic(topicId: number, event: MouseEvent): void {
     const target = event.target as HTMLElement;
@@ -110,8 +112,9 @@ export class HomeComponent implements OnInit{
     this.topicService.vote(topicId, 'topic', type);
   }
   
-  openMenu(event: Event, topicId: number, menu: any) {
+  openMenu(event: Event, topicId: number, userId: number, menu: any) {
     this.selectedTopicId = topicId;
+    this.selectedUserId = userId;
     menu.toggle(event);
   }
 
@@ -122,9 +125,13 @@ export class HomeComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.menuItems = [
+    this.ownMenuItems = [
       { label: 'Módosítás', icon: 'pi pi-pencil', command: () => this.ModifyTopic(this.selectedTopicId) },
       { label: 'Törlés', icon: 'pi pi-trash', command: () => this.DeleteTopic(this.selectedTopicId) }
+    ];
+    this.adminMenuItems = [
+      { label: 'Felhasználó Kitiltása', icon: 'pi pi-ban', command: () => this.BanUser(this.selectedUserId) },
+      { label: 'Topic Törlése', icon: 'pi pi-trash', command: () => this.AdminDeleteTopic(this.selectedTopicId) }
     ];
     this.categoryId = '';
     this.orderBy = 'created_at';
@@ -140,6 +147,11 @@ export class HomeComponent implements OnInit{
     });
   }
 
+  IsAdmin() : boolean
+  {
+    return this.adminService.isAdmin();
+  }
+
   DeleteTopic(topicId:number)
   {
     this.topicService.deleteTopic(topicId);
@@ -149,5 +161,17 @@ export class HomeComponent implements OnInit{
   ModifyTopic(topicId:number)
   {
     this.router.navigate(['/topics/modify', topicId]);
+  }
+
+  BanUser(userId:number)
+  {
+    this.adminService.banUser(userId).subscribe();
+    this.loadTopics(true);
+  }
+
+  AdminDeleteTopic(topicId:number)
+  {
+    this.adminService.deleteTopic(topicId).subscribe();
+    this.loadTopics(true);
   }
 }

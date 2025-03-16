@@ -13,6 +13,7 @@ import { EmojiEvent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
 import { TextareaModule } from 'primeng/textarea';
+import { AdminService } from '../../../services/admin.service';
 
 interface Comment {
   id: number;
@@ -57,11 +58,14 @@ export class TopicDetailsComponent implements OnInit {
   showEmojiPicker = false;
   currentUserId = Number(localStorage.getItem('id'));
   selectedCommentId: number = -1;
+  selectedCommentUserId: number = -1;
   topicOwner: boolean = false;
   editingCommentId: number | null = null;
   editedCommentContent: string = '';
-  menuItems: any[] = [];
+  ownMenuItems: any[] = [];
+  adminMenuItems: any[] = [];
   selectedTopicId: number = -1;
+  selectedTopicUserId: number = -1;
   selectedImage: string | null = null;
   isImageModalOpen = false;
   isEditing = false;
@@ -70,7 +74,8 @@ export class TopicDetailsComponent implements OnInit {
     private topicService: TopicService,
     private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private adminService: AdminService
   ) {}
 
   emojiLang = {
@@ -115,9 +120,13 @@ export class TopicDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.menuItems = [
+    this.ownMenuItems = [
       { label: 'Módosítás', icon: 'pi pi-pencil', command: () => this.ModifyTopic(this.selectedTopicId) },
       { label: 'Törlés', icon: 'pi pi-trash', command: () => this.DeleteTopic(this.selectedTopicId) }
+    ];
+    this.adminMenuItems = [
+      { label: 'Felhasználó Kitiltása', icon: 'pi pi-ban', command: () => this.BanUser(this.selectedTopicUserId, true) },
+      { label: 'Topic Törlése', icon: 'pi pi-trash', command: () => this.AdminDeleteTopic(this.selectedTopicId) }
     ];
     this.activatedRoute.params.subscribe((params) => {
       this.id = params['id'];
@@ -219,6 +228,22 @@ export class TopicDetailsComponent implements OnInit {
       });
     }
 
+    if (comment.user.id !== +this.currentUserId && !this.topicOwner && this.IsAdmin()) {
+      items.push({
+        label: 'Komment Törlése',
+        icon: 'pi pi-trash',
+        command: () => this.AdminDeleteComment(comment.id),
+      });
+    }
+
+    if (comment.user.id !== +this.currentUserId && this.IsAdmin()) {
+      items.push({
+        label: 'Felhasználó Kitiltása',
+        icon: 'pi pi-ban',
+        command: () => this.BanUser(comment.user.id),
+      });
+    }
+
     return items;
   }
 
@@ -244,13 +269,15 @@ export class TopicDetailsComponent implements OnInit {
     });
   }
 
-  openTopicMenu(event: Event, topicId: number, menu: any) {
+  openTopicMenu(event: Event, topicId: number, userId:number, menu: any) {
     this.selectedTopicId = topicId;
+    this.selectedTopicUserId = userId;
     menu.toggle(event);
   }
 
-  openMenu(event: Event, commentId: number, menu: any) {
+  openMenu(event: Event, commentId: number, userId:number, menu: any) {
     this.selectedCommentId = commentId;
+    this.selectedCommentUserId = userId;
     menu.toggle(event);
   }
 
@@ -351,5 +378,35 @@ export class TopicDetailsComponent implements OnInit {
   ModifyTopic(topicId:number)
   {
     this.router.navigate(['/topics/modify', topicId]);
+  }
+
+  IsAdmin():boolean
+  {
+    return this.adminService.isAdmin();
+  }
+
+  BanUser(userId:number, TopicAuthor:boolean = false)
+  {
+    this.adminService.banUser(userId).subscribe();
+    if(TopicAuthor)
+    {
+      this.router.navigate(['']);
+    }
+    else
+    {
+      this.refreshTopic();
+    }
+  }
+
+  AdminDeleteComment(commentId:number)
+  {
+    this.adminService.deleteComment(commentId).subscribe();
+    this.refreshTopic();
+  }
+
+  AdminDeleteTopic(topicId:number)
+  {
+    this.adminService.deleteTopic(topicId).subscribe();
+    this.router.navigate(['']);
   }
 }
