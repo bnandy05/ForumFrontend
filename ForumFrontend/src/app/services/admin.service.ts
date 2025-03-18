@@ -178,8 +178,13 @@ export class AdminService {
     );
   }
 
-  getUsers(page: number = 1, name: string|null = null): Observable<any> {
-    return this.http.post(`${this.baseUrl}/admin/users/get?page=${page}`, { name }, { withCredentials: true }).pipe(
+  getUsers(page: number = 1, name: string | null = null, banned: number | null = null, admin: number | null = null): Observable<any> {
+    const payload: any = { name };
+  
+    if (banned !== null) payload.banned = banned;
+    if (admin !== null) payload.admin = admin;
+  
+    return this.http.post(`${this.baseUrl}/admin/users/get?page=${page}`, payload, { withCredentials: true }).pipe(
       tap(response => {}),
       catchError(error => {
         this.messageService.add({ 
@@ -190,5 +195,5 @@ export class AdminService {
         return throwError(error);
       })
     );
-  }
+  }  
 }
