@@ -1,5 +1,6 @@
 <app-header></app-header>
 <body>
+    <br>
 <div class="profile-container">
     <div class="profile-card">
         <div class="profile-header">
@@ -58,10 +59,12 @@
                                          <h4>Elismertség: {{userProfile.stats.total_votes_balance}}</h4>
                                      </div>
                                  </div>
+                                 
+            <hr>
                              </div>
                          </div>
                          <div class="profile-actions" *ngIf="ownProfile">
-                            <p style="display:inline; !important">Profilkép frissítése <input type="file" accept="image/*" (change)="onFileSelect($event)" class="custom-file-input"/></p>  
+                            <p class="profile-update">Profilkép frissítése <input type="file" accept="image/*" (change)="onFileSelect($event)" class="custom-file-input"/></p>  
                             <button pButton (click)="uploadAvatar()" severity="success">Feltöltés</button>
                         </div>
                         <div class="profile-actions" *ngIf="ownProfile">
