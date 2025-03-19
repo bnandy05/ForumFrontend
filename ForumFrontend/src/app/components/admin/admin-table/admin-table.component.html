@@ -1,5 +1,5 @@
+<app-header></app-header>
 <div class="admin-table-container">
-  <app-header></app-header>
 
   <div class="filter-container">
     <input type="text" [(ngModel)]="category" (input)="filterTopics()" class="input-field" placeholder="Add meg a felhasználónevet/emailt...">
@@ -18,38 +18,41 @@
   </div>
 
   <div class="table-container">
-    <table>
+    <table class="responsive-table">
       <thead>
         <tr>
-          <th>User ID</th>
+          <th class="hide-on-mobile">User ID</th>
           <th>Felhasználónév</th>
           <th>Email</th>
-          <th>Műveletek</th>
+          <th class="action-column">Műveletek</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let user of users.data">
-          <td>{{ user.id }}</td>
+          <td class="hide-on-mobile">{{ user.id }}</td>
           <td>{{ user.name }}<b *ngIf="currentUserId == user.id"> (Te)</b></td>
           <td>{{ user.email }}</td>
-          <td>
-            <div *ngIf="currentUserId != user.id">
-              <button class="btn btn-edit" (click)="userClick(user.id)">Profil Megtekintése</button>
-              <button class="btn btn-admin" *ngIf="user.is_admin == 0" (click)="makeAdmin(user.id)">Admin jog adása</button>
-              <button class="btn btn-admin" *ngIf="user.is_admin == 1" (click)="revokeAdmin(user.id)">Admin jog elvétele</button>
-              <button class="btn btn-ban" *ngIf="user.is_banned == 0" (click)="banUser(user.id)">Ban</button>
-              <button class="btn btn-ban" *ngIf="user.is_banned == 1" (click)="unbanUser(user.id)">Unban</button>
-              <button class="btn btn-delete" (click)="deleteUser(user.id)">Törlés</button>
+          <td *ngIf="currentUserId == user.id" class="action-column">
+            <span class="current-user-notice">Ez a te fiókod</span>
+          </td>
+          <td *ngIf="currentUserId != user.id" class="action-column">
+            <div class="action-buttons">
+              <button class="btn btn-edit" (click)="userClick(user.id)">Profil</button>
+              <button class="btn btn-admin" *ngIf="user.is_admin == 0" (click)="makeAdmin(user.id, user.name)">Admin</button>
+              <button class="btn btn-admin" *ngIf="user.is_admin == 1" (click)="revokeAdmin(user.id, user.name)">Jogok elvétele</button>
+              <button class="btn btn-ban" *ngIf="user.is_banned == 0" (click)="banUser(user.id, user.name)">Ban</button>
+              <button class="btn btn-ban" *ngIf="user.is_banned == 1" (click)="unbanUser(user.id, user.name)">Unban</button>
+              <button class="btn btn-delete" (click)="deleteUser(user.id, user.name)">Törlés</button>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
 
-    <div *ngIf="!loading && !allLoaded && users.data.length > 0" class="load-more-container text-center">
+    <div *ngIf="!loading && !allLoaded && users.data.length > 0" class="load-more-container">
       <button class="btn btn-edit" (click)="loadMore(category, bannedFilter, adminFilter)">Több betöltése</button>
     </div>
 
-    <div *ngIf="loading" class="loading-spinner text-center">Töltés...</div>
+    <div *ngIf="loading" class="loading-spinner">Töltés...</div>
   </div>
 </div>

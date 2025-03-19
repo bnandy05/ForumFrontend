@@ -197,5 +197,21 @@ export class AdminService {
         return throwError(error);
       })
     );
+  }
+
+  getUser(userId:number): Observable<any> {
+  
+    return this.http.post(`${this.baseUrl}/admin/users/get/${userId}`, { withCredentials: true }).pipe(
+      tap(response => {}),
+      catchError(error => {
+        console.error(error)
+        this.messageService.add({ 
+          severity: 'error', 
+          summary: 'Hiba', 
+          detail: error.error?.message || 'Nem sikerült a felhasználó lekérése' 
+        });
+        return throwError(error);
+      })
+    );
   }  
 }

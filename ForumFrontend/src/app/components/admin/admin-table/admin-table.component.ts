@@ -66,9 +66,9 @@ export class AdminTableComponent implements OnInit {
     this.router.navigate(['/profile', userId]);
   }
 
-  makeAdmin(userId: number): void {
+  makeAdmin(userId: number, name: string): void {
     this.confirmationService.confirm({
-      message: 'Biztosan adminná szeretnéd tenni a felhasználót?',
+      message: 'Biztosan adminná szeretnéd tenni a felhasználót? ('+name+')',
       header: 'Megerősítés',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Igen',
@@ -77,7 +77,7 @@ export class AdminTableComponent implements OnInit {
       rejectButtonStyleClass: 'p-button-success',
       accept: () => {
         this.adminService.makeAdmin(userId).subscribe({
-          next: () => this.refreshCurrentPage()
+          next: () => this.updateUserInPlace(userId)
         });
       },
       reject: () => {
@@ -85,9 +85,9 @@ export class AdminTableComponent implements OnInit {
     });
   }
 
-  revokeAdmin(userId: number): void {
+  revokeAdmin(userId: number, name: string): void {
     this.confirmationService.confirm({
-      message: 'Biztosan el szeretnéd venni a felhasználótól az admin jogokat?',
+      message: 'Biztosan el szeretnéd venni a felhasználótól az admin jogokat? ('+name+')',
       header: 'Megerősítés',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Igen',
@@ -96,7 +96,7 @@ export class AdminTableComponent implements OnInit {
       rejectButtonStyleClass: 'p-button-success',
       accept: () => {
         this.adminService.revokeAdmin(userId).subscribe({
-          next: () => this.refreshCurrentPage()
+          next: () => this.updateUserInPlace(userId)
         });
       },
       reject: () => {
@@ -104,9 +104,9 @@ export class AdminTableComponent implements OnInit {
     });
   }
 
-  banUser(userId: number): void {
+  banUser(userId: number, name: string): void {
     this.confirmationService.confirm({
-      message: 'Biztosan ki szeretnéd tiltani a felhasználót?',
+      message: 'Biztosan ki szeretnéd tiltani a felhasználót? ('+name+')',
       header: 'Megerősítés',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Igen',
@@ -115,7 +115,7 @@ export class AdminTableComponent implements OnInit {
       rejectButtonStyleClass: 'p-button-success',
       accept: () => {
         this.adminService.banUser(userId).subscribe({
-          next: () => this.refreshCurrentPage()
+          next: () => this.updateUserInPlace(userId)
         });
       },
       reject: () => {
@@ -123,9 +123,9 @@ export class AdminTableComponent implements OnInit {
     });
   }
 
-  unbanUser(userId: number): void {
+  unbanUser(userId: number, name: string): void {
     this.confirmationService.confirm({
-      message: 'Biztosan fel szeretnéd oldani a felhasználó kitiltását?',
+      message: 'Biztosan fel szeretnéd oldani a felhasználó kitiltását? ('+name+')',
       header: 'Megerősítés',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Igen',
@@ -134,7 +134,7 @@ export class AdminTableComponent implements OnInit {
       rejectButtonStyleClass: 'p-button-success',
       accept: () => {
         this.adminService.unbanUser(userId).subscribe({
-          next: () => this.refreshCurrentPage()
+          next: () => this.updateUserInPlace(userId)
         });
       },
       reject: () => {
@@ -142,9 +142,9 @@ export class AdminTableComponent implements OnInit {
     });
   }
 
-  deleteUser(userId: number): void {
+  deleteUser(userId: number, name: string): void {
     this.confirmationService.confirm({
-      message: 'Biztosan törölni szeretnéd a felhasználó fiókját? Ez a művelet visszavonhatatlan!',
+      message: 'Biztosan törölni szeretnéd a felhasználó fiókját? Ez a művelet visszavonhatatlan! ('+name+')',
       header: 'Megerősítés',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Törlés',
@@ -154,11 +154,47 @@ export class AdminTableComponent implements OnInit {
       accept: () => {
         this.adminService.deleteUser(userId).subscribe({
           next: () => {
-            this.refreshCurrentPage();
+            this.removeUserFromList(userId);
           }
         });
       },
       reject: () => {
+      }
+    });
+  }
+
+  removeUserFromList(userId: number): void {
+    const index = this.users.data.findIndex(user => user.id === userId);
+    if (index !== -1) {
+      this.users.data.splice(index, 1);
+      this.users.data = [...this.users.data];
+    }
+  }
+
+  updateUserInPlace(userId: number): void {
+    if (this.loading) return;
+
+    this.loading = true;
+    
+    this.adminService.getUser(userId).subscribe({
+      next: (updatedUser) => {
+        if (!updatedUser) {
+          console.error('Felhasználó nem található');
+          this.loading = false;
+          return;
+        }
+        
+        const index = this.users.data.findIndex(user => user.id === userId);
+        if (index !== -1) {
+          this.users.data[index] = updatedUser.user;
+          this.users.data = [...this.users.data];
+        }
+        
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Felhasználó frissítése sikertelen:', err);
+        this.loading = false;
       }
     });
   }
