@@ -1,3 +1,7 @@
+::ng-deep body {
+    background-color: var(--navbar-bg)!important;
+}
+
 .admin-table-container {
     width: 100%;
     max-width: 1400px;
