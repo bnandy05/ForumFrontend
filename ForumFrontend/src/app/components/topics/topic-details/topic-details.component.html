@@ -102,13 +102,13 @@
                      😊
                    </button>
                  </div>
- 
+
                  <div *ngIf="showEmojiPicker" class="emoji-picker">
                    <emoji-mart [set]="'twitter'" [i18n]="emojiLang" (emojiSelect)="addEmoji($event)"></emoji-mart>
                  </div>
- 
+
                  <button class="btn btn-primary mt-2" (click)="addComment(topic.id)">Küldés</button>
-               </div>              
+               </div>
              </div>
            </div>
          </div>
