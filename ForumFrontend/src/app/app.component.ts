@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, ToastModule, ButtonModule],
+  imports: [RouterOutlet, CommonModule, ToastModule, ButtonModule, ConfirmDialogModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

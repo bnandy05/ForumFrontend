@@ -6,12 +6,13 @@ import { authInterceptor } from './app/auth.interceptor';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { provideRouter, RouteReuseStrategy, withHashLocation, withInMemoryScrolling} from '@angular/router';
 import { routes } from './app/app.routes';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ToastModule } from 'primeng/toast';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { CustomRouteReuseStrategy } from './app/custom-route-reuse-strategy';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -21,13 +22,14 @@ bootstrapApplication(AppComponent, {
     })),
     { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy },
     provideHttpClient(withInterceptors([authInterceptor])),
-    importProvidersFrom(ToastModule),
+    importProvidersFrom(ToastModule, ConfirmDialogModule),
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
           preset: Aura
       }
   }),
-    MessageService
+    MessageService,
+    ConfirmationService
   ],
 }).catch(err => console.error(err));

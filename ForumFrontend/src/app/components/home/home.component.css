@@ -130,7 +130,6 @@ body input::placeholder {
   color: var(--primary);
 }
 
-/* Szavazás */
 .vote-buttons {
   display: flex;
   align-items: center;
@@ -196,18 +195,21 @@ body input::placeholder {
   background-color: var(--primary);
 }
 
-::ng-deep .p-button
+::ng-deep .menu-container .p-button
 {
   background-color: var(--icon-color) !important;
   border: var(--primary) !important;
 }
-::ng-deep .p-button:hover{
+
+::ng-deep .menu-container .p-button:hover{
   background-color: var(--icon-hover) !important;
   border: var(--primary) !important;
 }
+
 .dropdown-menu{
   background-color: var(--navbar-bg) !important;
 }
+
 .custom-dropdown {
   width: 300px;
   position: absolute;

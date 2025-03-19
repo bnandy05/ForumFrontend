@@ -39,7 +39,7 @@
               <button class="btn btn-admin" *ngIf="user.is_admin == 1" (click)="revokeAdmin(user.id)">Admin jog elvétele</button>
               <button class="btn btn-ban" *ngIf="user.is_banned == 0" (click)="banUser(user.id)">Ban</button>
               <button class="btn btn-ban" *ngIf="user.is_banned == 1" (click)="unbanUser(user.id)">Unban</button>
-              <button class="btn btn-delete" (click)="userClick(user.id)">Törlés</button>
+              <button class="btn btn-delete" (click)="deleteUser(user.id)">Törlés</button>
             </div>
           </td>
         </tr>

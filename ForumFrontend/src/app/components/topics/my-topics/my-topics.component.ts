@@ -14,6 +14,7 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { AdminService } from '../../../services/admin.service';
+import { ConfirmationService } from 'primeng/api';
 
 dayjs.extend(utc);
 dayjs.extend(relativeTime);
@@ -47,7 +48,8 @@ export class MyTopicsComponent implements OnInit {
     private topicService: TopicService, 
     private router: Router, 
     private route: ActivatedRoute,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit() {
@@ -172,8 +174,26 @@ export class MyTopicsComponent implements OnInit {
 
   DeleteTopic(topicId:number)
   {
-    this.topicService.deleteTopic(topicId);
-    this.loadTopics(true);
+    this.confirmationService.confirm({
+      message: 'Biztosan törölni szeretnéd a topicot?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.topicService.deleteTopic(topicId);
+        this.loadTopics(true);
+      },
+      reject: () => {
+      }
+    });
+  }
+
+  IsAdmin(): boolean
+  {
+    return this.adminService.isAdmin();
   }
 
   ModifyTopic(topicId:number)
@@ -181,20 +201,41 @@ export class MyTopicsComponent implements OnInit {
     this.router.navigate(['/topics/modify', topicId]);
   }
 
-  IsAdmin():boolean
-  {
-    return this.adminService.isAdmin();
-  }
-
   BanUser(userId:number)
   {
-    this.adminService.banUser(userId).subscribe();
-    this.loadTopics(true);
+    this.confirmationService.confirm({
+      message: 'Biztosan ki szeretnéd tiltani a felhasználót?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.adminService.banUser(userId).subscribe();
+        this.loadTopics(true);
+      },
+      reject: () => {
+      }
+    });
   }
 
   AdminDeleteTopic(topicId:number)
   {
-    this.adminService.deleteTopic(topicId).subscribe();
-    this.loadTopics(true);
+    this.confirmationService.confirm({
+      message: 'Biztosan törölni szeretnéd a topicot?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.adminService.deleteTopic(topicId).subscribe();
+        this.loadTopics(true);
+      },
+      reject: () => {
+      }
+    });
   }
 }

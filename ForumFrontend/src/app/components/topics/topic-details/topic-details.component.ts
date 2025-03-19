@@ -4,7 +4,7 @@ import { HeaderComponent } from '../../header/header.component';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SafeHtmlPipe } from '../../../safe-html.pipe';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
@@ -74,6 +74,7 @@ export class TopicDetailsComponent implements OnInit {
     private topicService: TopicService,
     private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
+    private confirmationService: ConfirmationService,
     private router: Router,
     private adminService: AdminService
   ) {}
@@ -331,8 +332,21 @@ export class TopicDetailsComponent implements OnInit {
   }
 
   DeleteComment(commentId: number) {
-    this.topicService.deleteComment(commentId);
-    this.refreshTopic();
+    this.confirmationService.confirm({
+      message: 'Biztosan törölni szeretnéd a kommentet?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.topicService.deleteComment(commentId);
+        this.refreshTopic();
+      },
+      reject: () => {
+      }
+    });
   }
 
   ModifyComment(commentId: number) {
@@ -371,8 +385,21 @@ export class TopicDetailsComponent implements OnInit {
 
   DeleteTopic(topicId:number)
   {
-    this.topicService.deleteTopic(topicId);
-    this.router.navigate(['/']);
+    this.confirmationService.confirm({
+      message: 'Biztosan törölni szeretnéd a topicot?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.topicService.deleteTopic(topicId);
+        this.router.navigate(['/']);
+      },
+      reject: () => {
+      }
+    });
   }
 
   ModifyTopic(topicId:number)
@@ -387,26 +414,65 @@ export class TopicDetailsComponent implements OnInit {
 
   BanUser(userId:number, TopicAuthor:boolean = false)
   {
-    this.adminService.banUser(userId).subscribe();
-    if(TopicAuthor)
-    {
-      this.router.navigate(['']);
-    }
-    else
-    {
-      this.refreshTopic();
-    }
+    this.confirmationService.confirm({
+      message: 'Biztosan ki szeretnéd tiltani a felhasználód?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.adminService.banUser(userId).subscribe();
+        if(TopicAuthor)
+        {
+          this.router.navigate(['']);
+        }
+        else
+        {
+          this.refreshTopic();
+        }
+      },
+      reject: () => {
+      }
+    });
   }
 
   AdminDeleteComment(commentId:number)
   {
-    this.adminService.deleteComment(commentId).subscribe();
-    this.refreshTopic();
+    this.confirmationService.confirm({
+      message: 'Biztosan törölni szeretnéd a kommentet?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.adminService.deleteComment(commentId).subscribe();
+        this.refreshTopic();
+      },
+      reject: () => {
+      }
+    });
   }
 
   AdminDeleteTopic(topicId:number)
   {
-    this.adminService.deleteTopic(topicId).subscribe();
-    this.router.navigate(['']);
+    this.confirmationService.confirm({
+      message: 'Biztosan törölni szeretnéd a topicot?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.adminService.deleteTopic(topicId).subscribe();
+        this.router.navigate(['']);
+      },
+      reject: () => {
+      }
+    });
   }
 }

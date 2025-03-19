@@ -4,6 +4,7 @@ import { AdminService } from '../../../services/admin.service';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
 import { FormsModule } from '@angular/forms';
+import { ConfirmationService } from 'primeng/api';
 
 interface User {
   id: number;
@@ -42,6 +43,7 @@ export class AdminTableComponent implements OnInit {
   constructor(
     private router: Router,
     private adminService: AdminService,
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit(): void {
@@ -60,35 +62,105 @@ export class AdminTableComponent implements OnInit {
   
     this.loadMore(this.category, this.bannedFilter, this.adminFilter);
   }
-  
-
-  
 
   userClick(userId: number): void {
     this.router.navigate(['/profile', userId]);
   }
 
   makeAdmin(userId: number): void {
-    this.adminService.makeAdmin(userId).subscribe({
-      next: () => this.refreshCurrentPage()
+    this.confirmationService.confirm({
+      message: 'Biztosan adminná szeretnéd tenni a felhasználót?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.adminService.makeAdmin(userId).subscribe({
+          next: () => this.refreshCurrentPage()
+        });
+      },
+      reject: () => {
+      }
     });
   }
 
   revokeAdmin(userId: number): void {
-    this.adminService.revokeAdmin(userId).subscribe({
-      next: () => this.refreshCurrentPage()
+    this.confirmationService.confirm({
+      message: 'Biztosan el szeretnéd venni a felhasználótól az admin jogokat?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.adminService.revokeAdmin(userId).subscribe({
+          next: () => this.refreshCurrentPage()
+        });
+      },
+      reject: () => {
+      }
     });
   }
 
   banUser(userId: number): void {
-    this.adminService.banUser(userId).subscribe({
-      next: () => this.refreshCurrentPage()
+    this.confirmationService.confirm({
+      message: 'Biztosan ki szeretnéd tiltani a felhasználót?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.adminService.banUser(userId).subscribe({
+          next: () => this.refreshCurrentPage()
+        });
+      },
+      reject: () => {
+      }
     });
   }
 
   unbanUser(userId: number): void {
-    this.adminService.unbanUser(userId).subscribe({
-      next: () => this.refreshCurrentPage()
+    this.confirmationService.confirm({
+      message: 'Biztosan fel szeretnéd oldani a felhasználó kitiltását?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.adminService.unbanUser(userId).subscribe({
+          next: () => this.refreshCurrentPage()
+        });
+      },
+      reject: () => {
+      }
+    });
+  }
+
+  deleteUser(userId: number): void {
+    this.confirmationService.confirm({
+      message: 'Biztosan törölni szeretnéd a felhasználó fiókját? Ez a művelet visszavonhatatlan!',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Törlés',
+      rejectLabel: 'Mégse',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.adminService.deleteUser(userId).subscribe({
+          next: () => {
+            this.refreshCurrentPage();
+          }
+        });
+      },
+      reject: () => {
+      }
     });
   }
 
