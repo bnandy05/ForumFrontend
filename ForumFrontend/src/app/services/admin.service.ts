@@ -179,8 +179,9 @@ export class AdminService {
   }
 
   getUsers(page: number = 1, name: string | null = null, banned: number | null = null, admin: number | null = null): Observable<any> {
-    const payload: any = { name: null, banned : null, admin: null  };
+    const payload: any = {};
   
+    if (name !== null) payload.name = name;
     if (banned !== null) payload.banned = banned;
     if (admin !== null) payload.admin = admin;
   

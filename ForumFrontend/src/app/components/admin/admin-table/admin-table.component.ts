@@ -51,7 +51,6 @@ export class AdminTableComponent implements OnInit {
   }
 
   filterTopics(): void {
-    this.loading = true;
     this.allLoaded = false;
     this.users.data = [];
     this.users.current_page = 0;
@@ -183,6 +182,10 @@ export class AdminTableComponent implements OnInit {
   }
 
   loadMore(name: string | null = null, banned: number | null = null, admin: number | null = null): void {
+    if(this.loading)
+    {
+      return;
+    }
   
     this.loading = true;
     const nextPage = this.users.current_page + 1;
