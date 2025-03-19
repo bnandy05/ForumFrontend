@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, tap, catchError, throwError } from 'rxjs';
 import { MessageService } from 'primeng/api';
 
@@ -178,15 +178,16 @@ export class AdminService {
     );
   }
 
-  getUsers(page: number = 1, filters: { name?: string; banned?: number; admin?: number } = {}): Observable<UsersResponse> {
-    const params = new HttpParams()
-      .set('page', page.toString())
-      .set('name', filters.name || '')
-      .set('banned', filters.banned !== undefined ? filters.banned.toString() : '')
-      .set('admin', filters.admin !== undefined ? filters.admin.toString() : '');
+  getUsers(page: number = 1, name: string | null = null, banned: number | null = null, admin: number | null = null): Observable<any> {
+    const payload: any = { name: null, banned : null, admin: null  };
   
-    return this.http.get<UsersResponse>(`${this.baseUrl}/admin/users/get`, { params, withCredentials: true }).pipe(
+    if (banned !== null) payload.banned = banned;
+    if (admin !== null) payload.admin = admin;
+  
+    return this.http.post(`${this.baseUrl}/admin/users/get?page=${page}`, payload, { withCredentials: true }).pipe(
+      tap(response => {}),
       catchError(error => {
+        console.error(error)
         this.messageService.add({ 
           severity: 'error', 
           summary: 'Hiba', 
@@ -195,6 +196,5 @@ export class AdminService {
         return throwError(error);
       })
     );
-  }
-  
+  }  
 }
