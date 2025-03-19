@@ -183,7 +183,6 @@ export class AdminTableComponent implements OnInit {
   }
 
   loadMore(name: string | null = null, banned: number | null = null, admin: number | null = null): void {
-    if (this.loading || this.allLoaded) return;
   
     this.loading = true;
     const nextPage = this.users.current_page + 1;
