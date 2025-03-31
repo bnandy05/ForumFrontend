@@ -1,17 +1,16 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, HostListener, OnInit} from '@angular/core';
 import { TopicService } from '../../services/topic.service';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
 import { SafeHtmlPipe } from '../../safe-html.pipe';
 import { FormsModule } from '@angular/forms';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { MenuModule } from 'primeng/menu';
-import { PrimeIcons } from 'primeng/api';
+import { ConfirmationService, PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { AuthService } from '../../services/auth.service';
-import { AdminHomeComponent } from '../admin/admin-home/admin-home.component';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +19,7 @@ import { AdminHomeComponent } from '../admin/admin-home/admin-home.component';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit, AfterViewChecked{
   topics: any[] = [];
   title: string = "";
   orderBy: string = "";
@@ -31,12 +30,13 @@ export class HomeComponent implements OnInit{
   loadingMore: boolean = false;
   userVotes: { [key: number]: 'up' | 'down' | null } = {};
   currentUserId = localStorage.getItem('id');
-  menuItems: any[] = [];
+  ownMenuItems: any[] = [];
+  adminMenuItems: any[] = [];
   selectedTopicId: number = -1;
-  kaka: any ="";
-  
+  selectedUserId: number = -1;
 
-  constructor(private topicService: TopicService, private router: Router, private authService: AuthService) {}
+
+  constructor(private topicService: TopicService, private router: Router, public adminService: AdminService, private confirmationService: ConfirmationService) {}
 
   navigateToTopic(topicId: number, event: MouseEvent): void {
     const target = event.target as HTMLElement;
@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit{
     if (forbiddenTags.includes(target.tagName)) {
       return;
     }
-    
+
     this.router.navigate(['/topics/view', topicId]);
   }
 
@@ -93,9 +93,9 @@ export class HomeComponent implements OnInit{
   vote(topicId: number, index: number, type: 'up' | 'down', event: MouseEvent) {
     event.stopPropagation();
     const topic = this.topics[index];
-  
+
     if (!topic) return;
-  
+
     if (this.userVotes[topicId] === type) {
       this.userVotes[topicId] = null;
       topic.upvote_count += type === 'up' ? -1 : 1;
@@ -106,12 +106,13 @@ export class HomeComponent implements OnInit{
       this.userVotes[topicId] = type;
       topic.upvote_count += type === 'up' ? 1 : -1;
     }
-  
+
     this.topicService.vote(topicId, 'topic', type);
   }
-  
-  openMenu(event: Event, topicId: number, menu: any) {
+
+  openMenu(event: Event, topicId: number, userId: number, menu: any) {
     this.selectedTopicId = topicId;
+    this.selectedUserId = userId;
     menu.toggle(event);
   }
 
@@ -122,9 +123,13 @@ export class HomeComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.menuItems = [
+    this.ownMenuItems = [
       { label: 'Módosítás', icon: 'pi pi-pencil', command: () => this.ModifyTopic(this.selectedTopicId) },
       { label: 'Törlés', icon: 'pi pi-trash', command: () => this.DeleteTopic(this.selectedTopicId) }
+    ];
+    this.adminMenuItems = [
+      { label: 'Felhasználó Kitiltása', icon: 'pi pi-ban', command: () => this.BanUser(this.selectedUserId) },
+      { label: 'Topic Törlése', icon: 'pi pi-trash', command: () => this.AdminDeleteTopic(this.selectedTopicId) }
     ];
     this.categoryId = '';
     this.orderBy = 'created_at';
@@ -140,14 +145,78 @@ export class HomeComponent implements OnInit{
     });
   }
 
+  ngAfterViewChecked(): void {
+    if(localStorage.getItem("fresh")=="1")
+    {
+      localStorage.removeItem("fresh");
+      location.reload();
+    }
+  }
+
+  IsAdmin() : boolean
+  {
+    return this.adminService.isAdmin();
+  }
+
   DeleteTopic(topicId:number)
   {
-    this.topicService.deleteTopic(topicId);
-    this.loadTopics(true);
+    this.confirmationService.confirm({
+      message: 'Biztosan törölni szeretnéd a topicot?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.topicService.deleteTopic(topicId);
+        this.loadTopics(true);
+      },
+      reject: () => {
+      }
+    });
   }
 
   ModifyTopic(topicId:number)
   {
     this.router.navigate(['/topics/modify', topicId]);
+  }
+
+  BanUser(userId:number)
+  {
+    this.confirmationService.confirm({
+      message: 'Biztosan ki szeretnéd tiltani a felhasználót?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.adminService.banUser(userId).subscribe();
+        this.loadTopics(true);
+      },
+      reject: () => {
+      }
+    });
+  }
+
+  AdminDeleteTopic(topicId:number)
+  {
+    this.confirmationService.confirm({
+      message: 'Biztosan törölni szeretnéd a topicot?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.adminService.deleteTopic(topicId).subscribe();
+        this.loadTopics(true);
+      },
+      reject: () => {
+      }
+    });
   }
 }

@@ -85,8 +85,9 @@ body {
   word-break: break-word;
 }
 
-.content img {
+::ng-deep .content img {
   max-width: 100%;
+  max-height: 700px;
   cursor: pointer;
   border-radius: 4px;
   border: 1px solid var(--border);

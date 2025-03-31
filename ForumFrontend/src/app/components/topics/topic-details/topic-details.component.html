@@ -1,31 +1,18 @@
-<!DOCTYPE html>
-<html lang="hu">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Forum</title>
-  </head>
-  
+<body>
   <app-header></app-header>
-  <body>
     <div class="container">
       <div *ngFor="let topic of topics">
         <div class="card">
           <div class="card-body">
             <div class="topic-header">
-              <div class="menu-container" *ngIf="topicOwner">
-                <p-menu
-                  #menu
-                  [popup]="true"
-                  [model]="menuItems"
-                  appendTo="body"
-                ></p-menu>
-                <p-button
-                  (click)="openTopicMenu($event, topic.id, menu)"
-                  icon="pi pi-ellipsis-v"
-                />
+              <div class="menu-container" *ngIf="topic.user_id == currentUserId">
+                <p-menu #menu [popup]="true" [model]="ownMenuItems" appendTo="body"></p-menu>
+                <p-button class="menu-button" (click)="openTopicMenu($event, topic.id, topic.user.id, menu)" icon="pi pi-ellipsis-v"/>
               </div>
-
+              <div class="menu-container" *ngIf="topic.user_id != currentUserId && IsAdmin()">
+                <p-menu #menu [popup]="true" [model]="adminMenuItems" appendTo="body"></p-menu>
+                <p-button class="menu-button" (click)="openTopicMenu($event, topic.id, topic.user.id, menu)" icon="pi pi-ellipsis-v"/>
+              </div>
               <div class="topic-author">
                 <div class="avatar-container">
                   <p-avatar
@@ -95,9 +82,9 @@
                       class="date"
                         data-bs-toggle="tooltip"
                         data-bs-placement="top"
-                        title="{{ topic.created_at }} - {{ topic.updated_at }}"
+                        title="{{ comment.created_at }} - {{ comment.updated_at }}"
                       >
-                         {{ topic.timeAgo }}
+                         {{ comment.timeAgo }}
                       </span>
                     </span>
                   </div>
@@ -146,7 +133,7 @@
 
                 <div
                   class="menu-container"
-                  *ngIf="comment.user_id == currentUserId || topicOwner"
+                  *ngIf="comment.user_id == currentUserId || topicOwner || IsAdmin()"
                 >
                   <p-menu
                     #menu
@@ -155,7 +142,7 @@
                     appendTo="body"
                   ></p-menu>
                   <p-button
-                    (click)="openMenu($event, comment.id, menu)"
+                    (click)="openMenu($event, comment.id, comment.user.id, menu)"
                     icon="pi pi-ellipsis-v"
                   />
                 </div>
@@ -220,5 +207,4 @@
     >
       <img [src]="selectedImage" class="modal-image" />
     </div>
-  </body>
-</html>
+</body>

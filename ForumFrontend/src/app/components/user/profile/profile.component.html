@@ -28,8 +28,12 @@
             <button pButton (click)="passwordChange()" severity="warn">Jelszó módosítás</button>
             <button pButton (click)="logout()" severity="danger">Kijelentkezés</button>
         </div>
-        <div class="profile-actions" *ngIf="!ownProfile">
-            <button pButton (click)="topics()" severity="success">Felhasználó Topic-jai</button>
+        <div *ngIf="!ownProfile">
+            <div class="profile-actions">
+                <button pButton (click)="topics()" severity="success">Felhasználó Topic-jai</button>
+                <button pButton (click)="BanUser(userProfile.id)" *ngIf="IsAdmin() && userProfile.is_banned==0" severity="warn">Felhasználó Kitiltása</button>
+                <button pButton (click)="UnbanUser(userProfile.id)" *ngIf="IsAdmin() && userProfile.is_banned==1" severity="warn">Felhasználó Kitiltásának feloldása</button>
+            </div>
         </div>
     </div>
 </div>

@@ -1,12 +1,35 @@
-body {
-    background-color: var(--background);
+::ng-deep body {
+    background-color: var(--navbar-bg)!important;
+}
+
+.admin-table-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.input-field, .select-field {
+    flex: 1;
+    min-width: 150px;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background-color: var(--surface);
     color: var(--text-primary);
-    font-family: Arial, sans-serif;
-    padding: 20px;
 }
 
 .table-container {
+    width: 100%;
     overflow-x: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 table {
@@ -26,6 +49,9 @@ th, td {
 th {
     background-color: var(--highlight);
     color: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 tr:hover {
@@ -39,6 +65,7 @@ tr:hover {
     cursor: pointer;
     border-radius: 5px;
     color: white;
+    transition: opacity 0.2s;
 }
 
 .btn-edit { background-color: var(--primary); }
@@ -50,13 +77,121 @@ tr:hover {
     opacity: 0.8;
 }
 
-@media (max-width: 600px) {
-    table, th, td {
+.action-column {
+    min-width: 150px;
+}
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.current-user-notice {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.load-more-container, .loading-spinner {
+    text-align: center;
+    padding: 15px;
+    background-color: var(--surface);
+    border-top: 1px solid var(--border);
+}
+
+@media (max-width: 992px) {
+    .filter-container {
+        flex-direction: column;
+    }
+    
+    .input-field, .select-field {
+        width: 100%;
+    }
+    
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        margin: 2px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    table, th, td, .btn {
         font-size: 14px;
     }
+    
+    th, td {
+        padding: 10px 8px;
+    }
+}
 
+@media (max-width: 576px) {
+    .hide-on-mobile {
+        display: none;
+    }
+
+    .responsive-table {
+        display: block;
+    }
+    
+    .responsive-table thead {
+        display: none;
+    }
+    
+    .responsive-table tbody, .responsive-table tr, .responsive-table td {
+        display: block;
+        width: 100%;
+    }
+    
+    .responsive-table tr {
+        margin-bottom: 15px;
+        border: 1px solid var(--border);
+        border-radius: 5px;
+        overflow: hidden;
+    }
+    
+    .responsive-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: right;
+        position: relative;
+        padding-left: 50%;
+    }
+    
+    .responsive-table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 12px;
+        width: 45%;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .responsive-table td:nth-of-type(2):before { content: "Felhasználónév:"; }
+    .responsive-table td:nth-of-type(3):before { content: "Email:"; }
+
+    .responsive-table td.action-column {
+        padding-left: 12px;
+        justify-content: center;
+    }
+    
+    .responsive-table td.action-column:before {
+        content: none;
+    }
+    
+    .action-buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+    }
+    
     .btn {
-        padding: 6px 10px;
+        padding: 8px 5px;
         font-size: 12px;
     }
 }

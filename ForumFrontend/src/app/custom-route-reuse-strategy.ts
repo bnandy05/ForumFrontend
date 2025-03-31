@@ -1,5 +1,9 @@
+import { Injectable } from '@angular/core';
 import { RouteReuseStrategy, DetachedRouteHandle, ActivatedRouteSnapshot } from '@angular/router';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class CustomRouteReuseStrategy implements RouteReuseStrategy {
   private storedRoutes = new Map<string, DetachedRouteHandle>();
 
@@ -8,8 +12,12 @@ export class CustomRouteReuseStrategy implements RouteReuseStrategy {
   }
 
   store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle | null): void {
-    if (handle && route.routeConfig?.path) {
-      this.storedRoutes.set(route.routeConfig.path, handle);
+    if (handle && route.routeConfig?.path === 'home') {
+      const headerComponentExists = route.children?.some(child => child.component?.name === 'HeaderComponent');
+
+      if (!headerComponentExists) {
+        this.storedRoutes.set(route.routeConfig.path, handle);
+      }
     }
   }
 
@@ -23,5 +31,9 @@ export class CustomRouteReuseStrategy implements RouteReuseStrategy {
 
   shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
     return future.routeConfig === curr.routeConfig;
+  }
+
+  clearCache(): void {
+    this.storedRoutes.clear();
   }
 }
