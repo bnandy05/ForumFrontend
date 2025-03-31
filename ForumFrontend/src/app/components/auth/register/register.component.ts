@@ -26,6 +26,10 @@ export class RegisterComponent {
     });
   }
 
+  redirect(url:string) {
+    this.router.navigate([url]);
+  }
+
   onSubmit(): void {
     if (this.registerForm.valid) {
       this.http.post(this.apiUrl, this.registerForm.value, { withCredentials: true }).subscribe(

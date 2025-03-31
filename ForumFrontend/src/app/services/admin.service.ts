@@ -178,10 +178,17 @@ export class AdminService {
     );
   }
 
-  getUsers(page: number = 1, name: string|null = null): Observable<any> {
-    return this.http.post(`${this.baseUrl}/admin/users/get?page=${page}`, { name }, { withCredentials: true }).pipe(
+  getUsers(page: number = 1, name: string | null = null, banned: number | null = null, admin: number | null = null): Observable<any> {
+    const payload: any = {};
+  
+    if (name !== null) payload.name = name;
+    if (banned !== null) payload.banned = banned;
+    if (admin !== null) payload.admin = admin;
+  
+    return this.http.post(`${this.baseUrl}/admin/users/get?page=${page}`, payload, { withCredentials: true }).pipe(
       tap(response => {}),
       catchError(error => {
+        console.error(error)
         this.messageService.add({ 
           severity: 'error', 
           summary: 'Hiba', 
@@ -191,4 +198,20 @@ export class AdminService {
       })
     );
   }
+
+  getUser(userId:number): Observable<any> {
+  
+    return this.http.post(`${this.baseUrl}/admin/users/get/${userId}`, { withCredentials: true }).pipe(
+      tap(response => {}),
+      catchError(error => {
+        console.error(error)
+        this.messageService.add({ 
+          severity: 'error', 
+          summary: 'Hiba', 
+          detail: error.error?.message || 'Nem sikerült a felhasználó lekérése' 
+        });
+        return throwError(error);
+      })
+    );
+  }  
 }

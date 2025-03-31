@@ -3,12 +3,13 @@ import { HeaderComponent } from '../../header/header.component';
 import { AuthService } from '../../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { ImageCropperComponent, ImageCroppedEvent } from 'ngx-image-cropper';
+import { AdminService } from '../../../services/admin.service';
 
 @Component({
   selector: 'app-profile',
@@ -30,7 +31,9 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
-    private router: Router
+    private confirmationService: ConfirmationService,
+    private router: Router,
+    private adminService: AdminService
   ) {}
 
   ngOnInit(): void {
@@ -80,6 +83,7 @@ export class ProfileComponent implements OnInit {
   loadOtherUserProfile(userId: number): void {
     this.authService.getOtherUser(userId).subscribe({
       next: (profile) => {
+        console.log(profile);
         this.userProfile = profile;
         this.ownProfile = false;
       },
@@ -106,5 +110,46 @@ export class ProfileComponent implements OnInit {
 
   topics(): void {
     this.router.navigate(['topics/user', this.userProfile.id]);
+  }
+
+  IsAdmin():boolean
+  {
+    return this.adminService.isAdmin();
+  }
+
+  BanUser(userId:number)
+  {
+    this.confirmationService.confirm({
+      message: 'Biztosan ki szeretnéd tiltani a felhasználót?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.adminService.banUser(userId).subscribe();
+      },
+      reject: () => {
+      }
+    });
+  }
+
+  UnbanUser(userId:number)
+  {
+    this.confirmationService.confirm({
+      message: 'Biztosan fel szeretnéd oldani a felhasználó kitiltását?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.adminService.unbanUser(userId).subscribe();
+      },
+      reject: () => {
+      }
+    });
   }
 }

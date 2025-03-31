@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router} from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import { CustomRouteReuseStrategy } from '../custom-route-reuse-strategy';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,10 @@ export class AuthService {
   private apiUrl = 'https://berenandor.moriczcloud.hu/api';
 
   constructor(
-    private http: HttpClient, 
+    private http: HttpClient,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private routeReuseStrategy: CustomRouteReuseStrategy
   ) {}
 
   login(email: string, password: string) {
@@ -25,12 +27,14 @@ export class AuthService {
         localStorage.setItem('id', response.user.id);
         localStorage.setItem('avatar', response.user.avatar);
         localStorage.setItem('username', response.user.name);
+        localStorage.setItem('fresh', "1");
         if(response.user.is_admin == 1)
         {
           localStorage.setItem('admin', "1");
         }
-        this.router.navigate(['/']);
+        this.router.navigate(['/home']);
         this.messageService.add({ severity: 'success', summary: 'Sikeres bejelentkezés', detail: 'Üdvözöljük!' });
+        this.reloadPage();
       },
       error: (err) => {
         console.error(err)
@@ -54,12 +58,13 @@ export class AuthService {
         } else {
           this.messageService.add({ severity: 'error', summary: 'Kijelentkezési hiba', detail: 'Hiba történt a kijelentkezés során.' });
         }
-      }      
+      }
     });
   }
 
   clearLocalStorage() : void
   {
+    this.routeReuseStrategy.clearCache();
     localStorage.removeItem('token');
     this.token.next(null);
     localStorage.removeItem('id');
@@ -87,7 +92,7 @@ export class AuthService {
     this.http.post(`${this.apiUrl}/password/change`, {
       current_password: currentPassword,
       new_password: newPassword,
-      new_password_confirmation: confirmNewPassword 
+      new_password_confirmation: confirmNewPassword
     }, { withCredentials: true }).subscribe({
       next: (response: any) => {
         this.messageService.add({ severity: 'success', summary: 'Sikeres jelszó változtatás', detail: 'A jelszó sikeresen megváltoztatva!' });

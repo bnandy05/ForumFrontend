@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="hu">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Forum</title>
-  </head>
   <body>
     <app-header></app-header>
     <div class="container py-3 position-relative">
@@ -78,8 +71,12 @@
           shape="circle"
         />
         <div class="menu-container" *ngIf="topic.user_id == currentUserId">
-          <p-menu #menu [popup]="true" [model]="menuItems" appendTo="body"></p-menu>
-          <p-button class="menu-button" (click)="openMenu($event, topic.id, menu)" icon="pi pi-ellipsis-v"/>
+          <p-menu #menu [popup]="true" [model]="ownMenuItems" appendTo="body"></p-menu>
+          <p-button class="menu-button" (click)="openMenu($event, topic.id, topic.user.id, menu)" icon="pi pi-ellipsis-v"/>
+        </div>
+        <div class="menu-container" *ngIf="topic.user_id != currentUserId && IsAdmin()">
+          <p-menu #menu [popup]="true" [model]="adminMenuItems" appendTo="body"></p-menu>
+          <p-button class="menu-button" (click)="openMenu($event, topic.id, topic.user.id, menu)" icon="pi pi-ellipsis-v"/>
         </div>
         <h5 class="post-title">{{ topic.title }}</h5>
         <p class="post-meta">
@@ -126,5 +123,4 @@
         <span class="visually-hidden">Betöltés...</span>
       </div>
     </div>
-  </body>
-</html>
+</body>

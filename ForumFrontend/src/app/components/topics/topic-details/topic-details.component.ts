@@ -4,7 +4,7 @@ import { HeaderComponent } from '../../header/header.component';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SafeHtmlPipe } from '../../../safe-html.pipe';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
@@ -13,6 +13,7 @@ import { EmojiEvent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
 import { TextareaModule } from 'primeng/textarea';
+import { AdminService } from '../../../services/admin.service';
 
 interface Comment {
   id: number;
@@ -57,11 +58,14 @@ export class TopicDetailsComponent implements OnInit {
   showEmojiPicker = false;
   currentUserId = Number(localStorage.getItem('id'));
   selectedCommentId: number = -1;
+  selectedCommentUserId: number = -1;
   topicOwner: boolean = false;
   editingCommentId: number | null = null;
   editedCommentContent: string = '';
-  menuItems: any[] = [];
+  ownMenuItems: any[] = [];
+  adminMenuItems: any[] = [];
   selectedTopicId: number = -1;
+  selectedTopicUserId: number = -1;
   selectedImage: string | null = null;
   isImageModalOpen = false;
   isEditing = false;
@@ -70,7 +74,9 @@ export class TopicDetailsComponent implements OnInit {
     private topicService: TopicService,
     private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
-    private router: Router
+    private confirmationService: ConfirmationService,
+    private router: Router,
+    private adminService: AdminService
   ) {}
 
   emojiLang = {
@@ -115,9 +121,13 @@ export class TopicDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.menuItems = [
+    this.ownMenuItems = [
       { label: 'Módosítás', icon: 'pi pi-pencil', command: () => this.ModifyTopic(this.selectedTopicId) },
       { label: 'Törlés', icon: 'pi pi-trash', command: () => this.DeleteTopic(this.selectedTopicId) }
+    ];
+    this.adminMenuItems = [
+      { label: 'Felhasználó Kitiltása', icon: 'pi pi-ban', command: () => this.BanUser(this.selectedTopicUserId, true) },
+      { label: 'Topic Törlése', icon: 'pi pi-trash', command: () => this.AdminDeleteTopic(this.selectedTopicId) }
     ];
     this.activatedRoute.params.subscribe((params) => {
       this.id = params['id'];
@@ -219,6 +229,22 @@ export class TopicDetailsComponent implements OnInit {
       });
     }
 
+    if (comment.user.id !== +this.currentUserId && !this.topicOwner && this.IsAdmin()) {
+      items.push({
+        label: 'Komment Törlése',
+        icon: 'pi pi-trash',
+        command: () => this.AdminDeleteComment(comment.id),
+      });
+    }
+
+    if (comment.user.id !== +this.currentUserId && this.IsAdmin()) {
+      items.push({
+        label: 'Felhasználó Kitiltása',
+        icon: 'pi pi-ban',
+        command: () => this.BanUser(comment.user.id),
+      });
+    }
+
     return items;
   }
 
@@ -244,13 +270,15 @@ export class TopicDetailsComponent implements OnInit {
     });
   }
 
-  openTopicMenu(event: Event, topicId: number, menu: any) {
+  openTopicMenu(event: Event, topicId: number, userId:number, menu: any) {
     this.selectedTopicId = topicId;
+    this.selectedTopicUserId = userId;
     menu.toggle(event);
   }
 
-  openMenu(event: Event, commentId: number, menu: any) {
+  openMenu(event: Event, commentId: number, userId:number, menu: any) {
     this.selectedCommentId = commentId;
+    this.selectedCommentUserId = userId;
     menu.toggle(event);
   }
 
@@ -304,8 +332,21 @@ export class TopicDetailsComponent implements OnInit {
   }
 
   DeleteComment(commentId: number) {
-    this.topicService.deleteComment(commentId);
-    this.refreshTopic();
+    this.confirmationService.confirm({
+      message: 'Biztosan törölni szeretnéd a kommentet?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.topicService.deleteComment(commentId);
+        this.refreshTopic();
+      },
+      reject: () => {
+      }
+    });
   }
 
   ModifyComment(commentId: number) {
@@ -344,12 +385,94 @@ export class TopicDetailsComponent implements OnInit {
 
   DeleteTopic(topicId:number)
   {
-    this.topicService.deleteTopic(topicId);
-    this.router.navigate(['/']);
+    this.confirmationService.confirm({
+      message: 'Biztosan törölni szeretnéd a topicot?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.topicService.deleteTopic(topicId);
+        this.router.navigate(['/']);
+      },
+      reject: () => {
+      }
+    });
   }
 
   ModifyTopic(topicId:number)
   {
     this.router.navigate(['/topics/modify', topicId]);
+  }
+
+  IsAdmin():boolean
+  {
+    return this.adminService.isAdmin();
+  }
+
+  BanUser(userId:number, TopicAuthor:boolean = false)
+  {
+    this.confirmationService.confirm({
+      message: 'Biztosan ki szeretnéd tiltani a felhasználód?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.adminService.banUser(userId).subscribe();
+        if(TopicAuthor)
+        {
+          this.router.navigate(['']);
+        }
+        else
+        {
+          this.refreshTopic();
+        }
+      },
+      reject: () => {
+      }
+    });
+  }
+
+  AdminDeleteComment(commentId:number)
+  {
+    this.confirmationService.confirm({
+      message: 'Biztosan törölni szeretnéd a kommentet?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.adminService.deleteComment(commentId).subscribe();
+        this.refreshTopic();
+      },
+      reject: () => {
+      }
+    });
+  }
+
+  AdminDeleteTopic(topicId:number)
+  {
+    this.confirmationService.confirm({
+      message: 'Biztosan törölni szeretnéd a topicot?',
+      header: 'Megerősítés',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Igen',
+      rejectLabel: 'Nem',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-success',
+      accept: () => {
+        this.adminService.deleteTopic(topicId).subscribe();
+        this.router.navigate(['']);
+      },
+      reject: () => {
+      }
+    });
   }
 }
