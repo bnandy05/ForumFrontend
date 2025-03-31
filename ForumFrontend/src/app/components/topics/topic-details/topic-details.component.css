@@ -1,39 +1,6 @@
-
-body {
-  font-family: 'Roboto', Arial, sans-serif;
-  background-color: var(--navbar-bg) !important;
-  color: var(--text-primary);
-  margin: 0;
-  padding: 0;
-  transition: all 0.3s ease;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
-
-.card {
-  background-color: var(--surface);
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
-  overflow: hidden;
-  border: 1px solid var(--border);
-}
-
-.card-body {
-  padding: 1.5rem;
-}
-
-.topic-header {
-  position: relative;
-  margin-bottom: 1.5rem;
-}
-
-.menu-container {
+.emoji-picker{
   position: absolute;
+}
   right: 0;
   top: 0;
 }

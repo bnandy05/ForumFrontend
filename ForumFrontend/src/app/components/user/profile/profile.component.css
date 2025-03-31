@@ -33,7 +33,10 @@ body {
     padding: 15px;
     border-radius: 12px 12px 0 0;
   }
-  
+  ::ng deep .profile-update{
+    display: block !important; 
+    display: inline !important;
+  }
   .avatar-section {
     display: flex;
     justify-content: center;

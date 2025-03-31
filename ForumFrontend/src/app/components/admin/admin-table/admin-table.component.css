@@ -38,10 +38,11 @@ table {
     background-color: var(--surface);
     border-radius: 10px;
     overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
-    padding: 12px;
+    padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid var(--border);
 }
@@ -60,21 +61,21 @@ tr:hover {
 
 .btn {
     padding: 8px 12px;
-    margin: 4px;
     border: none;
-    cursor: pointer;
     border-radius: 5px;
+
+.btn-edit:hover {
     color: white;
     transition: opacity 0.2s;
 }
 
-.btn-edit { background-color: var(--primary); }
-.btn-ban { background-color: var(--vote-down); }
-.btn-admin { background-color: var(--highlight); }
-.btn-delete { background-color: red; }
+.btn-admin {
+    background-color: var(--vote-up);
+    color: var(--text-negative);
+}
 
-.btn:hover {
-    opacity: 0.8;
+.btn-admin:hover {
+    background-color: #218838;
 }
 
 .action-column {
