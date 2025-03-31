@@ -69,7 +69,7 @@ export class TopicDetailsComponent implements OnInit {
   selectedImage: string | null = null;
   isImageModalOpen = false;
   isEditing = false;
-  
+
   constructor(
     private topicService: TopicService,
     private activatedRoute: ActivatedRoute,
@@ -131,7 +131,7 @@ export class TopicDetailsComponent implements OnInit {
     ];
     this.activatedRoute.params.subscribe((params) => {
       this.id = params['id'];
-  
+
       this.topicService.getTopic(this.id).subscribe({
         next: (response) => {
           console.log(response);
@@ -139,7 +139,7 @@ export class TopicDetailsComponent implements OnInit {
             if (this.currentUserId == response.topic.user_id) {
               this.topicOwner = true;
             }
-  
+
             this.topics = [
               {
                 ...response.topic,
@@ -153,9 +153,9 @@ export class TopicDetailsComponent implements OnInit {
                 })),
               },
             ];
-  
+
             this.userVote = response.user_vote;
-  
+
             this.userCommentVotes = {};
             response.topic.comments.forEach((comment: Comment) => {
               this.userCommentVotes[comment.id] =
@@ -171,10 +171,10 @@ export class TopicDetailsComponent implements OnInit {
       });
     });
   }
-  
+
   refreshTopic(): void {
     if (!this.id) return;
-  
+
     this.topicService.getTopic(this.id).subscribe({
       next: (response) => {
         if (this.currentUserId == response.topic.user_id) {
@@ -194,9 +194,9 @@ export class TopicDetailsComponent implements OnInit {
               })),
             },
           ];
-  
+
           this.userVote = response.user_vote;
-  
+
           this.userCommentVotes = {};
           response.topic.comments.forEach((comment: Comment) => {
             this.userCommentVotes[comment.id] =
