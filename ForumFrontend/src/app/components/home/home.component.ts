@@ -4,14 +4,12 @@ import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
 import { SafeHtmlPipe } from '../../safe-html.pipe';
 import { FormsModule } from '@angular/forms';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { MenuModule } from 'primeng/menu';
 import { ConfirmationService, PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { AuthService } from '../../services/auth.service';
-import { AdminHomeComponent } from '../admin/admin-home/admin-home.component';
 import { AdminService } from '../../services/admin.service';
 
 @Component({
