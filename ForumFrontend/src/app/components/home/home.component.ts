@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, HostListener, OnInit} from '@angular/core';
 import { TopicService } from '../../services/topic.service';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
@@ -21,7 +21,7 @@ import { AdminService } from '../../services/admin.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit, AfterViewChecked{
   topics: any[] = [];
   title: string = "";
   orderBy: string = "";
@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit{
   adminMenuItems: any[] = [];
   selectedTopicId: number = -1;
   selectedUserId: number = -1;
-  
+
 
   constructor(private topicService: TopicService, private router: Router, public adminService: AdminService, private confirmationService: ConfirmationService) {}
 
@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit{
     if (forbiddenTags.includes(target.tagName)) {
       return;
     }
-    
+
     this.router.navigate(['/topics/view', topicId]);
   }
 
@@ -95,9 +95,9 @@ export class HomeComponent implements OnInit{
   vote(topicId: number, index: number, type: 'up' | 'down', event: MouseEvent) {
     event.stopPropagation();
     const topic = this.topics[index];
-  
+
     if (!topic) return;
-  
+
     if (this.userVotes[topicId] === type) {
       this.userVotes[topicId] = null;
       topic.upvote_count += type === 'up' ? -1 : 1;
@@ -108,10 +108,10 @@ export class HomeComponent implements OnInit{
       this.userVotes[topicId] = type;
       topic.upvote_count += type === 'up' ? 1 : -1;
     }
-  
+
     this.topicService.vote(topicId, 'topic', type);
   }
-  
+
   openMenu(event: Event, topicId: number, userId: number, menu: any) {
     this.selectedTopicId = topicId;
     this.selectedUserId = userId;

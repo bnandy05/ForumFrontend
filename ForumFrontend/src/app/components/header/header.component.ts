@@ -7,12 +7,14 @@ import { PrimeIcons } from 'primeng/api';
 import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
 import { CommonModule } from '@angular/common';
 import { ThemeService } from '../../services/theme.service';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-header',
   imports: [AvatarModule, AvatarGroupModule,ThemeToggleComponent, CommonModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit{
   userProfile: any = {};
