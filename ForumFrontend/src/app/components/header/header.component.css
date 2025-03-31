@@ -8,6 +8,11 @@ li{
   cursor: pointer;
 }
 
+::ng-deep .navbar-toggler-icon{
+  background: var(--navbar-bg) !important;
+  color: var(--text-primary) !important;
+  fill: var(--text-primary) !important;
+}
 
 li.span
 {
