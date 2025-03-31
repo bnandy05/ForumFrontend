@@ -147,6 +147,14 @@ export class HomeComponent implements OnInit, AfterViewChecked{
     });
   }
 
+  ngAfterViewChecked(): void {
+    if(localStorage.getItem("fresh")=="1")
+    {
+      localStorage.removeItem("fresh");
+      location.reload();
+    }
+  }
+
   IsAdmin() : boolean
   {
     return this.adminService.isAdmin();
