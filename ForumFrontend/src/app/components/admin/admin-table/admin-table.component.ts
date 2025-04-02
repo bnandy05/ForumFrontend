@@ -77,7 +77,10 @@ export class AdminTableComponent implements OnInit {
       rejectButtonStyleClass: 'p-button-success',
       accept: () => {
         this.adminService.makeAdmin(userId).subscribe({
-          next: () => this.updateUserInPlace(userId)
+          next: () => {
+            this.updateUserInPlace(userId);
+            localStorage.setItem("refresh","1");
+          }
         });
       },
       reject: () => {
@@ -96,7 +99,10 @@ export class AdminTableComponent implements OnInit {
       rejectButtonStyleClass: 'p-button-success',
       accept: () => {
         this.adminService.revokeAdmin(userId).subscribe({
-          next: () => this.updateUserInPlace(userId)
+          next: () => {
+            this.updateUserInPlace(userId);
+            localStorage.setItem("refresh","1");
+          }
         });
       },
       reject: () => {
@@ -115,7 +121,10 @@ export class AdminTableComponent implements OnInit {
       rejectButtonStyleClass: 'p-button-success',
       accept: () => {
         this.adminService.banUser(userId).subscribe({
-          next: () => this.updateUserInPlace(userId)
+          next: () => {
+            this.updateUserInPlace(userId);
+            localStorage.setItem("refresh","1");
+          }
         });
       },
       reject: () => {
@@ -134,7 +143,10 @@ export class AdminTableComponent implements OnInit {
       rejectButtonStyleClass: 'p-button-success',
       accept: () => {
         this.adminService.unbanUser(userId).subscribe({
-          next: () => this.updateUserInPlace(userId)
+          next: () => {
+            this.updateUserInPlace(userId);
+            localStorage.setItem("refresh","1");
+          }
         });
       },
       reject: () => {
@@ -155,6 +167,7 @@ export class AdminTableComponent implements OnInit {
         this.adminService.deleteUser(userId).subscribe({
           next: () => {
             this.removeUserFromList(userId);
+            localStorage.setItem("refresh","1");
           }
         });
       },

@@ -146,9 +146,9 @@ export class HomeComponent implements OnInit, AfterViewChecked{
   }
 
   ngAfterViewChecked(): void {
-    if(localStorage.getItem("fresh")=="1")
+    if(localStorage.getItem("refresh")=="1")
     {
-      localStorage.removeItem("fresh");
+      localStorage.removeItem("refresh");
       location.reload();
     }
   }

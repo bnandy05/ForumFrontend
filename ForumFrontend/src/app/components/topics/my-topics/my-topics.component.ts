@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,7 +19,7 @@ import { ConfirmationService } from 'primeng/api';
   templateUrl: './my-topics.component.html',
   styleUrls: ['./my-topics.component.css']
 })
-export class MyTopicsComponent implements OnInit {
+export class MyTopicsComponent implements OnInit, AfterViewChecked {
   topics: any[] = [];
   title: string = "";
   orderBy: string = "";
@@ -65,6 +65,14 @@ export class MyTopicsComponent implements OnInit {
       this.loadTopics(true);
       this.loadCategories();
     });
+  }
+
+  ngAfterViewChecked(): void {
+    if(localStorage.getItem("refresh")=="1")
+    {
+      localStorage.removeItem("refresh");
+      location.reload();
+    }
   }
 
   loadTopics(reset: boolean = false) {

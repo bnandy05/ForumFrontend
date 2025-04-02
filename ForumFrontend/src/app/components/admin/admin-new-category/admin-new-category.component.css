@@ -69,7 +69,3 @@ h2 {
   cursor: pointer;
   transition: background 0.3s;
 }
-
-.toggle-theme:hover {
-  background: var(--button-hover);
-}
