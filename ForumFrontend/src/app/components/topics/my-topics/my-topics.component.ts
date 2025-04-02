@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import 'dayjs/locale/hu';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TopicService } from '../../../services/topic.service';
 import { HeaderComponent } from '../../header/header.component';
@@ -15,10 +11,6 @@ import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { AdminService } from '../../../services/admin.service';
 import { ConfirmationService } from 'primeng/api';
-
-dayjs.extend(utc);
-dayjs.extend(relativeTime);
-dayjs.locale('hu');
 
 @Component({
   selector: 'app-my-topics',
