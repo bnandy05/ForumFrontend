@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-
     <a class="navbar-brand fw-bold" (click)="redirect('')">
       <img src="https://berenandor.moriczcloud.hu/storage/logo-header-dark.png" *ngIf="themeService.theme() === 'dark'" style="height: 5rem;">
       <img src="https://berenandor.moriczcloud.hu/storage/logo-header.png" *ngIf="themeService.theme() === 'light'" style="height: 5rem;">
@@ -19,11 +18,11 @@
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item dropdown text-center">
-          <a class="nav-link d-flex flex-column align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+          <a class="nav-link d-flex align-items-center mobile-dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
             <img src="https://berenandor.moriczcloud.hu/storage/{{ userProfile.avatar }}" class="rounded-circle me-2" width="35" height="35" alt="Avatar">
-            <span class="d-none d-lg-inline">{{ userProfile.name }}</span>
+            <span class="username-text">{{ userProfile.name }}</span>
           </a>
-          <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="userDropdown">
+          <ul class="dropdown-menu dropdown-menu-end mobile-open" aria-labelledby="userDropdown">
             <span class="px-3 py-2 fw-bold udv" style="cursor: default;">Üdv, {{ userProfile.name }}!</span>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" (click)="redirect('profile')"><i class="me-1 pi pi-user"></i> Profil</a></li>
