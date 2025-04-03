@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit, AfterViewChecked{
     if (forbiddenTags.includes(target.tagName)) {
       return;
     }
-
+    localStorage.setItem("refresh","1");
     this.router.navigate(['/topics/view', topicId]);
   }
 
