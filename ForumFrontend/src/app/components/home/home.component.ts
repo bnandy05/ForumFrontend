@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit, AfterViewChecked{
     if (forbiddenTags.includes(target.tagName)) {
       return;
     }
-
+    localStorage.setItem("refresh","1");
     this.router.navigate(['/topics/view', topicId]);
   }
 
@@ -146,9 +146,9 @@ export class HomeComponent implements OnInit, AfterViewChecked{
   }
 
   ngAfterViewChecked(): void {
-    if(localStorage.getItem("fresh")=="1")
+    if(localStorage.getItem("refresh")=="1")
     {
-      localStorage.removeItem("fresh");
+      localStorage.removeItem("refresh");
       location.reload();
     }
   }

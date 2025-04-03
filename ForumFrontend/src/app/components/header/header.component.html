@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-
     <a class="navbar-brand fw-bold" (click)="redirect('')">
       <img src="https://berenandor.moriczcloud.hu/storage/logo-header-dark.png" *ngIf="themeService.theme() === 'dark'" style="height: 5rem;">
       <img src="https://berenandor.moriczcloud.hu/storage/logo-header.png" *ngIf="themeService.theme() === 'light'" style="height: 5rem;">
@@ -13,18 +12,19 @@
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link" (click)="redirect('create')">
-            <i class="me-1 pi pi-upload"></i> Feltöltés
+            <i class="me-3 pi pi-upload"></i> Feltöltés
           </a>
         </li>
       </ul>
-      <ul class="navbar-nav">
+      
+      <ul class="navbar-nav d-none d-lg-flex">
         <li class="nav-item dropdown text-center">
-          <a class="nav-link d-flex flex-column align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+          <a class="nav-link d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
             <img src="https://berenandor.moriczcloud.hu/storage/{{ userProfile.avatar }}" class="rounded-circle me-2" width="35" height="35" alt="Avatar">
-            <span class="d-none d-lg-inline">{{ userProfile.name }}</span>
+            <span class="username-text">{{ userProfile.name }}</span>
           </a>
-          <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="userDropdown">
-            <span class="px-3 py-2 fw-bold udv" style="cursor: default;">Üdv, {{ userProfile.name }}!</span>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <span class="px-3 py-2 fw-bold udv">Üdv, {{ userProfile.name }}!</span>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" (click)="redirect('profile')"><i class="me-1 pi pi-user"></i> Profil</a></li>
             <li><a class="dropdown-item" (click)="redirect('my-topics')"><i class="me-1 pi pi-folder"></i> Én Topicjaim</a></li>
@@ -33,6 +33,36 @@
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item text-danger" (click)="redirect('logout')"><i class="me-1 pi pi-sign-out"></i> Kijelentkezés</a></li>
           </ul>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav d-lg-none">
+        <li class="nav-item">
+          <a class="nav-link" (click)="redirect('profile')">
+            <i class="me-3 pi pi-user"></i> Profil
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="redirect('my-topics')">
+            <i class="me-3 pi pi-folder"></i> Én Topicjaim
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="admin == true">
+          <a class="nav-link" (click)="redirect('admin/home')">
+            <i class="me-3 pi pi-shield"></i> Admin
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="themeService.toggleTheme()" [ngClass]="{ 'dark': themeService.theme() === 'dark' }">
+            <i *ngIf="themeService.theme() === 'dark'" class="pi pi-lightbulb me-3"></i>
+            <i *ngIf="themeService.theme() === 'light'" class="pi pi-moon me-3"></i>
+            {{ themeService.theme() === 'dark' ? 'Világos mód' : 'Sötét mód' }}
+        </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-danger" (click)="redirect('logout')">
+            <i class="me-3 pi pi-sign-out"></i> Kijelentkezés
+          </a>
         </li>
       </ul>
     </div>

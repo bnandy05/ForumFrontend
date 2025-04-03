@@ -22,6 +22,7 @@ export class AdminService {
           summary: 'Sikeres művelet', 
           detail: 'Felhasználó sikeresen kitiltva' 
         });
+        localStorage.setItem("refresh","1");
       }),
       catchError(error => {
         this.messageService.add({ 
@@ -42,6 +43,7 @@ export class AdminService {
           summary: 'Sikeres művelet', 
           detail: 'Felhasználó tiltásának feloldása sikeres' 
         });
+        localStorage.setItem("refresh","1");
       }),
       catchError(error => {
         this.messageService.add({ 
@@ -62,6 +64,7 @@ export class AdminService {
           summary: 'Sikeres művelet', 
           detail: 'Felhasználó sikeresen törölve' 
         });
+        localStorage.setItem("refresh","1");
       }),
       catchError(error => {
         this.messageService.add({ 
@@ -86,6 +89,7 @@ export class AdminService {
           summary: 'Sikeres művelet', 
           detail: 'Téma sikeresen törölve' 
         });
+        localStorage.setItem("refresh","1");
       }),
       catchError(error => {
         this.messageService.add({ 
@@ -138,6 +142,41 @@ export class AdminService {
     );
   }
 
+  getCategories(): Observable<any> {
+    return this.http.post(`${this.baseUrl}/admin/categories/get`, { withCredentials: true }).pipe(
+      tap(() => console.log('Kategóriák lekérve')),
+      catchError(error => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Hiba',
+          detail: error.error?.message || 'Nem sikerült a kategóriák lekérése'
+        });
+        return throwError(error);
+      })
+    );
+  }
+
+  deleteCategory(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/admin/category/delete/${id}`, { withCredentials: true }).pipe(
+      tap(() => {
+        this.messageService.add({ 
+          severity: 'success', 
+          summary: 'Sikeres törlés', 
+          detail: 'A kategória sikeresen törölve' 
+        });
+        localStorage.setItem("refresh", "1");
+      }),
+      catchError(error => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Hiba',
+          detail: error.error?.message || 'Nem sikerült a kategória törlése'
+        });
+        return throwError(error);
+      })
+    );
+  }
+
   makeAdmin(id: number): Observable<any> {
     return this.http.post(`${this.baseUrl}/admin/user/admin/give`, { id }, { withCredentials: true }).pipe(
       tap(response => {
@@ -146,6 +185,7 @@ export class AdminService {
           summary: 'Sikeres művelet', 
           detail: 'Adminisztrátor jogosultság sikeresen megadva' 
         });
+        localStorage.setItem("refresh","1");
       }),
       catchError(error => {
         this.messageService.add({ 
@@ -166,6 +206,7 @@ export class AdminService {
           summary: 'Sikeres művelet', 
           detail: 'Adminisztrátor jogosultság sikeresen visszavonva' 
         });
+        localStorage.setItem("refresh","1");
       }),
       catchError(error => {
         this.messageService.add({ 

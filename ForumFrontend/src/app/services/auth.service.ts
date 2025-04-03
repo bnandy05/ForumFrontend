@@ -27,7 +27,7 @@ export class AuthService {
         localStorage.setItem('id', response.user.id);
         localStorage.setItem('avatar', response.user.avatar);
         localStorage.setItem('username', response.user.name);
-        localStorage.setItem('fresh', "1");
+        localStorage.setItem('refresh', "1");
         if(response.user.is_admin == 1)
         {
           localStorage.setItem('admin', "1");
@@ -118,6 +118,7 @@ export class AuthService {
       next: (response: any) => {
         localStorage.removeItem('avatar');
         localStorage.setItem('avatar', response.url);
+        localStorage.setItem("refresh", "1");
         this.messageService.add({ severity: 'success', summary: 'Sikeres feltöltés', detail: 'Az avatar sikeresen feltöltve!' });
         this.reloadPage();
       },

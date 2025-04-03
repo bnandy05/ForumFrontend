@@ -80,6 +80,7 @@ export class TopicService {
             summary: 'Sikeres',
             detail: 'Téma sikeresen létrehozva!',
           });
+          localStorage.setItem("refresh","1");
         },
         error: (err) => {
           this.messageService.add({
@@ -107,6 +108,7 @@ export class TopicService {
             summary: 'Sikeres',
             detail: 'Téma sikeresen szerkesztve!',
           });
+          localStorage.setItem("refresh","1");
         },
         error: (err) => {
           this.messageService.add({
@@ -175,6 +177,7 @@ export class TopicService {
           summary: 'Sikeres',
           detail: 'Topic sikeresen törölve!',
         });
+        localStorage.setItem("refresh","1");
       },
       error: (err) => {
         console.log(err)
