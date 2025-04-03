@@ -121,9 +121,9 @@ export class TopicDetailsComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked(): void {
-    if(localStorage.getItem("refresh")=="1")
+    if(localStorage.getItem("topicrefresh")=="1")
     {
-      localStorage.removeItem("refresh");
+      localStorage.removeItem("topicrefresh");
       location.reload();
     }
   }

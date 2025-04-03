@@ -11,11 +11,14 @@ import { MenuModule } from 'primeng/menu';
 import { ConfirmationService, PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { AdminService } from '../../services/admin.service';
+import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule, MenuModule, ButtonModule],
+  animations :[fadeInOnEnterAnimation(),
+    fadeOutOnLeaveAnimation()],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -34,9 +37,10 @@ export class HomeComponent implements OnInit, AfterViewChecked{
   adminMenuItems: any[] = [];
   selectedTopicId: number = -1;
   selectedUserId: number = -1;
-
+  animate = false;
 
   constructor(private topicService: TopicService, private router: Router, public adminService: AdminService, private confirmationService: ConfirmationService) {}
+
 
   navigateToTopic(topicId: number, event: MouseEvent): void {
     const target = event.target as HTMLElement;
@@ -45,7 +49,7 @@ export class HomeComponent implements OnInit, AfterViewChecked{
     if (forbiddenTags.includes(target.tagName)) {
       return;
     }
-    localStorage.setItem("refresh","1");
+    localStorage.setItem("topicrefresh","1");
     this.router.navigate(['/topics/view', topicId]);
   }
 

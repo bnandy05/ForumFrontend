@@ -1,11 +1,10 @@
-  <body>
+  <body [@fadeInOnEnter]>
     <app-header></app-header>
     <div class="container py-3 position-relative">
       <div class="dropdown">
         <button
           class="btn btn-primary dropdown-toggle"
           type="button"
-          id="filterButton"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
@@ -62,6 +61,7 @@
     *ngFor="let topic of topics; index as i"
     (click)="navigateToTopic(topic.id, $event)"
     class="forum-container container"
+    [@fadeInOnEnter]
   >
     <div class="post">
       <div class="post-content">
