@@ -1,112 +1,123 @@
 <app-header></app-header>
 <body>
     <br>
-<div class="profile-container">
-    <div class="profile-card">
-        <div class="profile-header">
-            <h2>{{ userProfile.name }} </h2>
-        </div>
-        <div class="profile-body">
-            <div class="avatar-section">
-                <p-avatar 
-                    image="https://berenandor.moriczcloud.hu/storage/{{ userProfile.avatar }}" 
-                    size="xlarge" 
-                    shape="circle">
-                </p-avatar>
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="profile-header">
+                <h2>{{ userProfile.name }}</h2>
             </div>
-            <div class="user-info">
-                <h3></h3>
-                <p *ngIf="ownProfile"><strong>Email:</strong> {{ userProfile.email }}</p>
-                <p><strong>Regisztráció:</strong> {{ userProfile.created_at | date }}</p>
-            </div>
-            <hr>
-                             <div class="text-center">
-                                 <h4>Felhasználó Statisztikái</h4>
-                                 <div class="row">
-                                     <div class="col-md-6">
-                                         <p>Topicok száma: {{ userProfile.stats.topic_count }}</p>
-                                     </div>
-                                     <div class="col-md-6">
-                                         <p>Kommentek száma: {{ userProfile.stats.comment_count }}</p>
-                                     </div>
-                                 </div>
-                                 <div class="row">
-                                     <div class="col-md-6">
-                                         <p>Topic upvoteok: {{ userProfile.stats.topic_upvotes }}</p>
-                                     </div>
-                                     <div class="col-md-6">
-                                         <p>Topic downvoteok: {{ userProfile.stats.topic_downvotes }}</p>
-                                     </div>
-                                 </div>
-                                 <div class="row">
-                                     <div class="col-md-6">
-                                         <p>Komment upvoteok: {{ userProfile.stats.comment_upvotes }}</p>
-                                     </div>
-                                     <div class="col-md-6">
-                                         <p>Komment downvoteok: {{ userProfile.stats.comment_downvotes }}</p>
-                                     </div>
-                                 </div>
-                                 <div class="row">
-                                     <div class="col-md-6">
-                                         <p>Összes upvoteok: {{ userProfile.stats.total_upvotes }}</p>
-                                     </div>
-                                     <div class="col-md-6">
-                                         <p>Összes downvoteok: {{ userProfile.stats.total_downvotes }}</p>
-                                     </div>
-                                 </div>
-                                 <div class="row">
-                                     <div class="col-md-12">
-                                         <h4>Elismertség: {{userProfile.stats.total_votes_balance}}</h4>
-                                     </div>
-                                 </div>
-                                 
-            <hr>
-                             </div>
-                         </div>
-                         <div class="profile-actions" *ngIf="ownProfile">
-                            <p class="profile-update">Profilkép frissítése <input type="file" accept="image/*" (change)="onFileSelect($event)" class="custom-file-input"/></p>  
-                            <button pButton (click)="uploadAvatar()" severity="success">Feltöltés</button>
+            <div class="profile-body">
+                <div class="avatar-section">
+                    <p-avatar 
+                        [image]="'https://berenandor.moriczcloud.hu/storage/' + userProfile.avatar" 
+                        size="xlarge" 
+                        shape="circle">
+                    </p-avatar>
+                </div>
+                <div class="user-info">
+                    <p *ngIf="ownProfile"><strong>Email:</strong> {{ userProfile.email }}</p>
+                    <p><strong>Regisztráció:</strong> {{ userProfile.created_at | date }}</p>
+                </div>
+                <hr>
+                <div class="text-center">
+                    <h4>Felhasználó statisztikái</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>Témák száma: {{ userProfile.stats.topic_count }}</p>
                         </div>
-                        <div class="profile-actions" *ngIf="ownProfile">
-                            <button pButton (click)="passwordChange()" severity="warn">Jelszó módosítás</button>
-                            <button pButton (click)="logout()" severity="danger">Kijelentkezés</button>
+                        <div class="col-md-6">
+                            <p>Kommentek száma: {{ userProfile.stats.comment_count }}</p>
                         </div>
-                        <div class="profile-actions" *ngIf="!ownProfile">
-                            <button pButton (click)="topics()" severity="success">Felhasználó Topic-jai</button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>Téma pozitív szavazatok: {{ userProfile.stats.topic_upvotes }}</p>
                         </div>
-        </div>
-        <div class="profile-actions" *ngIf="ownProfile">
-            <h3>Profilkép frissítése</h3>
-            <input type="file" accept="image/*" (change)="onFileSelect($event)" class="custom-file-input"/>
-            <button pButton (click)="uploadAvatar()" severity="success">Feltöltés</button>
-        </div>
-        <div class="profile-actions" *ngIf="ownProfile">
-            <button pButton (click)="passwordChange()" severity="warn">Jelszó módosítás</button>
-            <button pButton (click)="logout()" severity="danger">Kijelentkezés</button>
-        </div>
-        <div *ngIf="!ownProfile">
-            <div class="profile-actions">
-                <button pButton (click)="topics()" severity="success">Felhasználó Topic-jai</button>
-                <button pButton (click)="BanUser(userProfile.id)" *ngIf="IsAdmin() && userProfile.is_banned==0" severity="warn">Felhasználó Kitiltása</button>
-                <button pButton (click)="UnbanUser(userProfile.id)" *ngIf="IsAdmin() && userProfile.is_banned==1" severity="warn">Felhasználó Kitiltásának feloldása</button>
+                        <div class="col-md-6">
+                            <p>Téma negatív szavazatok: {{ userProfile.stats.topic_downvotes }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>Komment pozitív szavazatok: {{ userProfile.stats.comment_upvotes }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>Komment negatív szavazatok: {{ userProfile.stats.comment_downvotes }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>Összes pozitív szavazat: {{ userProfile.stats.total_upvotes }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>Összes negatív szavazat: {{ userProfile.stats.total_downvotes }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Elismertség: {{ userProfile.stats.total_votes_balance }}</h4>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="profile-actions" *ngIf="ownProfile">
+                    <h3>Profilkép frissítése</h3>
+                    <input 
+                        type="file" 
+                        accept="image/*" 
+                        (change)="onFileSelect($event)" 
+                        class="custom-file-input"
+                    />
+                    <div class="avatar-preview" *ngIf="croppedImageUrl">
+                        <img [src]="croppedImageUrl" alt="Kivágott kép előnézete" class="rounded-preview">
+                        <p>Előnézet</p>
+                    </div>
+                    <button pButton (click)="uploadAvatar()" severity="success">Feltöltés</button>
+                </div>
+                <div class="profile-actions" *ngIf="ownProfile">
+                    <button pButton (click)="passwordChange()" severity="warn">Jelszó módosítása</button>
+                    <button pButton (click)="logout()" severity="danger">Kijelentkezés</button>
+                </div>
+                <div class="profile-actions" *ngIf="!ownProfile">
+                    <button pButton (click)="topics()" severity="success">Felhasználó témái</button>
+                    <button 
+                        pButton 
+                        (click)="BanUser(userProfile.id)" 
+                        *ngIf="IsAdmin() && userProfile.is_banned === 0" 
+                        severity="warn"
+                    >
+                        Felhasználó kitiltása
+                    </button>
+                    <button 
+                        pButton 
+                        (click)="UnbanUser(userProfile.id)" 
+                        *ngIf="IsAdmin() && userProfile.is_banned === 1" 
+                        severity="warn"
+                    >
+                        Kitiltás feloldása
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-
-<p-dialog [(visible)]="cropperDialogVisible" header="Képvágás" [modal]="true" [closable]="false" [style]="{width: '500px'}">
-    <image-cropper
-        [imageChangedEvent]="imageChangedEvent"
-        [maintainAspectRatio]="true"
-        [aspectRatio]="1 / 1"
-        format="png"
-        (imageCropped)="imageCropped($event)">
-    </image-cropper>
-    <div class="text-center">
-        <button pButton (click)="cropperDialogVisible = false" severity="secondary">Mégse</button>
-        <button pButton (click)="confirmCrop()" severity="success">Mentés</button>
-    </div>
-
-</p-dialog>
-
+    <p-dialog 
+        [(visible)]="cropperDialogVisible" 
+        header="Képvágás" 
+        [modal]="true" 
+        [closable]="false" 
+        [style]="{ width: '500px' }"
+    >
+        <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="1 / 1"
+            format="png"
+            (imageCropped)="imageCropped($event)"
+        ></image-cropper>
+        <div class="text-center">
+            <button pButton (click)="cropperDialogVisible = false" severity="secondary">Mégse</button>
+            <button pButton (click)="confirmCrop()" severity="success">Mentés</button>
+        </div>
+    </p-dialog>
 </body>
