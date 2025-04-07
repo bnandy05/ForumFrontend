@@ -190,8 +190,8 @@ body input::placeholder {
 }
 
 .username {
-    color: var(--highlight);
-    font-weight: bold;
+  color: var(--highlight);
+  font-weight: bold;
 }
 
 .comment-section {
@@ -214,8 +214,8 @@ body input::placeholder {
 }
 
 .comment-card:last-child {
-   border-bottom: none;
-   margin-bottom: 0;
+  border-bottom: none;
+  margin-bottom: 0;
 }
 
 .comment-text {
@@ -292,8 +292,8 @@ body input::placeholder {
 .input-group .btn {
   border-radius: 0;
   border-left: none;
-  font-size: 14px; /* << ÚJ: Gomb betűméret igazítása az inputhoz */
-  display: inline-flex; /* Segít az ikonok/szöveg függőleges közeprevitelében */
+  font-size: 14px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 }
@@ -302,12 +302,6 @@ body input::placeholder {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-
-.input-group .btn:first-of-type {
-   /* Mivel az inputnak van bal széle, az első gombnak nem kell külön */
-   /* border-left: 1px solid var(--border); */
-}
-
 
 .form-control {
   padding: 10px;
@@ -318,7 +312,7 @@ body input::placeholder {
   border-radius: 5px;
   transition: border-color 0.3s ease-in-out;
   flex-grow: 1;
-  line-height: normal; /* Vagy az alapértelmezett */
+  line-height: normal;
 }
 
 .form-control:focus {
@@ -331,10 +325,9 @@ body input::placeholder {
 
 .btn-primary {
   background-color: var(--highlight);
-  border: none; /* Vagy 1px solid var(--highlight) */
+  border: none;
   color: white;
-  padding: 10px 15px; /* Függőleges padding (10px) egyezik az inputtal */
-  /* border-radius: 5px; */ /* Input group kezeli */
+  padding: 10px 15px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
   white-space: nowrap;
@@ -348,13 +341,11 @@ body input::placeholder {
 
 .btn-secondary.emoji-button {
   background-color: var(--icon-color);
-  border: none; /* Vagy 1px solid var(--icon-color) */
+  border: none;
   color: var(--text-primary);
-  padding: 10px; /* Függőleges padding (10px) egyezik az inputtal */
-  /* border-radius: 5px; */ /* Input group kezeli */
+  padding: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
-  /* line-height: 1; */ /* align-items: center miatt nem biztos, hogy kell */
   position: relative;
   z-index: 1;
 }
@@ -386,7 +377,7 @@ body input::placeholder {
 }
 
 @media (max-width: 992px) {
-  ::ng-deep .emoji-button{
+  ::ng-deep .emoji-button {
     display: none !important;
   }
   .card-title {
@@ -413,16 +404,12 @@ body input::placeholder {
   }
 
   .flex-grow-1 {
-     padding-right: 0;
+    padding-right: 0;
   }
 
   .vote-buttons {
     align-self: flex-start;
     padding-left: 0;
-  }
-
-  .comment-text {
-      /* margin-left: 30px; */ /* Opcionális: Kisebb behúzás mobilon */
   }
 
   .comment-card .d-flex.align-items-start {
@@ -431,7 +418,7 @@ body input::placeholder {
   }
 
   .comment-card .flex-grow-1 {
-      order: 0;
+    order: 0;
   }
 
   .actions {
@@ -445,11 +432,11 @@ body input::placeholder {
 
   .form-control {
     flex-grow: 1;
-    min-width: 100px; /* Vagy amennyi hely kell */
+    min-width: 100px;
   }
 
   .input-group .btn {
-    flex-shrink: 0; /* Gombok ne zsugorodjanak */
+    flex-shrink: 0;
   }
 }
 
@@ -459,35 +446,24 @@ body input::placeholder {
   }
 
   :host ::ng-deep .emoji-picker {
-     right: 5px;
-     max-width: 280px;
-     bottom: calc(100% + 5px);
+    right: 5px;
+    max-width: 280px;
+    bottom: calc(100% + 5px);
   }
 
-  .vote-buttons {
-      /* Nincs szükség padding-left-re */
-  }
-
-  .comment-text {
-      /* margin-left: 20px; */ /* Opcionális: Még kisebb behúzás legkisebb nézetben */
-  }
-
-  /* Input group lehet, hogy tördelni kellene itt */
   .input-group {
-      flex-wrap: wrap; /* Engedjük a tördelést legkisebb nézetben */
+    flex-wrap: wrap;
   }
-  .input-group .form-control {
-      flex-basis: 100%; /* Input teljes szélességű lesz */
-      border-radius: 5px; /* Visszaadjuk a jobb oldali lekerekítést */
-      margin-bottom: 5px; /* Kis térköz a gombok előtt */
-  }
-  .input-group .btn {
-      flex-grow: 1; /* Gombok kitöltik a helyet */
-      border-radius: 5px !important; /* Minden gomb lekerekített */
-      border-left: 1px solid var(--border); /* Visszaadjuk a bal szegélyt */
-  }
-   .input-group .btn:first-of-type {
-       /* Nem kell külön bal szegély */
-   }
 
+  .input-group .form-control {
+    flex-basis: 100%;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+
+  .input-group .btn {
+    flex-grow: 1;
+    border-radius: 5px !important;
+    border-left: 1px solid var(--border);
+  }
 }
