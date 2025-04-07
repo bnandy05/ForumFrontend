@@ -1,6 +1,5 @@
 .emoji-picker{
   position: absolute;
-}
   right: 0;
   top: 0;
 }
@@ -169,7 +168,7 @@
   margin-bottom: 0.5rem;
 }
 
-.input-wrapper input {  
+.input-wrapper input {
   width: 60%;
   border: var(--highlight);
 }
