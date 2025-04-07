@@ -1,12 +1,11 @@
-body { /* Csak ha globális */
+body {
   background-color: var(--navbar-bg);
   color: var(--text-primary);
   font-family: Arial, sans-serif;
 }
 
-/* Lista elem külső konténere */
 .forum-container {
-  display: block; /* Vagy flex, ha a container is flex item */
+  display: block;
   background-color: var(--surface);
   border-radius: 8px;
   margin-bottom: 15px;
@@ -14,51 +13,44 @@ body { /* Csak ha globális */
   overflow: hidden;
 }
 
-/* Belső tartalom konténer paddinggal */
 .list-item-content {
   padding: 1rem;
 }
 
-/* === Felső sor: Avatar - Név - Menü === */
 .top-row {
   display: flex;
-  align-items: center; /* Vertikális igazítás */
-  margin-bottom: 0.75rem; /* Térköz a tartalom előtt */
+  align-items: center;
+  margin-bottom: 0.75rem;
 }
 
-.topic-list-avatar { /* Avatar stílusa */
-  flex-shrink: 0; /* Ne zsugorodjon */
-  margin-right: 0.75rem; /* Térköz a névtől */
-  width: 40px; /* Fix méret */
+.topic-list-avatar {
+  flex-shrink: 0;
+  margin-right: 0.75rem;
+  width: 40px;
   height: 40px;
 }
-:host ::ng-deep .topic-list-avatar .p-avatar-image { /* Avatar kép igazítása */
-    object-fit: cover;
+
+:host ::ng-deep .topic-list-avatar .p-avatar-image {
+  object-fit: cover;
 }
 
-.author.username { /* Felhasználónév stílusa */
+.author.username {
   color: var(--highlight);
   font-weight: bold;
-  flex-grow: 1; /* Kitölti a helyet a menüig */
-  margin-right: 0.5rem; /* Kis térköz a menü előtt */
-  /* Opcionális: Túlnyúlás kezelése */
-  /* white-space: nowrap; */
-  /* overflow: hidden; */
-  /* text-overflow: ellipsis; */
+  flex-grow: 1;
+  margin-right: 0.5rem;
 }
 
-.menu-wrapper { /* Menü(k) jobbra igazításához */
-    margin-left: auto; /* Jobbra tolja */
-    flex-shrink: 0; /* Ne zsugorodjon */
+.menu-wrapper {
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
-.menu-container { /* Menü gomb(ok) konténere */
-  position: static; /* <<< Fontos: Nem abszolút */
-  /* Ha több menü lehet, flexbe kell tenni őket a wrapperben */
-  display: inline-block; /* Vagy flex ha a wrapper flex */
+.menu-container {
+  position: static;
+  display: inline-block;
 }
 
-/* Menü gomb stílusa (PrimeNG felülírás) */
 :host ::ng-deep .menu-container .p-button.p-button-icon-only {
   width: 2rem;
   height: 2rem;
@@ -66,21 +58,20 @@ body { /* Csak ha globális */
   border: none !important;
   color: var(--text-secondary);
 }
+
 :host ::ng-deep .menu-container .p-button.p-button-icon-only:hover {
   background-color: var(--icon-hover) !important;
   color: var(--primary);
 }
+
 :host ::ng-deep .menu-container .p-button.p-button-icon-only:focus {
   box-shadow: none !important;
 }
 
-/* === Tartalmi Rész === */
-.content-area {
-    /* Ez a blokk a top-row alatt helyezkedik el */
-}
+.content-area {}
 
 .post-title {
-  font-size: 1.3rem; /* Kicsit kisebb lehet a listában */
+  font-size: 1.3rem;
   font-weight: bold;
   color: var(--primary);
   margin-bottom: 0.25rem;
@@ -105,45 +96,46 @@ body { /* Csak ha globális */
 }
 
 .post-text {
+  position: relative;
   overflow: hidden;
   max-width: 100%;
   line-height: 1.4;
   color: var(--text-primary);
-  margin-bottom: 1rem; /* Térköz a vote gombok előtt */
+  margin-bottom: 1rem;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  font-size: 0.9rem; /* Kicsit kisebb lehet a listában */
-
-  /* Opcionális: Előnézet magasságának korlátozása és ellipsis */
-   max-height: calc(1.4em * 3); /* Kb. 3 sor */
-   display: -webkit-box;
-   -webkit-line-clamp: 3;
-   -webkit-box-orient: vertical;
-   text-overflow: ellipsis;
+  font-size: 0.9rem;
+  max-height: calc(1.4em * 3);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
 }
 
-/* Képek a tartalomban */
+.post-text::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2.5em;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--surface) 100%);
+  pointer-events: none;
+}
+
 ::ng-deep .post-text img {
-  display: none; /* Lista nézetben a képeket elrejtjük */
-  /* Vagy ha mégis kellenek: */
-  /* max-width: 100% !important; */
-  /* height: auto !important; */
-  /* max-height: 100px !important; */ /* Nagyon kicsi előnézet */
-  /* margin-top: 0.5rem; */
-  /* border-radius: 4px; */
-  /* border: 1px solid var(--border); */
+  display: none;
 }
 
-/* === Szavazó Gombok (Legalul) === */
 .vote-buttons {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 8px;
-  margin-top: 1rem; /* Térköz a tartalom után */
+  margin-top: 1rem;
 }
 
-.vote-buttons .vote-btn { /* Használd a vote-btn classt a gombokon */
+.vote-buttons .vote-btn {
   background: none;
   border: 1px solid var(--border);
   padding: 3px 8px;
@@ -152,7 +144,7 @@ body { /* Csak ha globális */
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   color: var(--text-secondary);
   line-height: 1;
-  font-size: 1rem; /* Ikon mérete */
+  font-size: 1rem;
 }
 
 .vote-buttons .vote-btn:hover {
@@ -165,42 +157,43 @@ body { /* Csak ha globális */
   border-color: var(--highlight);
 }
 
-/* Upvote/Downvote színek (ha nem aktív) */
 .vote-buttons .upvote-btn:not(.active) {
   color: var(--vote-up);
 }
+
 .vote-buttons .downvote-btn:not(.active) {
   color: var(--vote-down);
 }
 
-/* Szavazat szám */
 .vote-buttons span {
   margin: 0;
   font-weight: bold;
   color: var(--text-primary);
   min-width: 15px;
   text-align: center;
-  font-size: 0.9rem; /* Kisebb szám */
+  font-size: 0.9rem;
 }
 
-/* === Media Queries (Finomhangolás) === */
 @media (max-width: 576px) {
-    .list-item-content {
-        padding: 0.75rem; /* Kisebb padding mobilon */
-    }
-    .top-row {
-        /* Esetleg itt lehetne wrap, ha nem fér el */
-        /* flex-wrap: wrap; */
-    }
-    .post-title {
-        font-size: 1.1rem;
-    }
-    .post-meta {
-        font-size: 0.8rem;
-    }
-    .post-text {
-        font-size: 0.85rem;
-        max-height: calc(1.4em * 2); /* Csak 2 sor mobilon */
-        -webkit-line-clamp: 2;
-    }
+  .list-item-content {
+    padding: 0.75rem;
+  }
+
+  .post-title {
+    font-size: 1.1rem;
+  }
+
+  .post-meta {
+    font-size: 0.8rem;
+  }
+
+  .post-text {
+    font-size: 0.85rem;
+    max-height: calc(1.4em * 2);
+    -webkit-line-clamp: 2;
+  }
+
+  .post-text::after {
+    height: 2em;
+  }
 }
