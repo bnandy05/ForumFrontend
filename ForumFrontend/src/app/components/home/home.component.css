@@ -57,8 +57,14 @@ body {
 .author.username {
   color: var(--highlight);
   font-weight: bold;
-  flex-grow: 1;
   margin-right: 0.5rem;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.author.username:hover {
+  text-decoration: underline;
 }
 
 .menu-wrapper {
@@ -108,9 +114,13 @@ body {
 }
 
 ::ng-deep .filter {
-  background-color: var(--primary) !important;
+  background-color: var(--highlight) !important;
   color: var(--text-primary) !important;
   border: none !important;
+}
+
+::ng-deep .filter:hover {
+  background-color: var(--primary) !important;
 }
 
 .post-text {

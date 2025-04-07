@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit, AfterViewChecked{
 
   navigateToTopic(topicId: number, event: MouseEvent): void {
     const target = event.target as HTMLElement;
-    const forbiddenTags = ['BUTTON', 'A'];
+    const forbiddenTags = ['BUTTON', 'A', 'SPAN'];
 
     if (forbiddenTags.includes(target.tagName)) {
       return;

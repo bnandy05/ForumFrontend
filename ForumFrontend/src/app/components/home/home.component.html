@@ -79,11 +79,12 @@
           class="topic-list-avatar hover"
           (click)="userClick(topic.user.id, $event)"
         />
-        <span
+        <a
           class="author username"
+          (click)="userClick(topic.user.id, $event)"
         >
-          <a (click)="userClick(topic.user.id, $event)">{{ topic.user.name }}</a>
-        </span>
+          {{ topic.user.name }}
+        </a>
 
         <div class="menu-wrapper">
           <div class="menu-container" *ngIf="topic.user_id == currentUserId">
