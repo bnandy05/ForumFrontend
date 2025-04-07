@@ -59,6 +59,14 @@ export class HomeComponent implements OnInit, AfterViewChecked{
     this.loadTopics(true);
   }
 
+  getAttachedImageCount(content: string): number {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = content;
+    
+    const images = tempDiv.querySelectorAll('img');
+    return images.length;
+  }
+
   loadTopics(reset: boolean = false) {
     if (this.loadingMore) return;
     this.loadingMore = true;
