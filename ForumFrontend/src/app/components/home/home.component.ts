@@ -58,7 +58,6 @@ export class HomeComponent implements OnInit, AfterViewChecked{
     this.currentPage = 1;
     this.hasMoreTopics = true;
     this.loadTopics(true);
-    console.log(this.title)
   }
 
   loadTopics(reset: boolean = false) {

@@ -1,98 +1,96 @@
-body {
+body { /* Csak ha globális */
   background-color: var(--navbar-bg);
   color: var(--text-primary);
-  margin: 0;
-  padding: 0;
-  transition: background-color 0.3s ease-in-out;
+  font-family: Arial, sans-serif;
 }
 
-body input::placeholder {
-  color: var(--text-primary);
-}
-
-.container {
-  position: relative;
-  max-width: 81rem;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: var(--surface);
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.form-label {
-  font-weight: bold;
-  color: var(--text-primary);
-}
-
-.form-control,
-.form-select {
-  width: 100%;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid var(--border);
-  background-color: var(--surface);
-  color: var(--text-primary);
-  border-radius: 5px;
-  transition: border-color 0.3s ease-in-out;
-}
-
-.form-control:focus,
-.form-select:focus {
-  border-color: var(--highlight);
-  outline: none;
-}
-
+/* Lista elem külső konténere */
 .forum-container {
+  display: block; /* Vagy flex, ha a container is flex item */
   background-color: var(--surface);
-  padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out, box-shadow 0.3s;
-}
-
-.forum-container:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.post {
-  display: flex;
-  flex-direction: column;
-}
-
-.post-content {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: normal;
-  max-width: 100%;
-}
-
-.post-text {
   overflow: hidden;
-  max-width: 100%;
 }
 
-::ng-deep .post-text img {
-  max-width: 100% !important;
-  height: auto !important;
-  max-height:800px !important;
+/* Belső tartalom konténer paddinggal */
+.list-item-content {
+  padding: 1rem;
+}
+
+/* === Felső sor: Avatar - Név - Menü === */
+.top-row {
+  display: flex;
+  align-items: center; /* Vertikális igazítás */
+  margin-bottom: 0.75rem; /* Térköz a tartalom előtt */
+}
+
+.topic-list-avatar { /* Avatar stílusa */
+  flex-shrink: 0; /* Ne zsugorodjon */
+  margin-right: 0.75rem; /* Térköz a névtől */
+  width: 40px; /* Fix méret */
+  height: 40px;
+}
+:host ::ng-deep .topic-list-avatar .p-avatar-image { /* Avatar kép igazítása */
+    object-fit: cover;
+}
+
+.author.username { /* Felhasználónév stílusa */
+  color: var(--highlight);
+  font-weight: bold;
+  flex-grow: 1; /* Kitölti a helyet a menüig */
+  margin-right: 0.5rem; /* Kis térköz a menü előtt */
+  /* Opcionális: Túlnyúlás kezelése */
+  /* white-space: nowrap; */
+  /* overflow: hidden; */
+  /* text-overflow: ellipsis; */
+}
+
+.menu-wrapper { /* Menü(k) jobbra igazításához */
+    margin-left: auto; /* Jobbra tolja */
+    flex-shrink: 0; /* Ne zsugorodjon */
+}
+
+.menu-container { /* Menü gomb(ok) konténere */
+  position: static; /* <<< Fontos: Nem abszolút */
+  /* Ha több menü lehet, flexbe kell tenni őket a wrapperben */
+  display: inline-block; /* Vagy flex ha a wrapper flex */
+}
+
+/* Menü gomb stílusa (PrimeNG felülírás) */
+:host ::ng-deep .menu-container .p-button.p-button-icon-only {
+  width: 2rem;
+  height: 2rem;
+  background-color: transparent !important;
+  border: none !important;
+  color: var(--text-secondary);
+}
+:host ::ng-deep .menu-container .p-button.p-button-icon-only:hover {
+  background-color: var(--icon-hover) !important;
+  color: var(--primary);
+}
+:host ::ng-deep .menu-container .p-button.p-button-icon-only:focus {
+  box-shadow: none !important;
+}
+
+/* === Tartalmi Rész === */
+.content-area {
+    /* Ez a blokk a top-row alatt helyezkedik el */
 }
 
 .post-title {
-  font-size: 18px;
+  font-size: 1.3rem; /* Kicsit kisebb lehet a listában */
   font-weight: bold;
   color: var(--primary);
+  margin-bottom: 0.25rem;
+  word-break: break-word;
 }
 
 .post-meta {
-  font-size: 14px;
+  font-size: 0.85rem;
   color: var(--text-secondary);
+  margin-bottom: 0.25rem;
 }
 
 .category {
@@ -100,129 +98,109 @@ body input::placeholder {
   color: var(--highlight);
 }
 
-.author {
-  font-weight: bold;
-  cursor: pointer;
-  color: var(--primary);
-  transition: color 0.3s ease-in-out;
+::ng-deep .filter {
+  background-color: var(--primary) !important;
+  color: var(--text-primary) !important;
+  border: none !important;
 }
 
-.author:hover {
-  color: var(--highlight);
+.post-text {
+  overflow: hidden;
+  max-width: 100%;
+  line-height: 1.4;
+  color: var(--text-primary);
+  margin-bottom: 1rem; /* Térköz a vote gombok előtt */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  font-size: 0.9rem; /* Kicsit kisebb lehet a listában */
+
+  /* Opcionális: Előnézet magasságának korlátozása és ellipsis */
+   max-height: calc(1.4em * 3); /* Kb. 3 sor */
+   display: -webkit-box;
+   -webkit-line-clamp: 3;
+   -webkit-box-orient: vertical;
+   text-overflow: ellipsis;
 }
 
-.menu-container {
-  position: absolute;
-  right: 10px;
-  top: 10px;
+/* Képek a tartalomban */
+::ng-deep .post-text img {
+  display: none; /* Lista nézetben a képeket elrejtjük */
+  /* Vagy ha mégis kellenek: */
+  /* max-width: 100% !important; */
+  /* height: auto !important; */
+  /* max-height: 100px !important; */ /* Nagyon kicsi előnézet */
+  /* margin-top: 0.5rem; */
+  /* border-radius: 4px; */
+  /* border: 1px solid var(--border); */
 }
 
-.menu-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--text-secondary);
-  font-size: 18px;
-  transition: color 0.3s;
-}
-
-.menu-button:hover {
-  color: var(--primary);
-}
-
+/* === Szavazó Gombok (Legalul) === */
 .vote-buttons {
   display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 8px;
+  margin-top: 1rem; /* Térköz a tartalom után */
 }
 
-.vote-buttons button {
+.vote-buttons .vote-btn { /* Használd a vote-btn classt a gombokon */
   background: none;
   border: 1px solid var(--border);
-  padding: 5px 10px;
+  padding: 3px 8px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  color: var(--text-secondary);
+  line-height: 1;
+  font-size: 1rem; /* Ikon mérete */
 }
 
-.vote-buttons button:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+.vote-buttons .vote-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-.vote-buttons button.active {
+.vote-buttons .vote-btn.active {
   background-color: var(--highlight);
-  color: white;
+  color: white !important;
+  border-color: var(--highlight);
 }
 
-.vote-buttons .btn-light {
-  font-size: 16px;
-  color: var(--text-primary);
-  transition: background 0.3s;
-}
-
-.vote-buttons .btn-light:hover {
-  background-color: var(--highlight);
-  color: white;
-}
-
-.vote-buttons .btn-light:active {
-  transform: scale(0.9);
-}
-
-.vote-buttons button:nth-child(1) {
+/* Upvote/Downvote színek (ha nem aktív) */
+.vote-buttons .upvote-btn:not(.active) {
   color: var(--vote-up);
 }
-
-.vote-buttons button:nth-child(3) {
+.vote-buttons .downvote-btn:not(.active) {
   color: var(--vote-down);
 }
 
-.spinner-border {
-  color: var(--primary);
-}
-
-.btn-primary {
-  background-color: var(--highlight);
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
-}
-
-.btn-primary:hover {
-  background-color: var(--primary);
-}
-
-::ng-deep .menu-container .p-button
-{
-  background-color: var(--icon-color) !important;
-  border: var(--primary) !important;
-}
-
-::ng-deep .menu-container .p-button:hover{
-  background-color: var(--icon-hover) !important;
-  border: var(--primary) !important;
-}
-
-.dropdown-menu{
-  background-color: var(--navbar-bg) !important;
-}
-
-.custom-dropdown {
-  width: 300px;
-  position: absolute;
-  right: 100;
-  top: 100%;
-  transform: translateX(20px);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  background-color: var(--surface);
+/* Szavazat szám */
+.vote-buttons span {
+  margin: 0;
+  font-weight: bold;
   color: var(--text-primary);
+  min-width: 15px;
+  text-align: center;
+  font-size: 0.9rem; /* Kisebb szám */
 }
 
-.dropdown-menu.show {
-  display: block;
+/* === Media Queries (Finomhangolás) === */
+@media (max-width: 576px) {
+    .list-item-content {
+        padding: 0.75rem; /* Kisebb padding mobilon */
+    }
+    .top-row {
+        /* Esetleg itt lehetne wrap, ha nem fér el */
+        /* flex-wrap: wrap; */
+    }
+    .post-title {
+        font-size: 1.1rem;
+    }
+    .post-meta {
+        font-size: 0.8rem;
+    }
+    .post-text {
+        font-size: 0.85rem;
+        max-height: calc(1.4em * 2); /* Csak 2 sor mobilon */
+        -webkit-line-clamp: 2;
+    }
 }
-

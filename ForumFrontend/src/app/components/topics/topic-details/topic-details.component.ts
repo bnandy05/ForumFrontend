@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TopicService } from '../../../services/topic.service';
 import { HeaderComponent } from '../../header/header.component';
 import { CommonModule } from '@angular/common';
@@ -49,7 +49,7 @@ interface Comment {
   templateUrl: './topic-details.component.html',
   styleUrl: './topic-details.component.css',
 })
-export class TopicDetailsComponent implements OnInit, AfterViewChecked {
+export class TopicDetailsComponent implements OnInit{
   topics: any[] = [];
   id: number = 0;
   userVote: 'up' | 'down' | null = null;
@@ -117,14 +117,6 @@ export class TopicDetailsComponent implements OnInit, AfterViewChecked {
     if (target.tagName === 'IMG') {
       this.selectedImage = target.getAttribute('src');
       this.isImageModalOpen = true;
-    }
-  }
-
-  ngAfterViewChecked(): void {
-    if(localStorage.getItem("topicrefresh")=="1")
-    {
-      localStorage.removeItem("topicrefresh");
-      location.reload();
     }
   }
 
