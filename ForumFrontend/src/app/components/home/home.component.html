@@ -133,8 +133,8 @@
           >
             {{ topic.timeAgo }}
           </span>
-          <span *ngIf="getAttachedImageCount(topic.content) > 0" class="image-indicator">
-            <i class="pi pi-image"></i> {{ getAttachedImageCount(topic.content) }} kép csatolva
+          <span *ngIf="topic.image_count" class="image-indicator">
+            <i class="pi pi-image"></i> {{ topic.image_count }} kép csatolva
           </span>
         </p>
         <div class="post-text" [innerHTML]="topic.content | safeHtml"></div>

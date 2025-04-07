@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit, AfterViewChecked{
 
   navigateToTopic(topicId: number, event: MouseEvent): void {
     const target = event.target as HTMLElement;
-    const forbiddenTags = ['BUTTON', 'A', 'SPAN'];
+    const forbiddenTags = ['SPAN', 'BUTTON', 'A'];
 
     if (forbiddenTags.includes(target.tagName)) {
       return;
@@ -76,7 +76,8 @@ export class HomeComponent implements OnInit, AfterViewChecked{
         const newTopics = response.topics.data.map((topic: any) => ({
           ...topic,
           timeAgo: this.topicService.getTimeAgo(topic.created_at, topic.updated_at),
-          upvote_count: topic.upvotes - topic.downvotes
+          upvote_count: topic.upvotes - topic.downvotes,
+          image_count: this.getAttachedImageCount(topic.content)
         }));
         if (reset) {
           this.topics = newTopics;
