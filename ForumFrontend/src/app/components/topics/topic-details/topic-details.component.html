@@ -114,6 +114,8 @@
                     <div class="input-group mt-2">
                       <textarea
                         class="form-control"
+                        (keydown.enter)="saveEditedComment(comment.id)"
+                        (keydown.escape)="cancelEdit()"
                         [(ngModel)]="editedCommentContent"
                         placeholder="Módosítsd a hozzászólást..."
                         rows="3"
@@ -168,6 +170,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  (keydown.enter)="addComment(topic.id)"
                   placeholder="Írj egy hozzászólást..."
                   [(ngModel)]="newComment"
                 />

@@ -172,6 +172,11 @@ export class TopicDetailsComponent implements OnInit{
     });
   }
 
+  userClick(userId: number, event: MouseEvent): void {
+    event.stopPropagation();
+    this.router.navigate(['/profile', userId]);
+  }
+
   refreshTopic(): void {
     if (!this.id) return;
 

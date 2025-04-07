@@ -80,10 +80,9 @@
           (click)="userClick(topic.user.id, $event)"
         />
         <span
-          class="author username hover"
-          (click)="userClick(topic.user.id, $event)"
+          class="author username"
         >
-          {{ topic.user.name }}
+          <a (click)="userClick(topic.user.id, $event)">{{ topic.user.name }}</a>
         </span>
 
         <div class="menu-wrapper">

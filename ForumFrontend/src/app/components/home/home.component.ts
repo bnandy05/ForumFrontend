@@ -40,12 +40,11 @@ export class HomeComponent implements OnInit, AfterViewChecked{
 
   navigateToTopic(topicId: number, event: MouseEvent): void {
     const target = event.target as HTMLElement;
-    const forbiddenTags = ['BUTTON', 'A', 'SPAN'];
+    const forbiddenTags = ['BUTTON', 'A'];
 
     if (forbiddenTags.includes(target.tagName)) {
       return;
     }
-    localStorage.setItem("topicrefresh","1");
     this.router.navigate(['/topics/view', topicId]);
   }
 

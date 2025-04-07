@@ -385,9 +385,10 @@ body input::placeholder {
   height: auto;
 }
 
-/* --- Media Queries --- */
-
 @media (max-width: 992px) {
+  ::ng-deep .emoji-button{
+    display: none !important;
+  }
   .card-title {
     font-size: 1.5rem;
   }
