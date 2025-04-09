@@ -115,6 +115,8 @@ body {
 }
 
 ::ng-deep .filter {
+  margin: 0 auto;
+  display: block;
   background-color: var(--highlight) !important;
   color: var(--text-primary) !important;
   border: none !important;

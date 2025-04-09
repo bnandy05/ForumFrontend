@@ -1,164 +1,203 @@
-::ng-deep html,body{
-    background-color: var(--background) !important;
+::ng-deep html, body {
+  background-color: var(--surface-ground) !important;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
 }
 
 body {
-    color: var(--text-primary);
-    margin: 0;
-    padding: 0;
-  }
-  
-  .profile-container {
-    background-color: var(--background);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh;
-  }
-  
-  .profile-card {
-    background-color: var(--surface);
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-    max-width: 500px;
-    width: 90%;
-    text-align: center;
-  }
-  
-  .profile-header {
-    color: var(--text-primary);
-    padding: 15px;
-    border-radius: 12px 12px 0 0;
-  }
-  ::ng deep .profile-update{
-    display: block !important; 
-    display: inline !important;
-  }
-  .avatar-section {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-  }
-  
-  p-avatar {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  .user-info h3 {
-    color: var(--primary);
-    margin-bottom: 5px;
-  }
-  
-  .profile-actions {
-    margin-top: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .custom-file-input {
-    display: block;
-    margin: 10px auto;
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid var(--border);
-    background-color: var(--surface);
-    color: var(--text-primary);
-    border-radius: 6px;
-    transition: border-color 0.3s ease-in-out;
-  }
-  
-  .custom-file-input:focus {
-    border-color: var(--highlight);
-    outline: none;
-  }
-  
-  button[pButton] {
-    padding: 12px 18px;
-    font-size: 16px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out, transform 0.1s;
-    border: none;
-  }
-  
-  button[pButton]:hover {
-    transform: scale(1.05);
-  }
-  
-  button[severity="success"] {
-    background-color: var(--highlight);
-    color: white;
-  }
-  
-  button[severity="success"]:hover {
-    background-color: var(--primary);
-  }
-  
-  button[severity="danger"] {
-    background-color: var(--danger);
-    color: white;
-  }
-  
-  button[severity="danger"]:hover {
-    background-color: darkred;
-  }
-  
-  button[severity="warn"] {
-    background-color: var(--warning);
-    color: white;
-  }
-  
-  button[severity="warn"]:hover {
-    background-color: darkorange;
-  }
-  
-  button[severity="secondary"] {
-    background-color: var(--border);
-    color: var(--text-primary);
-  }
-  
-  button[severity="secondary"]:hover {
-    background-color: var(--text-secondary);
-  }
-  
-  @media (max-width: 600px) {
-    .profile-card {
-      padding: 20px;
-    }
-  
-    button[pButton] {
-      width: 100%;
-    }
-  }
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-y: auto;
+}
 
-  .avatar-preview {
-    margin-top: 10px;
-    text-align: center;
+.profile-container {
+  background-color: var(--navbar-bg);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  min-height: calc(100vh - 40px); /* Account for padding */
+  /* Remove the height: 100% that caused double scrolling */
+}
+
+.profile-card {
+  background-color: var(--surface);
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  margin-bottom: 20px; /* Add margin at the bottom */
+}
+
+.profile-header {
+  color: var(--text-primary);
+  padding: 15px;
+  border-radius: 12px 12px 0 0;
+}
+
+.avatar-section {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+p-avatar {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.user-info h3 {
+  color: var(--primary);
+  margin-bottom: 5px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  padding: 10px;
+  text-align: left;
+}
+
+.stat-item {
+  background-color: var(--surface);
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.stat-label {
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.stat-value {
+  margin-left: 5px;
+  color: var(--highlight);
+}
+
+.recognition {
+  margin-top: 20px;
+  font-size: 1.2em;
+  color: var(--text-primary);
+  font-weight: normal;
+}
+
+.profile-actions {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.custom-file-input {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--text-primary);
+  border-radius: 6px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.custom-file-input:focus {
+  border-color: var(--highlight);
+  outline: none;
+}
+
+button[pButton] {
+  padding: 12px 18px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.1s;
+  border: none;
+  background-color: var(--surface);
+  color: var(--text-primary);
+}
+
+button[pButton]:hover {
+  transform: scale(1.05);
+}
+
+button[severity="success"] {
+  background-color: var(--highlight);
+  color: white;
+}
+
+button[severity="success"]:hover {
+  background-color: var(--primary);
+}
+
+button[severity="danger"] {
+  background-color: var(--danger);
+  color: white;
+}
+
+button[severity="danger"]:hover {
+  background-color: darkred;
+}
+
+button[severity="warn"] {
+  background-color: var(--warning);
+  color: white;
+}
+
+button[severity="warn"]:hover {
+  background-color: darkorange;
+}
+
+button[severity="secondary"] {
+  background-color: var(--border);
+  color: var(--text-primary);
+}
+
+button[severity="secondary"]:hover {
+  background-color: var(--text-secondary);
+}
+
+.avatar-preview {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.rounded-preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+  display: block;
+  margin: 0 auto 5px auto;
+}
+
+@media (max-width: 600px) {
+  .profile-card {
+    padding: 20px;
   }
-  
+  button[pButton] {
+    width: 100%;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
   .rounded-preview {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #ccc;
-    display: block;
-    margin: 0 auto 5px auto;
+    width: 80px;
+    height: 80px;
   }
-  
-  @media (max-width: 768px) {
-    .rounded-preview {
-      width: 80px;
-      height: 80px;
-    }
+}
+
+@media (max-width: 480px) {
+  .rounded-preview {
+    width: 60px;
+    height: 60px;
   }
-  
-  @media (max-width: 480px) {
-    .rounded-preview {
-      width: 60px;
-      height: 60px;
-    }
-  }
-  
+}

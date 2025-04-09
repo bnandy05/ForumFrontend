@@ -1,5 +1,5 @@
-<app-header></app-header>
 <body>
+    <app-header></app-header>
     <div class="profile-container">
         <div class="profile-card">
             <div class="profile-header">
@@ -20,43 +20,41 @@
                 <hr>
                 <div class="text-center">
                     <h4>Felhasználó statisztikái</h4>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Témák száma: {{ userProfile.stats.topic_count }}</p>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">Témák száma:</span>
+                            <span class="stat-value">{{ userProfile.stats.topic_count }}</span>
                         </div>
-                        <div class="col-md-6">
-                            <p>Kommentek száma: {{ userProfile.stats.comment_count }}</p>
+                        <div class="stat-item">
+                            <span class="stat-label">Kommentek száma:</span>
+                            <span class="stat-value">{{ userProfile.stats.comment_count }}</span>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Téma pozitív szavazatok: {{ userProfile.stats.topic_upvotes }}</p>
+                        <div class="stat-item">
+                            <span class="stat-label">Téma pozitív szavazatok:</span>
+                            <span class="stat-value">{{ userProfile.stats.topic_upvotes }}</span>
                         </div>
-                        <div class="col-md-6">
-                            <p>Téma negatív szavazatok: {{ userProfile.stats.topic_downvotes }}</p>
+                        <div class="stat-item">
+                            <span class="stat-label">Téma negatív szavazatok:</span>
+                            <span class="stat-value">{{ userProfile.stats.topic_downvotes }}</span>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Komment pozitív szavazatok: {{ userProfile.stats.comment_upvotes }}</p>
+                        <div class="stat-item">
+                            <span class="stat-label">Komment pozitív szavazatok:</span>
+                            <span class="stat-value">{{ userProfile.stats.comment_upvotes }}</span>
                         </div>
-                        <div class="col-md-6">
-                            <p>Komment negatív szavazatok: {{ userProfile.stats.comment_downvotes }}</p>
+                        <div class="stat-item">
+                            <span class="stat-label">Komment negatív szavazatok:</span>
+                            <span class="stat-value">{{ userProfile.stats.comment_downvotes }}</span>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Összes pozitív szavazat: {{ userProfile.stats.total_upvotes }}</p>
+                        <div class="stat-item">
+                            <span class="stat-label">Összes pozitív szavazat:</span>
+                            <span class="stat-value">{{ userProfile.stats.total_upvotes }}</span>
                         </div>
-                        <div class="col-md-6">
-                            <p>Összes negatív szavazat: {{ userProfile.stats.total_downvotes }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4>Elismertség: {{ userProfile.stats.total_votes_balance }}</h4>
+                        <div class="stat-item">
+                            <span class="stat-label">Összes negatív szavazat:</span>
+                            <span class="stat-value">{{ userProfile.stats.total_downvotes }}</span>
                         </div>
                     </div>
+                    <h4 class="recognition">Elismertség: <span class="stat-value">{{ userProfile.stats.total_votes_balance }}</span></h4>
                 </div>
                 <hr>
                 <div class="profile-actions" *ngIf="ownProfile">
@@ -83,7 +81,7 @@
                         pButton 
                         (click)="BanUser(userProfile.id)" 
                         *ngIf="IsAdmin() && userProfile.is_banned === 0" 
-                        severity="warn"
+                        severity="danger"
                     >
                         Felhasználó kitiltása
                     </button>
@@ -91,7 +89,7 @@
                         pButton 
                         (click)="UnbanUser(userProfile.id)" 
                         *ngIf="IsAdmin() && userProfile.is_banned === 1" 
-                        severity="warn"
+                        severity="success"
                     >
                         Kitiltás feloldása
                     </button>
