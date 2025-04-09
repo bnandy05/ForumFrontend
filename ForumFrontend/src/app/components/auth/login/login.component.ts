@@ -5,11 +5,16 @@ import { CommonModule } from '@angular/common';
 import { ThemeToggleComponent } from '../../theme-toggle/theme-toggle.component';
 import { ThemeService } from '../../../services/theme.service';
 import { Router } from '@angular/router';
+import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, FormsModule, ThemeToggleComponent],
+  animations: [
+    fadeInOnEnterAnimation(),
+    fadeOutOnLeaveAnimation(),
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

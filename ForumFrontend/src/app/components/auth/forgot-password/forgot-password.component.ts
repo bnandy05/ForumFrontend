@@ -5,11 +5,16 @@ import { AuthService } from '../../../services/auth.service';
 import { ThemeToggleComponent } from '../../theme-toggle/theme-toggle.component';
 import { ThemeService } from '../../../services/theme.service';
 import { Router } from '@angular/router';
+import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, ThemeToggleComponent],
+  animations: [
+    fadeInOnEnterAnimation(),
+    fadeOutOnLeaveAnimation(),
+  ],
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css']
 })

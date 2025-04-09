@@ -61,6 +61,7 @@
       *ngFor="let topic of topics; index as i"
       (click)="navigateToTopic(topic.id, $event)"
       class="forum-container container"
+      [@fadeInOnEnter]
     >
       <div class="card post-card">
         <div class="card-body">

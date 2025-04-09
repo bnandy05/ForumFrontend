@@ -10,10 +10,15 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { ImageCropperComponent, ImageCroppedEvent } from 'ngx-image-cropper';
 import { AdminService } from '../../../services/admin.service';
+import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-profile',
   imports: [HeaderComponent, CommonModule, DialogModule, ImageCropperComponent, AvatarGroupModule, AvatarModule, ButtonModule],
+  animations: [
+    fadeInOnEnterAnimation(),
+    fadeOutOnLeaveAnimation(),
+  ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

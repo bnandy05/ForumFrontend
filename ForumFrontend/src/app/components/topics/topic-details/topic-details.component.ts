@@ -15,6 +15,7 @@ import { ButtonModule } from 'primeng/button';
 import { TextareaModule } from 'primeng/textarea';
 import { AdminService } from '../../../services/admin.service';
 import { ShortenNumberPipe } from '../../../shorten-number.pipe';
+import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 interface Comment {
   id: number;
@@ -47,6 +48,10 @@ interface Comment {
     ButtonModule,
     TextareaModule,
     ShortenNumberPipe
+  ],
+  animations: [
+    fadeInOnEnterAnimation(),
+    fadeOutOnLeaveAnimation(),
   ],
   templateUrl: './topic-details.component.html',
   styleUrl: './topic-details.component.css',

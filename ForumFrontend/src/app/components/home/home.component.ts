@@ -12,11 +12,16 @@ import { ConfirmationService, PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { AdminService } from '../../services/admin.service';
 import { ShortenNumberPipe } from '../../shorten-number.pipe';
+import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule, MenuModule, ButtonModule, ShortenNumberPipe],
+  animations: [
+    fadeInOnEnterAnimation(),
+    fadeOutOnLeaveAnimation(),
+  ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

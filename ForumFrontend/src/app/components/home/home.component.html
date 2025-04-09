@@ -69,6 +69,7 @@
     *ngFor="let topic of topics; index as i"
     (click)="navigateToTopic(topic.id, $event)"
     class="forum-container"
+    [@fadeInOnEnter]
   >
     <div class="list-item-content">
       <div class="top-row">

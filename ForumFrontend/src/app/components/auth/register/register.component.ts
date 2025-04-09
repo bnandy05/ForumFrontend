@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ThemeToggleComponent } from '../../theme-toggle/theme-toggle.component';
 import { ThemeService } from '../../../services/theme.service';
+import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-register',
@@ -13,6 +14,10 @@ import { ThemeService } from '../../../services/theme.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule, ThemeToggleComponent],
+  animations: [
+    fadeInOnEnterAnimation(),
+    fadeOutOnLeaveAnimation(),
+  ],
 })
 export class RegisterComponent {
   registerForm: FormGroup;

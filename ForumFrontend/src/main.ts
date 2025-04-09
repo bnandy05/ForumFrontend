@@ -13,6 +13,7 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { CustomRouteReuseStrategy } from './app/custom-route-reuse-strategy';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -30,6 +31,7 @@ bootstrapApplication(AppComponent, {
       }
   }),
     MessageService,
-    ConfirmationService
+    ConfirmationService,
+    BrowserAnimationsModule,
   ],
 }).catch(err => console.error(err));

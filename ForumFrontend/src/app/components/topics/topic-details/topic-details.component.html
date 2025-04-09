@@ -1,7 +1,7 @@
 <body>
   <app-header></app-header>
   <div class="container">
-    <div *ngFor="let topic of topics">
+    <div *ngFor="let topic of topics" [@fadeInOnEnter]>
       <div class="card post-card">
         <div class="card-body">
           <div class="d-flex align-items-start position-relative">
