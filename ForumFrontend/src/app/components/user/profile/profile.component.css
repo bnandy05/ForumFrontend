@@ -1,203 +1,230 @@
-::ng-deep html, body {
-  background-color: var(--surface-ground) !important;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow-x: hidden;
+::ng-deep html, ::ng-deep body {
+  background-color: var(--background) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100% !important;
+  overflow-x: hidden !important;
 }
 
-body {
-  color: var(--text-primary);
-  min-height: 100vh;
-  overflow-y: auto;
+::ng-deep body {
+  color: var(--text-primary) !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
 }
 
-.profile-container {
-  background-color: var(--navbar-bg);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 20px;
-  min-height: calc(100vh - 40px); /* Account for padding */
-  /* Remove the height: 100% that caused double scrolling */
+::ng-deep .profile-container {
+  background-color: var(--navbar-bg) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  padding: 20px !important;
+  min-height: calc(100vh - 40px) !important;
 }
 
-.profile-card {
-  background-color: var(--surface);
-  border-radius: 12px;
-  padding: 25px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-  max-width: 500px;
-  width: 90%;
-  text-align: center;
-  margin-bottom: 20px; /* Add margin at the bottom */
+::ng-deep .profile-card {
+  background-color: var(--surface) !important;
+  border-radius: 12px !important;
+  padding: 25px !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15) !important;
+  max-width: 500px !important;
+  width: 90% !important;
+  text-align: center !important;
+  margin-bottom: 20px !important;
 }
 
-.profile-header {
-  color: var(--text-primary);
-  padding: 15px;
-  border-radius: 12px 12px 0 0;
+::ng-deep .profile-header {
+  color: var(--text-primary) !important;
+  padding: 15px !important;
+  border-radius: 12px 12px 0 0 !important;
 }
 
-.avatar-section {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
+::ng-deep .avatar-section {
+  display: flex !important;
+  justify-content: center !important;
+  margin: 20px 0 !important;
 }
 
-p-avatar {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+::ng-deep p-avatar {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
 }
 
-.user-info h3 {
-  color: var(--primary);
-  margin-bottom: 5px;
+::ng-deep .user-info h3 {
+  color: var(--primary) !important;
+  margin-bottom: 5px !important;
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  padding: 10px;
-  text-align: left;
+::ng-deep .stats-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 15px !important;
+  padding: 10px !important;
+  text-align: left !important;
 }
 
-.stat-item {
-  background-color: var(--surface);
-  padding: 10px;
-  border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+::ng-deep .stat-item {
+  background-color: var(--surface) !important;
+  padding: 10px !important;
+  border-radius: 6px !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
 }
 
-.stat-label {
-  font-weight: bold;
-  color: var(--text-primary);
+::ng-deep .stat-label {
+  font-weight: bold !important;
+  color: var(--text-primary) !important;
 }
 
-.stat-value {
-  margin-left: 5px;
-  color: var(--highlight);
+::ng-deep .stat-value {
+  margin-left: 5px !important;
+  color: var(--highlight) !important;
 }
 
-.recognition {
-  margin-top: 20px;
-  font-size: 1.2em;
-  color: var(--text-primary);
-  font-weight: normal;
+::ng-deep .recognition {
+  margin-top: 20px !important;
+  font-size: 1.2em !important;
+  color: var(--text-primary) !important;
+  font-weight: normal !important;
 }
 
-.profile-actions {
-  margin-top: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+::ng-deep .profile-actions {
+  margin-top: 15px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
 }
 
-.custom-file-input {
-  display: block;
-  margin: 10px auto;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid var(--border);
-  background-color: var(--surface);
-  color: var(--text-primary);
-  border-radius: 6px;
-  transition: border-color 0.3s ease-in-out;
+::ng-deep .profile-actions:not(:first-of-type) {
+  margin-top: 20px !important;
+  padding-top: 15px !important;
+  border-top: 1px solid var(--border) !important;
 }
 
-.custom-file-input:focus {
-  border-color: var(--highlight);
-  outline: none;
+::ng-deep .profile-actions button[severity="danger"],
+::ng-deep .profile-actions button[severity="success"][ng-reflect-severity="success"] {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin: 5px 0 !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.3px !important;
 }
 
-button[pButton] {
-  padding: 12px 18px;
-  font-size: 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out, transform 0.1s;
-  border: none;
-  background-color: var(--surface);
-  color: var(--text-primary);
+::ng-deep .custom-file-input {
+  display: block !important;
+  margin: 10px auto !important;
+  padding: 10px !important;
+  font-size: 14px !important;
+  border: 1px solid var(--border) !important;
+  background-color: var(--surface) !important;
+  color: var(--text-primary) !important;
+  border-radius: 6px !important;
+  transition: border-color 0.3s ease-in-out !important;
 }
 
-button[pButton]:hover {
-  transform: scale(1.05);
+::ng-deep .custom-file-input:focus {
+  border-color: var(--highlight) !important;
+  outline: none !important;
 }
 
-button[severity="success"] {
-  background-color: var(--highlight);
-  color: white;
+::ng-deep button[pButton] {
+  padding: 12px 18px !important;
+  font-size: 16px !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease-in-out, transform 0.1s !important;
+  border: none !important;
+  background-color: var(--surface) !important;
+  color: var(--text-primary) !important;
 }
 
-button[severity="success"]:hover {
-  background-color: var(--primary);
+::ng-deep button[pButton]:hover {
+  transform: scale(1.05) !important;
 }
 
-button[severity="danger"] {
-  background-color: var(--danger);
-  color: white;
+::ng-deep button[severity="success"] {
+  background-color: var(--highlight) !important;
+  color: var(--text-negative) !important;
 }
 
-button[severity="danger"]:hover {
-  background-color: darkred;
+::ng-deep button[severity="success"]:hover {
+  background-color: var(--primary) !important;
 }
 
-button[severity="warn"] {
-  background-color: var(--warning);
-  color: white;
+::ng-deep button[severity="danger"] {
+  background-color: var(--vote-down) !important;
+  color: var(--text-negative) !important;
 }
 
-button[severity="warn"]:hover {
-  background-color: darkorange;
+::ng-deep button[severity="danger"]:hover {
+  background-color: darkred !important;
 }
 
-button[severity="secondary"] {
-  background-color: var(--border);
-  color: var(--text-primary);
+::ng-deep button[severity="warn"] {
+  background-color: var(--navbar-hover) !important;
+  color: var(--text-negative) !important;
 }
 
-button[severity="secondary"]:hover {
-  background-color: var(--text-secondary);
+::ng-deep button[severity="warn"]:hover {
+  background-color: var(--icon-hover) !important;
 }
 
-.avatar-preview {
-  margin-top: 10px;
-  text-align: center;
+::ng-deep button[severity="secondary"] {
+  background-color: var(--border) !important;
+  color: var(--text-primary) !important;
 }
 
-.rounded-preview {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #ccc;
-  display: block;
-  margin: 0 auto 5px auto;
+::ng-deep button[severity="secondary"]:hover {
+  background-color: var(--text-secondary) !important;
+}
+
+::ng-deep .profile-actions button[severity="danger"],
+::ng-deep .profile-actions button[severity="success"] {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+::ng-deep .profile-actions button[severity="danger"]:hover::before,
+::ng-deep .profile-actions button[severity="success"]:hover::before {
+  left: 100% !important;
+}
+
+::ng-deep .avatar-preview {
+  margin-top: 10px !important;
+  text-align: center !important;
+}
+
+::ng-deep .rounded-preview {
+  width: 100px !important;
+  height: 100px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: 2px solid var(--border) !important;
+  display: block !important;
+  margin: 0 auto 5px auto !important;
 }
 
 @media (max-width: 600px) {
-  .profile-card {
-    padding: 20px;
+  ::ng-deep .profile-card {
+    padding: 20px !important;
   }
-  button[pButton] {
-    width: 100%;
+  ::ng-deep button[pButton] {
+    width: 100% !important;
   }
-  .stats-grid {
-    grid-template-columns: 1fr;
+  ::ng-deep .stats-grid {
+    grid-template-columns: 1fr !important;
   }
 }
 
 @media (max-width: 768px) {
-  .rounded-preview {
-    width: 80px;
-    height: 80px;
+  ::ng-deep .rounded-preview {
+    width: 80px !important;
+    height: 80px !important;
   }
 }
 
 @media (max-width: 480px) {
-  .rounded-preview {
-    width: 60px;
-    height: 60px;
+  ::ng-deep .rounded-preview {
+    width: 60px !important;
+    height: 60px !important;
   }
 }

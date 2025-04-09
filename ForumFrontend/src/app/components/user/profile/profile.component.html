@@ -56,7 +56,6 @@
                     </div>
                     <h4 class="recognition">Elismertség: <span class="stat-value">{{ userProfile.stats.total_votes_balance }}</span></h4>
                 </div>
-                <hr>
                 <div class="profile-actions" *ngIf="ownProfile">
                     <h3>Profilkép frissítése</h3>
                     <input 
@@ -97,7 +96,6 @@
             </div>
         </div>
     </div>
-
     <p-dialog 
         [(visible)]="cropperDialogVisible" 
         header="Képvágás" 
