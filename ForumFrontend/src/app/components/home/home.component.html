@@ -1,51 +1,32 @@
-<body [@fadeInOnEnter]>
-    <app-header></app-header>
-    <div class="container py-3 position-relative">
-      <div class="dropdown">
-        <button
-          class="btn btn-primary dropdown-toggle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Szűrési lehetőségek
-        </button>
-        <ul
-          class="dropdown-menu dropdown-menu-end custom-dropdown p-3"
-          aria-labelledby="filterButton"
-        >
-          <li>
-            <label for="category" class="form-label">Kategória:</label>
-            <select
-              id="category"
-              [(ngModel)]="categoryId"
-              (change)="filterTopics()"
-              class="form-select"
-            >
-              <option value="">Minden kategória</option>
-              <option *ngFor="let category of categories" value="{{ category.id }}">
-                {{ category.category_name }}
-              </option>
-            </select>
-          </li>
-          <li class="mt-2">
-            <label for="title" class="form-label">Cím keresése:</label>
-            <input
-              type="text"
-              id="title"
-              [(ngModel)]="title"
-              (input)="filterTopics()"
-              class="form-control"
-              placeholder="Cím keresése..."
-            />
-          </li>
-          <li class="mt-2">
-            <label for="orderBy" class="form-label">Rendezés:</label>
-            <select
-              id="orderBy"
-              [(ngModel)]="orderBy"
-              (change)="filterTopics()"
-              class="form-select"
+<body>
+<app-header></app-header>
+  <div class="container py-3 position-relative">
+    <div class="dropdown">
+      <button
+        class="btn btn-primary dropdown-toggle filter"
+        type="button"
+        id="filterButton"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Szűrési lehetőségek
+      </button>
+      <ul
+        class="dropdown-menu dropdown-menu-end custom-dropdown p-3"
+        aria-labelledby="filterButton"
+      >
+        <li>
+          <label for="category" class="form-label">Kategória:</label>
+          <select
+            id="category"
+            [(ngModel)]="categoryId"
+            (change)="filterTopics()"
+            class="form-select"
+          >
+            <option value="">Minden kategória</option>
+            <option
+              *ngFor="let category of categories"
+              value="{{ category.id }}"
             >
               {{ category.category_name }}
             </option>
@@ -87,8 +68,7 @@
   <div
     *ngFor="let topic of topics; index as i"
     (click)="navigateToTopic(topic.id, $event)"
-    class="forum-container container"
-    [@fadeInOnEnter]
+    class="forum-container"
   >
     <div class="list-item-content">
       <div class="top-row">
