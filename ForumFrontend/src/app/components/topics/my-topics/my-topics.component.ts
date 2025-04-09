@@ -11,11 +11,12 @@ import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { AdminService } from '../../../services/admin.service';
 import { ConfirmationService } from 'primeng/api';
+import { ShortenNumberPipe } from '../../../shorten-number.pipe';
 
 @Component({
   selector: 'app-my-topics',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule, ButtonModule, MenuModule],
+  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule, ButtonModule, MenuModule, ShortenNumberPipe],
   templateUrl: './my-topics.component.html',
   styleUrls: ['./my-topics.component.css']
 })

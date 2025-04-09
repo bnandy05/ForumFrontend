@@ -11,11 +11,12 @@ import { MenuModule } from 'primeng/menu';
 import { ConfirmationService, PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { AdminService } from '../../services/admin.service';
+import { ShortenNumberPipe } from '../../shorten-number.pipe';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule, MenuModule, ButtonModule],
+  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule, MenuModule, ButtonModule, ShortenNumberPipe],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -40,12 +41,11 @@ export class HomeComponent implements OnInit, AfterViewChecked{
 
   navigateToTopic(topicId: number, event: MouseEvent): void {
     const target = event.target as HTMLElement;
-    const forbiddenTags = ['BUTTON', 'A', 'SPAN'];
+    const forbiddenTags = ['SPAN', 'BUTTON', 'A'];
 
     if (forbiddenTags.includes(target.tagName)) {
       return;
     }
-    localStorage.setItem("refresh","1");
     this.router.navigate(['/topics/view', topicId]);
   }
 
@@ -58,7 +58,14 @@ export class HomeComponent implements OnInit, AfterViewChecked{
     this.currentPage = 1;
     this.hasMoreTopics = true;
     this.loadTopics(true);
-    console.log(this.title)
+  }
+
+  getAttachedImageCount(content: string): number {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = content;
+    
+    const images = tempDiv.querySelectorAll('img');
+    return images.length;
   }
 
   loadTopics(reset: boolean = false) {
@@ -70,7 +77,8 @@ export class HomeComponent implements OnInit, AfterViewChecked{
         const newTopics = response.topics.data.map((topic: any) => ({
           ...topic,
           timeAgo: this.topicService.getTimeAgo(topic.created_at, topic.updated_at),
-          upvote_count: topic.upvotes - topic.downvotes
+          upvote_count: topic.upvotes - topic.downvotes,
+          image_count: this.getAttachedImageCount(topic.content)
         }));
         if (reset) {
           this.topics = newTopics;

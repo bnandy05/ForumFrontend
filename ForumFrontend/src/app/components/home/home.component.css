@@ -1,98 +1,112 @@
 body {
   background-color: var(--navbar-bg);
   color: var(--text-primary);
-  margin: 0;
-  padding: 0;
-  transition: background-color 0.3s ease-in-out;
-}
-
-body input::placeholder {
-  color: var(--text-primary);
-}
-
-.container {
-  position: relative;
-  max-width: 81rem;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: var(--surface);
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.form-label {
-  font-weight: bold;
-  color: var(--text-primary);
-}
-
-.form-control,
-.form-select {
-  width: 100%;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid var(--border);
-  background-color: var(--surface);
-  color: var(--text-primary);
-  border-radius: 5px;
-  transition: border-color 0.3s ease-in-out;
-}
-
-.form-control:focus,
-.form-select:focus {
-  border-color: var(--highlight);
-  outline: none;
+  font-family: Arial, sans-serif;
 }
 
 .forum-container {
+  display: block;
   background-color: var(--surface);
-  padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out, box-shadow 0.3s;
-}
-
-.forum-container:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.post {
-  display: flex;
-  flex-direction: column;
-}
-
-.post-content {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: normal;
-  max-width: 100%;
-}
-
-.post-text {
   overflow: hidden;
-  max-width: 100%;
 }
 
-::ng-deep .post-text img {
-  max-width: 100% !important;
-  height: auto !important;
-  max-height:800px !important;
+.image-indicator, .comment-indicator {
+  display: inline-flex;
+  align-items: center;
+  color: var(--highlight);
+  font-size: 0.85rem;
+  background-color: rgba(var(--highlight-rgb), 0.1);
+  margin-right: 1rem;
+  padding-top: 2px 6px;
+  padding-bottom: 2px 6px;
+  border-radius: 4px;
 }
 
-.post-title {
-  font-size: 18px;
+.image-indicator i, .comment-indicator i{
+  margin-right: 4px;
+  font-size: 0.9rem;
+}
+
+.post-text img {
+  display: none;
+}
+
+.list-item-content {
+  padding: 1rem;
+}
+
+.top-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.topic-list-avatar {
+  flex-shrink: 0;
+  margin-right: 0.75rem;
+  width: 40px;
+  height: 40px;
+}
+
+:host ::ng-deep .topic-list-avatar .p-avatar-image {
+  object-fit: cover;
+}
+
+.author.username {
+  color: var(--highlight);
   font-weight: bold;
+  margin-right: 0.5rem;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.author.username:hover {
+  text-decoration: underline;
+}
+
+.menu-wrapper {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.menu-container {
+  position: static;
+  display: inline-block;
+}
+
+:host ::ng-deep .menu-container .p-button.p-button-icon-only {
+  width: 2rem;
+  height: 2rem;
+  background-color: transparent !important;
+  border: none !important;
+  color: var(--text-secondary);
+}
+
+:host ::ng-deep .menu-container .p-button.p-button-icon-only:hover {
+  background-color: var(--icon-hover) !important;
   color: var(--primary);
 }
 
+:host ::ng-deep .menu-container .p-button.p-button-icon-only:focus {
+  box-shadow: none !important;
+}
+
+.post-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+  word-break: break-word;
+}
+
 .post-meta {
-  font-size: 14px;
+  font-size: 0.85rem;
   color: var(--text-secondary);
+  margin-bottom: 0.25rem;
 }
 
 .category {
@@ -100,129 +114,116 @@ body input::placeholder {
   color: var(--highlight);
 }
 
-.author {
-  font-weight: bold;
-  cursor: pointer;
-  color: var(--primary);
-  transition: color 0.3s ease-in-out;
+::ng-deep .filter {
+  margin: 0 auto;
+  display: block;
+  background-color: var(--highlight) !important;
+  color: var(--text-primary) !important;
+  border: none !important;
 }
 
-.author:hover {
-  color: var(--highlight);
+::ng-deep .filter:hover {
+  background-color: var(--primary) !important;
 }
 
-.menu-container {
+.post-text {
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  line-height: 1.4;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  font-size: 0.9rem;
+  max-height: calc(1.4em * 3);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+.post-text::after {
+  content: "";
   position: absolute;
-  right: 10px;
-  top: 10px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2.5em;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--surface) 100%);
+  pointer-events: none;
 }
 
-.menu-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--text-secondary);
-  font-size: 18px;
-  transition: color 0.3s;
-}
-
-.menu-button:hover {
-  color: var(--primary);
+::ng-deep .post-text img {
+  display: none;
 }
 
 .vote-buttons {
   display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 8px;
+  margin-top: 1rem;
 }
 
-.vote-buttons button {
+.vote-buttons .vote-btn {
   background: none;
   border: 1px solid var(--border);
-  padding: 5px 10px;
+  padding: 3px 8px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  color: var(--text-secondary);
+  line-height: 1;
+  font-size: 1rem;
 }
 
-.vote-buttons button:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+.vote-buttons .vote-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-.vote-buttons button.active {
+.vote-buttons .vote-btn.active {
   background-color: var(--highlight);
-  color: white;
+  color: white !important;
+  border-color: var(--highlight);
 }
 
-.vote-buttons .btn-light {
-  font-size: 16px;
-  color: var(--text-primary);
-  transition: background 0.3s;
-}
-
-.vote-buttons .btn-light:hover {
-  background-color: var(--highlight);
-  color: white;
-}
-
-.vote-buttons .btn-light:active {
-  transform: scale(0.9);
-}
-
-.vote-buttons button:nth-child(1) {
+.vote-buttons .upvote-btn:not(.active) {
   color: var(--vote-up);
 }
 
-.vote-buttons button:nth-child(3) {
+.vote-buttons .downvote-btn:not(.active) {
   color: var(--vote-down);
 }
 
-.spinner-border {
-  color: var(--primary);
-}
-
-.btn-primary {
-  background-color: var(--highlight);
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
-}
-
-.btn-primary:hover {
-  background-color: var(--primary);
-}
-
-::ng-deep .menu-container .p-button
-{
-  background-color: var(--icon-color) !important;
-  border: var(--primary) !important;
-}
-
-::ng-deep .menu-container .p-button:hover{
-  background-color: var(--icon-hover) !important;
-  border: var(--primary) !important;
-}
-
-.dropdown-menu{
-  background-color: var(--navbar-bg) !important;
-}
-
-.custom-dropdown {
-  width: 300px;
-  position: absolute;
-  right: 100;
-  top: 100%;
-  transform: translateX(20px);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  background-color: var(--surface);
+.vote-buttons span {
+  min-width: 2rem;
+  text-align: center;
+  font-weight: bold;
   color: var(--text-primary);
+  font-size: 0.9rem;
 }
 
-.dropdown-menu.show {
-  display: block;
-}
+@media (max-width: 576px) {
+  .list-item-content {
+    padding: 0.75rem;
+  }
 
+  .post-title {
+    font-size: 1.1rem;
+  }
+
+  .post-meta {
+    font-size: 0.8rem;
+  }
+
+  .post-text {
+    font-size: 0.85rem;
+    max-height: calc(1.4em * 2);
+    -webkit-line-clamp: 2;
+  }
+
+  .post-text::after {
+    height: 2em;
+  }
+}

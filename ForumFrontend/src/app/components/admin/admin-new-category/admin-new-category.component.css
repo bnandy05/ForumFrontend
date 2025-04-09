@@ -1,11 +1,14 @@
 body {
   background-color: var(--navbar-bg);
   color: var(--text-primary);
+  margin: 0;
+}
+
+.atfogo {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0;
 }
 
 .container {
@@ -13,36 +16,59 @@ body {
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+}
+
+.primary {
+  color: var(--text-primary);
+}
+
+.secondary {
+  color: var(--text-secondary);
 }
 
 h2 {
   margin-bottom: 1rem;
   font-size: 1.5rem;
+  color: var(--highlight);
 }
 
-.input-field {
-  width: 100%;
+.input-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group select {
   padding: 10px;
-  border: 2px solid var(--border);
-  border-radius: 5px;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  transition: border-color 0.3s;
-  background: var(--background);
+  font-size: 16px;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
   color: var(--text-primary);
+  border-radius: 6px;
+  transition: border-color 0.3s ease-in-out;
 }
 
-.input-field:focus {
+.input-group input::placeholder{
+  color: var(--text-secondary);
+}
+
+.list{
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.input-group input:focus,
+.input-group select:focus {
   border-color: var(--highlight);
   outline: none;
 }
 
 .btn {
   background: var(--highlight);
-  color: var(--button-text);
+  color: var(--text-primary);
   border: none;
   padding: 10px 15px;
   font-size: 1rem;
@@ -52,7 +78,7 @@ h2 {
 }
 
 .btn:hover {
-  background: var(--highlight);
+  background: var(--primary);
   transform: scale(1.05);
 }
 
@@ -62,10 +88,14 @@ h2 {
   right: 20px;
   background: var(--highlight);
   border: none;
-  color: var(--button-text);
+  color: var(--text-primary);
   padding: 8px 12px;
   font-size: 1.2rem;
   border-radius: 50%;
   cursor: pointer;
   transition: background 0.3s;
+}
+
+.toggle-theme:hover {
+  background: var(--primary);
 }

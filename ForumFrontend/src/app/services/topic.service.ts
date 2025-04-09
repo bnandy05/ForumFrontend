@@ -3,20 +3,24 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/hu';
 
 
 dayjs.extend(utc);
+dayjs.extend(timezone);
 dayjs.extend(relativeTime);
-dayjs.locale('hu');
+
+dayjs.locale('hu'); // magyar lokalizáció
 
 @Injectable({
   providedIn: 'root',
 })
 export class TopicService {
   private apiUrl = 'https://berenandor.moriczcloud.hu/api/forum';
+  private readonly HUNGARIAN_TIMEZONE = 'Europe/Budapest';
 
   constructor(
     private http: HttpClient,
@@ -210,12 +214,18 @@ export class TopicService {
   }
 
   getTimeAgo(createdAt: string, updatedAt: string): string {
-      const isModified = dayjs(updatedAt).isAfter(dayjs(createdAt));
-      const timeAgo = isModified
-        ? `${dayjs.utc(createdAt).local().fromNow()} feltöltve, ${dayjs.utc(updatedAt).local().fromNow()} szerkesztve`
-        : `${dayjs.utc(createdAt).local().fromNow()} feltöltve`;
-      return timeAgo;
+    const timezone = 'Europe/Budapest';
+  
+    const created = dayjs(createdAt).tz(timezone).subtract(1, 'minute').subtract(20, 'second');
+    const updated = dayjs(updatedAt).tz(timezone).subtract(1, 'minute').subtract(20, 'second');
+  
+    const isModified = updated.isAfter(created);
+  
+    return isModified
+      ? `${created.fromNow()} feltöltve, ${updated.fromNow()} szerkesztve`
+      : `${created.fromNow()} feltöltve`;
   }
+
 
   getCategories(): Observable<any> {
     return this.http.get(`${this.apiUrl}/categories`);

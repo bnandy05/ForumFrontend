@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TopicService } from '../../../services/topic.service';
 import { HeaderComponent } from '../../header/header.component';
 import { CommonModule } from '@angular/common';
@@ -14,6 +14,7 @@ import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
 import { TextareaModule } from 'primeng/textarea';
 import { AdminService } from '../../../services/admin.service';
+import { ShortenNumberPipe } from '../../../shorten-number.pipe';
 
 interface Comment {
   id: number;
@@ -45,11 +46,12 @@ interface Comment {
     MenuModule,
     ButtonModule,
     TextareaModule,
+    ShortenNumberPipe
   ],
   templateUrl: './topic-details.component.html',
   styleUrl: './topic-details.component.css',
 })
-export class TopicDetailsComponent implements OnInit, AfterViewChecked {
+export class TopicDetailsComponent implements OnInit{
   topics: any[] = [];
   id: number = 0;
   userVote: 'up' | 'down' | null = null;
@@ -120,14 +122,6 @@ export class TopicDetailsComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  ngAfterViewChecked(): void {
-    if(localStorage.getItem("refresh")=="1")
-    {
-      localStorage.removeItem("refresh");
-      location.reload();
-    }
-  }
-
   ngOnInit() {
     this.ownMenuItems = [
       { label: 'Módosítás', icon: 'pi pi-pencil', command: () => this.ModifyTopic(this.selectedTopicId) },
@@ -178,6 +172,11 @@ export class TopicDetailsComponent implements OnInit, AfterViewChecked {
         },
       });
     });
+  }
+
+  userClick(userId: number, event: MouseEvent): void {
+    event.stopPropagation();
+    this.router.navigate(['/profile', userId]);
   }
 
   refreshTopic(): void {

@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
   userId: number | null = null;
   ownProfile: boolean = false;
   currentUserId = Number(localStorage.getItem('id'));
+  croppedImageUrl: string | null = null;
 
   imageChangedEvent: any = null;
   croppedFile: File | null = null;
@@ -40,14 +41,15 @@ export class ProfileComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(params => {
       const idParam = params.get('id');
       this.userId = idParam ? parseInt(idParam, 10) : null;
+  
+      if (this.userId !== null && this.userId !== this.currentUserId) {
+        this.loadOtherUserProfile(this.userId);
+      } else {
+        this.loadUserProfile();
+      }
     });
-
-    if (this.userId != null && this.userId != this.currentUserId) {
-      this.loadOtherUserProfile(this.userId);
-    } else {
-      this.loadUserProfile();
-    }
   }
+  
 
   onFileSelect(event: any): void {
     if (event.target.files && event.target.files.length > 0) {
@@ -63,8 +65,11 @@ export class ProfileComponent implements OnInit {
   }
 
   confirmCrop(): void {
+    if (this.croppedFile) {
+      this.croppedImageUrl = URL.createObjectURL(this.croppedFile);
+    }
     this.cropperDialogVisible = false;
-}
+  }
 
   loadUserProfile(): void {
     this.authService.getUser().subscribe({
@@ -96,7 +101,9 @@ export class ProfileComponent implements OnInit {
   uploadAvatar(): void {
     if (this.croppedFile) {
       this.authService.uploadAvatar(this.croppedFile);
+      this.croppedFile = null;
       this.loadUserProfile();
+      this.croppedImageUrl = null;
     }
   }
 

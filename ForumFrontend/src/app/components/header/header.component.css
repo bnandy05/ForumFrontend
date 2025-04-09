@@ -231,7 +231,6 @@ app-theme-toggle i {
   font-size: 16px !important;
 }
 
-/* Mobile styling for app-theme-toggle */
 @media (max-width: 991px) {
   app-theme-toggle {
     width: 100%;
