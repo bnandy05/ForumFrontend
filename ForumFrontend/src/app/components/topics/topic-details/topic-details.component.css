@@ -395,6 +395,11 @@ body input::placeholder {
   ::ng-deep .emoji-button {
     display: none !important;
   }
+
+  :host ::ng-deep .emoji-picker {
+    display: none !important;
+  }
+
   .card-title {
     font-size: 1.5rem;
   }
