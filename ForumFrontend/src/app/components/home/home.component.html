@@ -127,14 +127,20 @@
         </p>
         <p class="post-meta">
           <span
+            class="timeAgo"
             data-bs-toggle="tooltip"
             data-bs-placement="top"
             title="{{ topic.created_at }} - {{ topic.updated_at }}"
           >
             {{ topic.timeAgo }}
           </span>
+        </p>
+        <p class="post-meta">
           <span *ngIf="topic.image_count" class="image-indicator">
             <i class="pi pi-image"></i> {{ topic.image_count }} kép csatolva
+          </span>
+          <span *ngIf="topic.comments_count" class="comment-indicator">
+            <i class="pi pi-comments"></i> {{ topic.comments_count }} hozzászólás
           </span>
         </p>
         <div class="post-text" [innerHTML]="topic.content | safeHtml"></div>
@@ -148,7 +154,7 @@
         >
           &#x25B2;
         </button>
-        <span>{{ topic.upvote_count }}</span>
+        <span>{{ topic.upvote_count | shortenNumber}}</span>
         <button
           (click)="vote(topic.id, i, 'down', $event)"
           [class.active]="userVotes[topic.id] === 'down'"

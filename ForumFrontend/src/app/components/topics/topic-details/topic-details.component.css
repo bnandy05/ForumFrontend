@@ -107,7 +107,8 @@ body input::placeholder {
 }
 
 .vote-buttons span {
-  margin: 0;
+  min-width: 3rem;
+  text-align: center;
   font-weight: bold;
   color: var(--text-primary);
 }
@@ -189,9 +190,21 @@ body input::placeholder {
   color: var(--highlight);
 }
 
-.username {
+.author.username {
   color: var(--highlight);
   font-weight: bold;
+  margin-right: 0.5rem;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.author.username:hover {
+  text-decoration: underline;
+}
+
+.p-avatar:hover{
+  cursor: pointer;
 }
 
 .comment-section {
@@ -271,6 +284,8 @@ body input::placeholder {
 
 .comment-vote-buttons span {
   font-weight: bold;
+  min-width: 2rem;
+  text-align: center;
   color: var(--text-primary);
 }
 

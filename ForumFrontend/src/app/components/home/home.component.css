@@ -13,18 +13,19 @@ body {
   overflow: hidden;
 }
 
-.image-indicator {
+.image-indicator, .comment-indicator {
   display: inline-flex;
   align-items: center;
-  margin-left: 8px;
   color: var(--highlight);
   font-size: 0.85rem;
   background-color: rgba(var(--highlight-rgb), 0.1);
-  padding: 2px 6px;
+  margin-right: 1rem;
+  padding-top: 2px 6px;
+  padding-bottom: 2px 6px;
   border-radius: 4px;
 }
 
-.image-indicator i {
+.image-indicator i, .comment-indicator i{
   margin-right: 4px;
   font-size: 0.9rem;
 }
@@ -194,11 +195,10 @@ body {
 }
 
 .vote-buttons span {
-  margin: 0;
+  min-width: 2rem;
+  text-align: center;
   font-weight: bold;
   color: var(--text-primary);
-  min-width: 15px;
-  text-align: center;
   font-size: 0.9rem;
 }
 

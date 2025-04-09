@@ -14,6 +14,7 @@ import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
 import { TextareaModule } from 'primeng/textarea';
 import { AdminService } from '../../../services/admin.service';
+import { ShortenNumberPipe } from '../../../shorten-number.pipe';
 
 interface Comment {
   id: number;
@@ -45,6 +46,7 @@ interface Comment {
     MenuModule,
     ButtonModule,
     TextareaModule,
+    ShortenNumberPipe
   ],
   templateUrl: './topic-details.component.html',
   styleUrl: './topic-details.component.css',

@@ -12,7 +12,9 @@
               <p-menu
                 #menu
                 [popup]="true"
-                [model]="topic.user_id == currentUserId ? ownMenuItems : adminMenuItems"
+                [model]="
+                  topic.user_id == currentUserId ? ownMenuItems : adminMenuItems
+                "
                 appendTo="body"
               ></p-menu>
               <p-button
@@ -25,12 +27,20 @@
             <div class="flex-grow-1">
               <div class="d-flex align-items-center mb-2">
                 <p-avatar
-                  image="https://berenandor.moriczcloud.hu/storage/{{ topic.user.avatar }}"
+                  image="https://berenandor.moriczcloud.hu/storage/{{
+                    topic.user.avatar
+                  }}"
                   size="large"
                   shape="circle"
+                  (click)="userClick(topic.user.id, $event)"
                 />
                 <div class="ms-2">
-                  <span class="fw-bold username">{{ topic.user.name }}</span>
+                  <a
+                    class="author username"
+                    (click)="userClick(topic.user.id, $event)"
+                  >
+                    {{ topic.user.name }}
+                  </a>
                   <span
                     class="text-muted"
                     data-bs-toggle="tooltip"
@@ -61,7 +71,7 @@
               >
                 ▲
               </button>
-              <span>{{ topic.upvote_count }}</span>
+              <span>{{ topic.upvote_count | shortenNumber}}</span>
               <button
                 (click)="voteTopic('down')"
                 [class.active]="userVote === 'down'"
@@ -80,19 +90,34 @@
             >
               <div class="d-flex align-items-start">
                 <div class="flex-grow-1">
-                  <div *ngIf="editingCommentId !== comment.id; else editCommentTemplate">
+                  <div
+                    *ngIf="
+                      editingCommentId !== comment.id;
+                      else editCommentTemplate
+                    "
+                  >
                     <div class="d-flex align-items-center mb-1">
                       <p-avatar
-                        image="https://berenandor.moriczcloud.hu/storage/{{ comment.user.avatar }}"
+                        image="https://berenandor.moriczcloud.hu/storage/{{
+                          comment.user.avatar
+                        }}"
                         shape="circle"
+                        (click)="userClick(topic.user.id, $event)"
                       />
                       <div class="ms-2">
-                        <strong class="username">{{ comment.user.name }}</strong>
+                        <a
+                          class="author username"
+                          (click)="userClick(topic.user.id, $event)"
+                        >
+                          {{ topic.user.name }}
+                        </a>
                         <span
                           class="text-muted"
                           data-bs-toggle="tooltip"
                           data-bs-placement="top"
-                          title="{{ comment.created_at }} - {{ comment.updated_at }}"
+                          title="{{ comment.created_at }} - {{
+                            comment.updated_at
+                          }}"
                         >
                           - {{ comment.timeAgo }}
                         </span>
@@ -103,11 +128,15 @@
                   <ng-template #editCommentTemplate>
                     <div class="d-flex align-items-center mb-1">
                       <p-avatar
-                        image="https://berenandor.moriczcloud.hu/storage/{{ comment.user.avatar }}"
+                        image="https://berenandor.moriczcloud.hu/storage/{{
+                          comment.user.avatar
+                        }}"
                         shape="circle"
                       />
                       <div class="ms-2">
-                        <strong class="username">{{ comment.user.name }}</strong>
+                        <strong class="username">{{
+                          comment.user.name
+                        }}</strong>
                         <span class="text-muted">- Szerkesztés alatt</span>
                       </div>
                     </div>
@@ -122,8 +151,18 @@
                       ></textarea>
                     </div>
                     <div class="mt-2 d-flex justify-content-end">
-                      <button class="btn btn-secondary me-2" (click)="cancelEdit()">Mégse</button>
-                      <button class="btn btn-primary" (click)="saveEditedComment(comment.id)">Mentés</button>
+                      <button
+                        class="btn btn-secondary me-2"
+                        (click)="cancelEdit()"
+                      >
+                        Mégse
+                      </button>
+                      <button
+                        class="btn btn-primary"
+                        (click)="saveEditedComment(comment.id)"
+                      >
+                        Mentés
+                      </button>
                     </div>
                   </ng-template>
                 </div>
@@ -131,7 +170,11 @@
                 <div class="actions">
                   <div
                     class="menu-container"
-                    *ngIf="comment.user_id == currentUserId || topicOwner || IsAdmin()"
+                    *ngIf="
+                      comment.user_id == currentUserId ||
+                      topicOwner ||
+                      IsAdmin()
+                    "
                   >
                     <p-menu
                       #menu
@@ -140,7 +183,9 @@
                       appendTo="body"
                     ></p-menu>
                     <p-button
-                      (click)="openMenu($event, comment.id, comment.user.id, menu)"
+                      (click)="
+                        openMenu($event, comment.id, comment.user.id, menu)
+                      "
                       icon="pi pi-ellipsis-v"
                     />
                   </div>
@@ -152,7 +197,7 @@
                     >
                       ▲
                     </button>
-                    <span class="mx-2">{{ comment.upvote_count }}</span>
+                    <span class="mx-2">{{ comment.upvote_count | shortenNumber }}</span>
                     <button
                       (click)="voteComment(comment.id, i, 'down')"
                       [class.active]="userCommentVotes[comment.id] === 'down'"
@@ -180,10 +225,7 @@
                 >
                   😊
                 </button>
-                <button
-                  class="btn btn-primary"
-                  (click)="addComment(topic.id)"
-                >
+                <button class="btn btn-primary" (click)="addComment(topic.id)">
                   Küldés
                 </button>
               </div>
@@ -202,10 +244,6 @@
   </div>
 </body>
 
-<div
-  class="modal"
-  *ngIf="isImageModalOpen"
-  (click)="isImageModalOpen = false"
->
+<div class="modal" *ngIf="isImageModalOpen" (click)="isImageModalOpen = false">
   <img [src]="selectedImage" class="full-image" />
 </div>
