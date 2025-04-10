@@ -123,7 +123,7 @@ body input::placeholder {
 .user-info {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.25rem;
 }
 
 .user-details {
@@ -137,13 +137,13 @@ body input::placeholder {
   word-break: break-word;
 }
 
-.card-text {
+::ng-deep .card-text {
   line-height: 1.6;
   color: var(--text-primary);
   word-break: break-word;
 }
 
-.card-text img {
+::ng-deep .card-text img {
   max-width: 100%;
   height: auto;
   max-height: 800px;
