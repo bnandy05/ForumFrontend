@@ -64,6 +64,7 @@ export class TopicDetailsComponent implements OnInit{
   userCommentVotes: { [key: number]: 'up' | 'down' | null } = {};
   newComment: string = '';
   showEmojiPicker = false;
+  showEditEmojiPicker = false;
   currentUserId = Number(localStorage.getItem('id'));
   selectedCommentId: number = -1;
   selectedCommentUserId: number = -1;
@@ -109,6 +110,16 @@ export class TopicDetailsComponent implements OnInit{
 
   toggleEmojiPicker() {
     this.showEmojiPicker = !this.showEmojiPicker;
+    if (this.showEmojiPicker) {
+      this.showEditEmojiPicker = false;
+    }
+  }
+
+  toggleEditEmojiPicker() {
+    this.showEditEmojiPicker = !this.showEditEmojiPicker;
+    if (this.showEditEmojiPicker) {
+      this.showEmojiPicker = false;
+    }
   }
 
   addEmoji(event: EmojiEvent) {
@@ -179,6 +190,13 @@ export class TopicDetailsComponent implements OnInit{
       });
     });
   }
+
+    handleKeyDown(event: KeyboardEvent, commentId: number): void {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        this.saveEditedComment(commentId);
+      }
+    }
 
   refreshTopic(): void {
     if (!this.id) return;
@@ -358,6 +376,15 @@ export class TopicDetailsComponent implements OnInit{
   }
 
   ModifyComment(commentId: number) {
+    setTimeout(() => {
+      const commentElements = document.querySelectorAll('.comment-card');
+      commentElements.forEach(element => {
+        if ((element as any).querySelector(`[data-comment-id="${commentId}"]`)) {
+          element.classList.add('editing');
+        }
+      });
+    });
+  
     const comment = this.topics[0].comments.find(
       (c: Comment) => c.id === commentId
     );
@@ -367,29 +394,39 @@ export class TopicDetailsComponent implements OnInit{
     }
     this.isEditing = true;
   }
-
+  
   cancelEdit() {
+    document.querySelectorAll('.comment-card.editing').forEach(element => {
+      element.classList.remove('editing');
+    });
+    
     this.editingCommentId = null;
     this.editedCommentContent = '';
     this.isEditing = false;
+    this.showEditEmojiPicker = false;
   }
 
-  saveEditedComment(commentId: number) {
-    const comment = this.topics[0].comments.find(
-      (c: Comment) => c.id === commentId
-    );
-    if (comment) {
-      comment.content = this.editedCommentContent;
+saveEditedComment(commentId: number) {
+  document.querySelectorAll('.comment-card.editing').forEach(element => {
+    element.classList.remove('editing');
+  });
+
+  const comment = this.topics[0].comments.find(
+    (c: Comment) => c.id === commentId
+  );
+  if (comment) {
+    comment.content = this.editedCommentContent;
       this.topicService
         .modifyComment(commentId, this.editedCommentContent)
         .subscribe(() => {
           this.editingCommentId = null;
           this.editedCommentContent = '';
+          this.showEditEmojiPicker = false;
           this.refreshTopic();
-        });
-    }
-    this.isEditing = false;
-  }
+  })
+  this.isEditing = false;
+}
+}
 
   DeleteTopic(topicId:number)
   {
