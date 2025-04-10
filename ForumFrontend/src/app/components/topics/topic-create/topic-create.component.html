@@ -1,6 +1,6 @@
-<app-header></app-header>
 <body>
-<div class="topic-container">
+    <app-header></app-header>
+<div class="topic-container" [@fadeInOnEnter]>
     <div class="topic-card">
         <h2 *ngIf="!isModifying">Új Topic létrehozása</h2>
         <h2 *ngIf="isModifying">Topic Módosítása</h2>
@@ -28,7 +28,7 @@
                     </option>
                 </select>
             </div>
-            <button type="submit" [disabled]="topicForm.invalid || isSubmitting"><span *ngIf="isModifying">Modósít</span><span *ngIf="!isModifying"></span></button>
+            <button type="submit" [disabled]="topicForm.invalid || isSubmitting"><span *ngIf="isModifying">Modósít</span><span *ngIf="!isModifying">Létrehoz</span></button>
         </form>
     </div>
 </div>
