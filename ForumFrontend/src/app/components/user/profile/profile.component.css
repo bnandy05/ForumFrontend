@@ -6,6 +6,20 @@
   overflow-x: hidden !important;
 }
 
+a[pButton] {
+  text-decoration: none;
+  color: inherit;
+}
+
+a[pButton]:hover {
+  text-decoration: none;
+}
+
+:host ::ng-deep a[pButton] .p-button {
+  width: 100%;
+  text-align: center;
+}
+
 ::ng-deep body {
   color: var(--text-primary) !important;
   min-height: 100vh !important;

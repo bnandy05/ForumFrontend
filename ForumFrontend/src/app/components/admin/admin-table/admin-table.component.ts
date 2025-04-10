@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { AdminService } from '../../../services/admin.service';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
@@ -24,7 +24,7 @@ interface UsersResponse {
   selector: 'app-admin-table',
   templateUrl: './admin-table.component.html',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, FormsModule],
+  imports: [CommonModule, HeaderComponent, FormsModule, RouterLink],
   styleUrls: ['./admin-table.component.css']
 })
 export class AdminTableComponent implements OnInit {
@@ -41,7 +41,6 @@ export class AdminTableComponent implements OnInit {
   adminFilter: number | null = null;
 
   constructor(
-    private router: Router,
     private adminService: AdminService,
     private confirmationService: ConfirmationService
   ) {}
@@ -60,10 +59,6 @@ export class AdminTableComponent implements OnInit {
     }
   
     this.loadMore(this.category, this.bannedFilter, this.adminFilter);
-  }
-
-  userClick(userId: number): void {
-    this.router.navigate(['/profile', userId]);
   }
 
   makeAdmin(userId: number, name: string): void {

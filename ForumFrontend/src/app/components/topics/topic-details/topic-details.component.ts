@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TopicService } from '../../../services/topic.service';
 import { HeaderComponent } from '../../header/header.component';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SafeHtmlPipe } from '../../../safe-html.pipe';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
@@ -47,7 +47,8 @@ interface Comment {
     MenuModule,
     ButtonModule,
     TextareaModule,
-    ShortenNumberPipe
+    ShortenNumberPipe,
+    RouterLink
   ],
   animations: [
     fadeInOnEnterAnimation(),
@@ -177,11 +178,6 @@ export class TopicDetailsComponent implements OnInit{
         },
       });
     });
-  }
-
-  userClick(userId: number, event: MouseEvent): void {
-    event.stopPropagation();
-    this.router.navigate(['/profile', userId]);
   }
 
   refreshTopic(): void {

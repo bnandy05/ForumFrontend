@@ -1,7 +1,7 @@
 <body>
     <app-header></app-header>
     <div class="profile-container">
-        <div class="profile-card"  [@fadeInOnEnter]>
+        <div class="profile-card" [@fadeInOnEnter]>
             <div class="profile-header">
                 <h2>{{ userProfile.name }}</h2>
             </div>
@@ -71,11 +71,11 @@
                     <button pButton (click)="uploadAvatar()" severity="success">Feltöltés</button>
                 </div>
                 <div class="profile-actions" *ngIf="ownProfile">
-                    <button pButton (click)="passwordChange()" severity="warn">Jelszó módosítása</button>
-                    <button pButton (click)="logout()" severity="danger">Kijelentkezés</button>
+                    <button pButton [routerLink]="['/password/change']" severity="warn">Jelszó módosítása</button>
+                    <a pButton [routerLink]="['/logout']" severity="danger">Kijelentkezés</a>
                 </div>
                 <div class="profile-actions" *ngIf="!ownProfile">
-                    <button pButton (click)="topics()" severity="success">Felhasználó témái</button>
+                    <a pButton [routerLink]="['/topics/user', userProfile.id]" severity="success">Felhasználó témái</a>
                     <button 
                         pButton 
                         (click)="BanUser(userProfile.id)" 

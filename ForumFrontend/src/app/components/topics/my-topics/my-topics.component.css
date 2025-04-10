@@ -3,7 +3,6 @@ body {
   color: var(--text-primary);
   margin: 0;
   padding: 0;
-  transition: background-color 0.3s ease-in-out;
   font-family: Arial, sans-serif;
 }
 
@@ -36,7 +35,6 @@ body input::placeholder {
   background-color: var(--surface);
   color: var(--text-primary);
   border-radius: 5px;
-  transition: border-color 0.3s ease-in-out;
 }
 
 .form-control:focus,
@@ -52,24 +50,22 @@ body input::placeholder {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out, box-shadow 0.3s;
-}
-
-.forum-container:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .card.post-card {
   background-color: var(--surface);
   border-radius: 8px;
   position: relative;
-  margin-bottom: 0; /* Removed margin-bottom to avoid extra space */
+  margin-bottom: 0;
 }
 
 .card-body {
   padding: 1rem;
-  padding-bottom: 0.5rem; /* Reduced bottom padding to minimize overhang */
+  padding-bottom: 0.5rem;
+}
+
+.author.username:hover {
+  text-decoration: underline;
 }
 
 .d-flex.align-items-start.position-relative {
@@ -143,7 +139,6 @@ body input::placeholder {
   color: var(--text-secondary);
   font-size: 14px;
   padding: 0;
-  transition: color 0.3s;
 }
 
 .menu-button:hover {
@@ -204,7 +199,6 @@ body input::placeholder {
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   color: var(--text-primary);
   line-height: 1;
 }
@@ -222,7 +216,6 @@ body input::placeholder {
 .vote-buttons .btn-light {
   font-size: 16px;
   color: var(--text-primary);
-  transition: background 0.3s;
 }
 
 .vote-buttons .btn-light:hover {
@@ -260,11 +253,22 @@ body input::placeholder {
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s ease-in-out;
 }
 
 .btn-primary:hover {
   background-color: var(--primary);
+}
+
+a.forum-container {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+
+.menu-button {
+  background: none;
+  border: none;
 }
 
 @media (max-width: 768px) {

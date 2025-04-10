@@ -26,18 +26,21 @@
 
             <div class="flex-grow-1">
               <div class="d-flex align-items-center mb-2">
-                <p-avatar
-                  image="https://berenandor.moriczcloud.hu/storage/{{
-                    topic.user.avatar
-                  }}"
-                  size="large"
-                  shape="circle"
-                  (click)="userClick(topic.user.id, $event)"
-                />
+                <a [routerLink]="['/profile', topic.user.id]"
+                (click)="$event.stopPropagation()">
+                  <p-avatar
+                    image="https://berenandor.moriczcloud.hu/storage/{{
+                      topic.user.avatar
+                    }}"
+                    size="large"
+                    shape="circle"
+                  />
+                </a>
                 <div class="ms-2">
                   <a
                     class="author username"
-                    (click)="userClick(topic.user.id, $event)"
+                    [routerLink]="['/profile', topic.user.id]"
+                    (click)="$event.stopPropagation()"
                   >
                     {{ topic.user.name }}
                   </a>
@@ -97,17 +100,21 @@
                     "
                   >
                     <div class="d-flex align-items-center mb-1">
-                      <p-avatar
-                        image="https://berenandor.moriczcloud.hu/storage/{{
-                          comment.user.avatar
-                        }}"
-                        shape="circle"
-                        (click)="userClick(topic.user.id, $event)"
-                      />
+                      <a [routerLink]="['/profile', topic.user.id]"
+                      (click)="$event.stopPropagation()">
+                        <p-avatar
+                          image="https://berenandor.moriczcloud.hu/storage/{{
+                            comment.user.avatar
+                          }}"
+                          shape="circle"
+                          
+                        />
+                      </a>
                       <div class="ms-2">
                         <a
                           class="author username"
-                          (click)="userClick(topic.user.id, $event)"
+                          [routerLink]="['/profile', topic.user.id]"
+                          (click)="$event.stopPropagation()"
                         >
                           {{ topic.user.name }}
                         </a>

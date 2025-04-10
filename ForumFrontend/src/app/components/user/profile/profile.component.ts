@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../header/header.component';
 import { AuthService } from '../../../services/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
@@ -14,7 +14,7 @@ import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animati
 
 @Component({
   selector: 'app-profile',
-  imports: [HeaderComponent, CommonModule, DialogModule, ImageCropperComponent, AvatarGroupModule, AvatarModule, ButtonModule],
+  imports: [HeaderComponent, CommonModule, DialogModule, ImageCropperComponent, AvatarGroupModule, AvatarModule, ButtonModule, RouterLink],
   animations: [
     fadeInOnEnterAnimation(),
     fadeOutOnLeaveAnimation(),
@@ -38,7 +38,6 @@ export class ProfileComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private router: Router,
     private adminService: AdminService
   ) {}
 
@@ -54,7 +53,6 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
-  
 
   onFileSelect(event: any): void {
     if (event.target.files && event.target.files.length > 0) {
@@ -110,18 +108,6 @@ export class ProfileComponent implements OnInit {
       this.loadUserProfile();
       this.croppedImageUrl = null;
     }
-  }
-
-  passwordChange(): void {
-    this.router.navigate(['/password/change']);
-  }
-
-  logout(): void {
-    this.router.navigate(['/logout']);
-  }
-
-  topics(): void {
-    this.router.navigate(['topics/user', this.userProfile.id]);
   }
 
   IsAdmin():boolean

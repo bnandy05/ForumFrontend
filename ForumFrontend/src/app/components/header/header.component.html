@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand fw-bold" (click)="redirect('')">
+    <a class="navbar-brand fw-bold" [routerLink]="['/']">
       <img src="https://berenandor.moriczcloud.hu/storage/logo-header-dark.png" *ngIf="themeService.theme() === 'dark'" style="height: 5rem;">
       <img src="https://berenandor.moriczcloud.hu/storage/logo-header.png" *ngIf="themeService.theme() === 'light'" style="height: 5rem;">
     </a>
@@ -11,7 +11,7 @@
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" (click)="redirect('create')">
+          <a class="nav-link" [routerLink]="['/create']">
             <i class="pi pi-upload"></i> Feltöltés
           </a>
         </li>
@@ -19,36 +19,36 @@
       
       <ul class="navbar-nav d-none d-lg-flex">
         <li class="nav-item dropdown text-center">
-          <a class="nav-link d-flex align-items-center kulon" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+          <a class="nav-link d-flex align-items-center kulon" id="userDropdown" role="button" data-bs-toggle="dropdown">
             <img src="https://berenandor.moriczcloud.hu/storage/{{ userProfile.avatar }}" class="rounded-circle me-2" width="35" height="35" alt="Avatar">
             <span class="username-text">{{ userProfile.name }}</span>
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
             <span class="px-3 py-2 fw-bold udv">Üdv, {{ userProfile.name }}!</span>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" (click)="redirect('profile')"><i class="pi pi-user"></i> Profil</a></li>
-            <li><a class="dropdown-item" (click)="redirect('my-topics')"><i class="pi pi-folder"></i> Én Topicjaim</a></li>
-            <li *ngIf="admin == true"><a class="dropdown-item" (click)="redirect('admin/home')"><i class="pi pi-shield"></i> Admin </a></li>
+            <li><a class="dropdown-item" [routerLink]="['/profile']"><i class="pi pi-user"></i> Profil</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/my-topics']"><i class="pi pi-folder"></i> Én Topicjaim</a></li>
+            <li *ngIf="admin == true"><a class="dropdown-item" [routerLink]="['/admin/home']"><i class="pi pi-shield"></i> Admin </a></li>
             <li><app-theme-toggle></app-theme-toggle></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item text-danger" (click)="redirect('logout')"><i class="pi pi-sign-out"></i> Kijelentkezés</a></li>
+            <li><a class="dropdown-item text-danger" [routerLink]="['/logout']"><i class="pi pi-sign-out"></i> Kijelentkezés</a></li>
           </ul>
         </li>
       </ul>
 
       <ul class="navbar-nav d-lg-none">
         <li class="nav-item">
-          <a class="nav-link" (click)="redirect('profile')">
+          <a class="nav-link" [routerLink]="['/profile']">
             <i class="pi pi-user"></i> Profil
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="redirect('my-topics')">
+          <a class="nav-link" [routerLink]="['/my-topics']">
             <i class="pi pi-folder"></i> Én Topicjaim
           </a>
         </li>
         <li class="nav-item" *ngIf="admin == true">
-          <a class="nav-link" (click)="redirect('admin/home')">
+          <a class="nav-link" [routerLink]="['/admin/home']">
             <i class="pi pi-shield"></i> Admin
           </a>
         </li>
@@ -57,10 +57,10 @@
             <i *ngIf="themeService.theme() === 'dark'" class="pi pi-lightbulb me-3"></i>
             <i *ngIf="themeService.theme() === 'light'" class="pi pi-moon me-3"></i>
             {{ themeService.theme() === 'dark' ? 'Világos mód' : 'Sötét mód' }}
-        </a>
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-danger" (click)="redirect('logout')">
+          <a class="nav-link text-danger" [routerLink]="['/logout']">
             <i class="pi pi-sign-out"></i> Kijelentkezés
           </a>
         </li>
