@@ -230,6 +230,7 @@ body input::placeholder {
   padding-bottom: 1rem;
   margin-bottom: 1rem;
   border-bottom: 1px solid var(--border);
+  position: relative;
 }
 
 .comment-card:last-child {
@@ -282,10 +283,6 @@ body input::placeholder {
   color: var(--vote-down);
 }
 
-.comment-input {
-  margin-top: 1.5rem;
-}
-
 .input-group {
   display: flex;
   align-items: stretch;
@@ -305,16 +302,31 @@ body input::placeholder {
   border-radius: 0 5px 5px 0;
 }
 
-.emoji-picker,
-.edit-emoji-picker {
+.emoji-picker {
   position: absolute;
-  bottom: calc(100% + 5px);
+  bottom: calc(100% + 10px);
   right: 0;
-  z-index: 1000;
+  z-index: 1050;
   background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.edit-emoji-picker {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  right: 40px;
+  z-index: 1050;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.comment-input {
+  margin-top: 1.5rem;
+  position: relative;
 }
 
 .edit-input-group {
@@ -334,6 +346,7 @@ body input::placeholder {
 .edit-input-group .emoji-button {
   border-radius: 0 5px 5px 0;
   padding: 0 10px;
+  position: relative;
 }
 
 .edit-actions {
