@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
 import { FormsModule } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
+import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 interface User {
   id: number;
@@ -25,6 +26,8 @@ interface UsersResponse {
   templateUrl: './admin-table.component.html',
   standalone: true,
   imports: [CommonModule, HeaderComponent, FormsModule, RouterLink],
+  animations: [fadeInOnEnterAnimation(),
+    fadeOutOnLeaveAnimation(),],
   styleUrls: ['./admin-table.component.css']
 })
 export class AdminTableComponent implements OnInit {

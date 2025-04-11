@@ -1,6 +1,6 @@
 <body>
 <app-header></app-header>
-<div class="admin-table-container">
+<div class="admin-table-container" [@fadeInOnEnter]>
 
   <div class="filter-container">
     <input type="text" [(ngModel)]="category" (input)="filterTopics()" class="input-field" placeholder="Add meg a felhasználónevet/emailt...">
@@ -29,7 +29,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users.data">
+        <tr *ngFor="let user of users.data" [@fadeInOnEnter]>
           <td class="hide-on-mobile">{{ user.id }}</td>
           <td>{{ user.name }}<b *ngIf="currentUserId == user.id"> (Te)</b></td>
           <td>{{ user.email }}</td>
