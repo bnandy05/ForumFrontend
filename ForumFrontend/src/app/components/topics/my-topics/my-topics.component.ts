@@ -131,6 +131,7 @@ export class MyTopicsComponent implements OnInit, AfterViewChecked {
 
   vote(topicId: number, index: number, type: 'up' | 'down', event: MouseEvent) {
     event.stopPropagation();
+    event.preventDefault();
     const topic = this.topics[index];
   
     if (!topic) return;
