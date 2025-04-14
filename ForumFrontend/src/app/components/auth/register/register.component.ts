@@ -2,17 +2,22 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ThemeToggleComponent } from '../../theme-toggle/theme-toggle.component';
 import { ThemeService } from '../../../services/theme.service';
+import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, ThemeToggleComponent],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, ThemeToggleComponent, RouterLink],
+  animations: [
+    fadeInOnEnterAnimation(),
+    fadeOutOnLeaveAnimation(),
+  ],
 })
 export class RegisterComponent {
   registerForm: FormGroup;
@@ -24,10 +29,6 @@ export class RegisterComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
-  }
-
-  redirect(url:string) {
-    this.router.navigate([url]);
   }
 
   onSubmit(): void {
