@@ -1,4 +1,4 @@
-<body>
+<body [@fadeInOnEnter]>
   <app-theme-toggle style="display: none;"></app-theme-toggle>
   <div class="login-container">
     <div class="logo-container">
@@ -23,8 +23,8 @@
         </div>
         <button type="submit" class="login-button">Bejelentkezés</button>
         <div class="additional-links gap-5">
-          <a (click)="redirect('forgot-password')">Elfelejtett jelszó?</a>
-          <a (click)="redirect('register')">Regisztráció</a>
+          <a [routerLink]="['/forgot-password']">Elfelejtett jelszó?</a>
+          <a [routerLink]="['/register']">Regisztráció</a>
         </div>
       </form>
     </div>

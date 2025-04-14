@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { PrimeIcons } from 'primeng/api';
@@ -10,7 +10,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-header',
-  imports: [AvatarModule, AvatarGroupModule,ThemeToggleComponent, CommonModule],
+  imports: [AvatarModule, AvatarGroupModule,ThemeToggleComponent, CommonModule, RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -19,15 +19,9 @@ export class HeaderComponent implements OnInit{
   userProfile: any = {};
   admin: boolean = false;
 
-  constructor(private router: Router,
-    public themeService: ThemeService
+  constructor( public themeService: ThemeService
   )
   {}
-
-  redirect(url:string)
-  {
-    this.router.navigate(['/'+url]);
-  }
 
   ngOnInit() {
     if(localStorage.getItem('admin') !== null)

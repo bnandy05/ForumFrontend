@@ -1,4 +1,4 @@
-<body>
+<body [@fadeInOnEnter]>
   <app-theme-toggle style="display: none;"></app-theme-toggle>
   <div class="register-container">
     <div class="logo-container">
@@ -35,7 +35,7 @@
         <button type="submit" [disabled]="registerForm.invalid" class="btn w-100 register-button">Regisztráció</button>
 
         <div class="mt-3 text-center additional-links">
-          <a (click)="redirect('login')" class="text-decoration-none">Már van fiókom</a>
+          <a [routerLink]="['/login']" class="text-decoration-none">Már van fiókom</a>
         </div>
       </form>
     </div>
