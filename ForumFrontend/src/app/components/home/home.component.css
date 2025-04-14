@@ -227,26 +227,3 @@ body {
     height: 2em;
   }
 }
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
-.forum-container {
-  display: block;
-  color: inherit;
-  cursor: pointer;
-}
-
-.author.username {
-  display: inline-block;
-}
-
-.topic-list-avatar {
-  cursor: pointer;
-}

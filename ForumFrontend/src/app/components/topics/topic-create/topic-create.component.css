@@ -1,5 +1,5 @@
 body {
-    background: var(--navbar-bg) !important;
+    background: var(--background) !important;
     color: var(--text-primary) !important;
     margin: 0;
     padding: 0;

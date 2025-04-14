@@ -3,13 +3,10 @@ import { HeaderComponent } from './../../header/header.component';
 import { Component } from '@angular/core';
 import { AdminService } from '../../../services/admin.service';
 import { CommonModule } from '@angular/common';
-import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-admin-new-category',
   imports: [HeaderComponent, FormsModule, CommonModule],
-  animations: [fadeInOnEnterAnimation(),
-    fadeOutOnLeaveAnimation(),],
   templateUrl: './admin-new-category.component.html',
   styleUrl: './admin-new-category.component.css'
 })

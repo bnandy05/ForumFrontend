@@ -4,16 +4,11 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } 
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { HeaderComponent } from '../../header/header.component';
-import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-change-password',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, HeaderComponent],
-  animations: [
-    fadeInOnEnterAnimation(),
-    fadeOutOnLeaveAnimation(),
-  ],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.css',
 })

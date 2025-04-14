@@ -4,7 +4,7 @@ import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
 import { SafeHtmlPipe } from '../../safe-html.pipe';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { MenuModule } from 'primeng/menu';
@@ -12,16 +12,11 @@ import { ConfirmationService, PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { AdminService } from '../../services/admin.service';
 import { ShortenNumberPipe } from '../../shorten-number.pipe';
-import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule, MenuModule, ButtonModule, ShortenNumberPipe, RouterLink],
-  animations: [
-    fadeInOnEnterAnimation(),
-    fadeOutOnLeaveAnimation(),
-  ],
+  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule, MenuModule, ButtonModule, ShortenNumberPipe],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -43,6 +38,21 @@ export class HomeComponent implements OnInit, AfterViewChecked{
 
 
   constructor(private topicService: TopicService, private router: Router, public adminService: AdminService, private confirmationService: ConfirmationService) {}
+
+  navigateToTopic(topicId: number, event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    const forbiddenTags = ['SPAN', 'BUTTON', 'A'];
+
+    if (forbiddenTags.includes(target.tagName)) {
+      return;
+    }
+    this.router.navigate(['/topics/view', topicId]);
+  }
+
+  userClick(userId: number, event: MouseEvent): void {
+    event.stopPropagation();
+    this.router.navigate(['/profile', userId]);
+  }
 
   filterTopics() {
     this.currentPage = 1;
@@ -90,7 +100,6 @@ export class HomeComponent implements OnInit, AfterViewChecked{
 
   vote(topicId: number, index: number, type: 'up' | 'down', event: MouseEvent) {
     event.stopPropagation();
-    event.preventDefault();
     const topic = this.topics[index];
 
     if (!topic) return;
@@ -110,12 +119,9 @@ export class HomeComponent implements OnInit, AfterViewChecked{
   }
 
   openMenu(event: Event, topicId: number, userId: number, menu: any) {
-    event.stopPropagation();
-    event.preventDefault();
     this.selectedTopicId = topicId;
     this.selectedUserId = userId;
     menu.toggle(event);
-
   }
 
   loadMore() {

@@ -3,14 +3,11 @@ import { HeaderComponent } from "../../header/header.component";
 import { AdminTableComponent } from '../admin-table/admin-table.component';
 import { ThemeService } from '../../../services/theme.service';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
-import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-home',
-  imports: [CommonModule,HeaderComponent, RouterLink],
-  animations: [fadeInOnEnterAnimation(),
-    fadeOutOnLeaveAnimation(),],
+  imports: [CommonModule,HeaderComponent],
   standalone: true,
   templateUrl: './admin-home.component.html',
   styleUrl: './admin-home.component.css'
@@ -18,7 +15,13 @@ import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animati
 export class AdminHomeComponent {
 
   constructor(
+    private router: Router,
     public themeService: ThemeService
   )
   {}
+
+  redirect(url:string)
+  {
+    this.router.navigate(['/'+url]);
+  }
 }

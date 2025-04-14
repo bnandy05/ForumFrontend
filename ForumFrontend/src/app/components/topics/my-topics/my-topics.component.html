@@ -1,4 +1,11 @@
-<body>
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forum</title>
+  </head>
+  <body>
     <app-header></app-header>
     <div class="container py-3">
       <div class="row">
@@ -48,13 +55,12 @@
     </div>
 
     <h1 class="text-center" *ngIf="userId == null">Én Topic-jaim</h1>
-    <h1 class="text-center" *ngIf="userId != null">{{topics[0]?.user.name}} Topic-jai</h1>
+    <h1 class="text-center" *ngIf="userId != null">{{topics[0].user.name}} Topic-jai</h1>
 
-    <a
+    <div
       *ngFor="let topic of topics; index as i"
-      [routerLink]="['/topics/view', topic.id]"
+      (click)="navigateToTopic(topic.id, $event)"
       class="forum-container container"
-      [@fadeInOnEnter]
     >
       <div class="card post-card">
         <div class="card-body">
@@ -80,17 +86,17 @@
 
             <div class="flex-grow-1">
               <div class="d-flex align-items-center mb-2">
-                <a [routerLink]="['/profile', topic.user.id]" (click)="$event.stopPropagation()">
-                  <p-avatar
-                    image="https://berenandor.moriczcloud.hu/storage/{{ topic.user.avatar }}"
-                    size="large"
-                    shape="circle"
-                  />
-                </a>
+                <p-avatar
+                  image="https://berenandor.moriczcloud.hu/storage/{{
+                    topic.user.avatar
+                  }}"
+                  size="large"
+                  shape="circle"
+                />
                 <div class="ms-2">
-                  <a [routerLink]="['/profile', topic.user.id]" (click)="$event.stopPropagation()" class="author username">
+                  <span class="author username">
                     {{ topic.user.name }}
-                  </a>
+                  </span>
                   <span
                     class="text-muted"
                     data-bs-toggle="tooltip"
@@ -111,7 +117,7 @@
 
             <div class="vote-buttons me-3">
               <button
-                (click)="vote(topic.id, i, 'up', $event); $event.stopPropagation()"
+                (click)="vote(topic.id, i, 'up', $event)"
                 [class.active]="userVotes[topic.id] === 'up'"
                 class="btn btn-light"
               >
@@ -119,7 +125,7 @@
               </button>
               <span>{{ topic.upvote_count | shortenNumber}}</span>
               <button
-                (click)="vote(topic.id, i, 'down', $event); $event.stopPropagation()"
+                (click)="vote(topic.id, i, 'down', $event)"
                 [class.active]="userVotes[topic.id] === 'down'"
                 class="btn btn-light"
               >
@@ -132,7 +138,7 @@
           </div>
         </div>
       </div>
-    </a>
+    </div>
 
     <div *ngIf="topics.length==0 && !loadingMore">
       <h3 class="text-center mt-4">Nincs találat</h3>
@@ -152,3 +158,4 @@
       </div>
     </div>
   </body>
+</html>

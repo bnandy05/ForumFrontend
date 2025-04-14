@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { AdminService } from '../../../services/admin.service';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
 import { FormsModule } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
-import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 interface User {
   id: number;
@@ -25,9 +24,7 @@ interface UsersResponse {
   selector: 'app-admin-table',
   templateUrl: './admin-table.component.html',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, FormsModule, RouterLink],
-  animations: [fadeInOnEnterAnimation(),
-    fadeOutOnLeaveAnimation(),],
+  imports: [CommonModule, HeaderComponent, FormsModule],
   styleUrls: ['./admin-table.component.css']
 })
 export class AdminTableComponent implements OnInit {
@@ -44,6 +41,7 @@ export class AdminTableComponent implements OnInit {
   adminFilter: number | null = null;
 
   constructor(
+    private router: Router,
     private adminService: AdminService,
     private confirmationService: ConfirmationService
   ) {}
@@ -62,6 +60,10 @@ export class AdminTableComponent implements OnInit {
     }
   
     this.loadMore(this.category, this.bannedFilter, this.adminFilter);
+  }
+
+  userClick(userId: number): void {
+    this.router.navigate(['/profile', userId]);
   }
 
   makeAdmin(userId: number, name: string): void {
