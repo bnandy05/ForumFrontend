@@ -71,11 +71,11 @@
                     <button pButton (click)="uploadAvatar()" severity="success">Feltöltés</button>
                 </div>
                 <div class="profile-actions" *ngIf="ownProfile">
-                    <button pButton (click)="passwordChange()" severity="warn">Jelszó módosítása</button>
-                    <button pButton (click)="logout()" severity="danger">Kijelentkezés</button>
+                    <button pButton [routerLink]="['/change-password']" severity="warn">Jelszó módosítása</button>
+                    <button pButton [routerLink]="['/logout']" severity="danger">Kijelentkezés</button>
                 </div>
                 <div class="profile-actions" *ngIf="!ownProfile">
-                    <button pButton (click)="topics()" severity="success">Felhasználó témái</button>
+                    <button pButton [routerLink]="['/topics/user', userProfile.id]" severity="success">Felhasználó témái</button>
                     <button 
                         pButton 
                         (click)="BanUser(userProfile.id)" 

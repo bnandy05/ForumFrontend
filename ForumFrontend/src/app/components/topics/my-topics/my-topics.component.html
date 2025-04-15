@@ -59,7 +59,7 @@
 
     <div
       *ngFor="let topic of topics; index as i"
-      (click)="navigateToTopic(topic.id, $event)"
+      [routerLink]="['/topics/view', topic.id]"
       class="forum-container container"
     >
       <div class="card post-card">
@@ -92,9 +92,13 @@
                   }}"
                   size="large"
                   shape="circle"
+                  [routerLink]="['/profile', topic.user.id]"
+                  (click)="$event.stopPropagation(); $event.preventDefault()"
                 />
                 <div class="ms-2">
-                  <span class="author username">
+                  <span class="author username" 
+                  [routerLink]="['/profile', topic.user.id]"
+                  (click)="$event.stopPropagation(); $event.preventDefault()">
                     {{ topic.user.name }}
                   </span>
                   <span

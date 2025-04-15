@@ -89,26 +89,12 @@ export class AuthService {
   }
 
   changePassword(currentPassword: string, newPassword: string, confirmNewPassword: string) {
-    this.http.post(`${this.apiUrl}/password/change`, {
+    return this.http.post(`${this.apiUrl}/password/change`, {
       current_password: currentPassword,
       new_password: newPassword,
       new_password_confirmation: confirmNewPassword
-    }, { withCredentials: true }).subscribe({
-      next: (response: any) => {
-        this.messageService.add({ severity: 'success', summary: 'Sikeres jelszó változtatás', detail: 'A jelszó sikeresen megváltoztatva!' });
-        this.router.navigate(['/logout']);
-      },
-      error: (err) => {
-        if (err.status === 401) {
-          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'A jelenlegi jelszó nem megfelelő.' });
-        } else if (err.status === 422) {
-          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'A jelszó nem felel meg a követelményeknek vagy a jelszavak nem egyeznek.' });
-        } else {
-          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a jelszó változtatása során. Kérjük, próbáld újra később.' });
-        }
-      }
-    });
-  }
+    }, { withCredentials: true });
+  }  
 
   uploadAvatar(file: File) {
     const formData = new FormData();

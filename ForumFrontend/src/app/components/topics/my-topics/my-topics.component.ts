@@ -1,7 +1,7 @@
 import { AfterViewChecked, Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TopicService } from '../../../services/topic.service';
 import { HeaderComponent } from '../../header/header.component';
 import { SafeHtmlPipe } from '../../../safe-html.pipe';
@@ -20,7 +20,7 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
   standalone: true,
   imports: [
     HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule,
-    AvatarModule, AvatarGroupModule, ButtonModule, MenuModule, ShortenNumberPipe
+    AvatarModule, AvatarGroupModule, ButtonModule, MenuModule, ShortenNumberPipe, RouterLink
   ],
   templateUrl: './my-topics.component.html',
   styleUrls: ['./my-topics.component.css']
@@ -143,7 +143,8 @@ export class MyTopicsComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   vote(topicId: number, index: number, type: 'up' | 'down', event: MouseEvent) {
-    event.stopPropagation();
+    event.stopPropagation(); 
+    event.preventDefault();
     const topic = this.topics[index];
     if (!topic) return;
 
@@ -162,6 +163,8 @@ export class MyTopicsComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   openMenu(event: Event, topicId: number, userId: number, menu: any) {
+    event.stopPropagation(); 
+    event.preventDefault();
     this.selectedTopicId = topicId;
     this.selectedUserId = userId;
     menu.toggle(event);
@@ -181,15 +184,6 @@ export class MyTopicsComponent implements OnInit, AfterViewChecked, OnDestroy {
     if (!this.hasMoreTopics) return;
     this.currentPage++;
     this.loadTopics();
-  }
-
-  navigateToTopic(topicId: number, event: MouseEvent): void {
-    const target = event.target as HTMLElement;
-    const forbiddenTags = ['BUTTON', 'A', 'SPAN'];
-    if (forbiddenTags.includes(target.tagName)) {
-      return;
-    }
-    this.router.navigate(['/topics/view', topicId]);
   }
 
   DeleteTopic(topicId: number) {

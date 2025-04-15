@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } 
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { HeaderComponent } from '../../header/header.component';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-change-password',
@@ -17,7 +18,7 @@ export class ChangePasswordComponent {
   isSubmitting = false;
   errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private messageService: MessageService) {
     this.passwordForm = this.fb.group({
       current_password: ['', [Validators.required]],
       new_password: ['', [Validators.required, Validators.minLength(8)]],
@@ -44,7 +45,27 @@ export class ChangePasswordComponent {
     this.isSubmitting = true;
     const { current_password, new_password, confirm_new_password } = this.passwordForm.value;
   
-    this.authService.changePassword(current_password, new_password, confirm_new_password);
+    this.authService.changePassword(current_password, new_password, confirm_new_password)
+      .subscribe({
+        next: (response: any) => {
+          if (response.message === 'A jelszó sikeresen megváltoztatva.') {
+            this.messageService.add({ severity: 'success', summary: 'Sikeres jelszó változtatás', detail: response.message });
+            this.router.navigate(['/logout']);
+          } else {
+            this.messageService.add({ severity: 'error', summary: 'Hiba', detail: response.message });
+            this.isSubmitting = false;
+          }
+        },
+        error: (err) => {
+          if (err.status === 401) {
+            this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'A jelenlegi jelszó nem megfelelő.' });
+          } else if (err.status === 422) {
+            this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'A jelszó nem felel meg a követelményeknek vagy a jelszavak nem egyeznek.' });
+          } else {
+            this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a jelszó változtatása során. Kérjük, próbáld újra később.' });
+          }
+          this.isSubmitting = false;
+        }
+      });
   }
-  
 }
