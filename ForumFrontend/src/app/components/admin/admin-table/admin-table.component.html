@@ -1,5 +1,5 @@
+<body>
 <app-header></app-header>
-<div class="admin-table-container">
 <br>
   <div class="filter-container">
     <input type="text" [(ngModel)]="category" (input)="onFilterInput($event)" class="input-field" placeholder="Add meg a felhasználónevet/emailt...">
@@ -55,4 +55,4 @@
 
     <div *ngIf="loading" class="loading-spinner">Töltés...</div>
   </div>
-</div>
+</body>

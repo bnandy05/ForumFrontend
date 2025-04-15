@@ -37,7 +37,7 @@ export class RegisterComponent {
           this.router.navigate(['/login']);
         },
         (error) => {
-          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'Hiba történt a regisztráció során.' });
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: error.error.message });
         }
       );
     } else {
