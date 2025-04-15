@@ -22,6 +22,14 @@ li.span {
   cursor: pointer;
 }
 
+.username-text {
+  max-width: 120px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--navbar-text);
+}
+
 .navbar-nav .nav-link {
   color: var(--navbar-text);
   font-weight: bold;
@@ -99,6 +107,11 @@ li.span {
 }
 
 .udv {
+  display: block;
+  max-width: 180px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   font-weight: normal;
   color: var(--navbar-text);
 }
