@@ -96,7 +96,7 @@ export class AuthService {
     }, { withCredentials: true }).subscribe({
       next: (response: any) => {
         this.messageService.add({ severity: 'success', summary: 'Sikeres jelszó változtatás', detail: 'A jelszó sikeresen megváltoztatva!' });
-        this.router.navigate(['/login']);
+        this.router.navigate(['/logout']);
       },
       error: (err) => {
         if (err.status === 401) {
@@ -123,7 +123,7 @@ export class AuthService {
         this.reloadPage();
       },
       error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: err.error.message });
+        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: "A fájl nem lehet nagyobb 2MB-nál" });
       }
     });
   }

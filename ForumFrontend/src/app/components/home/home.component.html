@@ -1,5 +1,5 @@
-<body>
-  <app-header></app-header>
+<body [@fadeInOnEnter]>
+    <app-header></app-header>
     <div class="container py-3 position-relative">
       <div class="dropdown">
         <button
@@ -9,181 +9,179 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          Szűrési lehetőségek
-        </button>
+        Szűrési lehetőségek
+      </button>
         <ul
           class="dropdown-menu dropdown-menu-end custom-dropdown p-3"
           aria-labelledby="filterButton"
         >
-          <li>
+          <li class="mt-2">
             <label for="category" class="form-label">Kategória:</label>
-            <select
-              id="category"
-              [(ngModel)]="categoryId"
-              (change)="filterTopics()"
-              class="form-select"
-            >
-              <option value="">Minden kategória</option>
-              <option
-                *ngFor="let category of categories"
-                value="{{ category.id }}"
-              >
-                {{ category.category_name }}
-              </option>
-            </select>
-          </li>
-          <li class="mt-2">
-            <label for="title" class="form-label">Cím keresése:</label>
-            <input
-              type="text"
-              id="title"
-              [(ngModel)]="title"
-              (input)="filterTopics()"
-              class="form-control"
-              placeholder="Cím keresése..."
-            />
-          </li>
-          <li class="mt-2">
-            <label for="orderBy" class="form-label">Rendezés:</label>
-            <select
-              id="orderBy"
-              [(ngModel)]="orderBy"
-              (change)="filterTopics()"
-              class="form-select"
-            >
-              <option value="created_at">Dátum szerint (Újabb felül)</option>
-              <option value="upvotes">Upvote-ok szerint (Több felül)</option>
-              <option value="created_at_asc">
-                Dátum szerint (Régebbi felül)
-              </option>
-              <option value="upvotes_asc">
-                Upvote-ok szerint (Kevesebb felül)
-              </option>
-            </select>
-          </li>
-        </ul>
-      </div>
-      <br>
-  
-    <a
-      *ngFor="let topic of topics; index as i"
-      [routerLink]="['/topics/view', topic.id]"
-      class="forum-container"
-      [@fadeInOnEnter]
-    >
-      <div class="list-item-content">
-        <div class="top-row">
-          <a [routerLink]="['/profile', topic.user.id]" (click)="$event.stopPropagation()">
-          <p-avatar
-            [image]="
-              'https://berenandor.moriczcloud.hu/storage/' + topic.user.avatar
-            "
-            shape="circle"
-            class="topic-list-avatar hover"
-          />
-          </a>
-          <a
-            [routerLink]="['/profile', topic.user.id]"
-            class="author username"
-            (click)="$event.stopPropagation()"
+          <select
+            id="category"
+            [(ngModel)]="categoryId"
+            (change)="filterTopics()"
+            class="form-select"
           >
-            {{ topic.user.name }}
-          </a>
-  
-          <div class="menu-wrapper">
-            <div class="menu-container" *ngIf="topic.user_id == currentUserId">
-              <p-menu
-                #menu
-                [popup]="true"
-                [model]="ownMenuItems"
-                appendTo="body"
-              ></p-menu>
-              <p-button
-                class="menu-button"
-                (click)="openMenu($event, topic.id, topic.user.id, menu)"
-                icon="pi pi-ellipsis-v"
-              />
-            </div>
-            <div
-              class="menu-container"
-              *ngIf="topic.user_id != currentUserId && IsAdmin()"
+            <option value="">Minden kategória</option>
+            <option
+              *ngFor="let category of categories"
+              value="{{ category.id }}"
             >
-              <p-menu
-                #menu
-                [popup]="true"
-                [model]="adminMenuItems"
-                appendTo="body"
-              ></p-menu>
-              <p-button
-                class="menu-button"
-                (click)="openMenu($event, topic.id, topic.user.id, menu); $event.stopPropagation()"
-                icon="pi pi-ellipsis-v"
-              />
-            </div>
+              {{ category.category_name }}
+            </option>
+          </select>
+        </li>
+        <li class="mt-2">
+          <label for="title" class="form-label">Cím keresése:</label>
+          <input
+            type="text"
+            id="title"
+            [(ngModel)]="title"
+            (input)="onInputChange()"
+            class="form-control"
+            placeholder="Cím keresése..."
+          />
+        </li>
+        <li class="mt-2">
+          <label for="orderBy" class="form-label">Rendezés:</label>
+          <select
+            id="orderBy"
+            [(ngModel)]="orderBy"
+            (change)="filterTopics()"
+            class="form-select"
+          >
+            <option value="created_at">Dátum szerint (Újabb felül)</option>
+            <option value="upvotes">Upvote-ok szerint (Több felül)</option>
+            <option value="created_at_asc">
+              Dátum szerint (Régebbi felül)
+            </option>
+            <option value="upvotes_asc">
+              Upvote-ok szerint (Kevesebb felül)
+            </option>
+          </select>
+        </li>
+      </ul>
+    </div>
+    <br>
+
+  <div
+    *ngFor="let topic of topics; index as i"
+    (click)="navigateToTopic(topic.id, $event)"
+    class="forum-container container"
+    [@fadeInOnEnter]
+  >
+    <div class="list-item-content">
+      <div class="top-row">
+        <p-avatar
+          [image]="
+            'https://berenandor.moriczcloud.hu/storage/' + topic.user.avatar
+          "
+          shape="circle"
+          class="topic-list-avatar hover"
+          (click)="userClick(topic.user.id, $event)"
+        />
+        <a
+          class="author username"
+          (click)="userClick(topic.user.id, $event)"
+        >
+          {{ topic.user.name }}
+        </a>
+
+        <div class="menu-wrapper">
+          <div class="menu-container" *ngIf="topic.user_id == currentUserId">
+            <p-menu
+              #menu
+              [popup]="true"
+              [model]="ownMenuItems"
+              appendTo="body"
+            ></p-menu>
+            <p-button
+              class="menu-button"
+              (click)="openMenu($event, topic.id, topic.user.id, menu)"
+              icon="pi pi-ellipsis-v"
+            />
+          </div>
+          <div
+            class="menu-container"
+            *ngIf="topic.user_id != currentUserId && IsAdmin()"
+          >
+            <p-menu
+              #menu
+              [popup]="true"
+              [model]="adminMenuItems"
+              appendTo="body"
+            ></p-menu>
+            <p-button
+              class="menu-button"
+              (click)="openMenu($event, topic.id, topic.user.id, menu)"
+              icon="pi pi-ellipsis-v"
+            />
           </div>
         </div>
-  
-        <div class="content-area">
-          <h5 class="post-title">{{ topic.title }}</h5>
-          <p class="post-meta">
-            Kategória:
-            <span class="category">{{ topic.category.category_name }}</span>
-          </p>
-          <p class="post-meta">
-            <span
-              class="timeAgo"
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              title="{{ topic.created_at }} - {{ topic.updated_at }}"
-            >
-              {{ topic.timeAgo }}
-            </span>
-          </p>
-          <p class="post-meta">
-            <span *ngIf="topic.image_count" class="image-indicator">
-              <i class="pi pi-image"></i> {{ topic.image_count }} kép csatolva
-            </span>
-            <span *ngIf="topic.comments_count" class="comment-indicator">
-              <i class="pi pi-comments"></i> {{ topic.comments_count }} hozzászólás
-            </span>
-          </p>
-          <div class="post-text" [innerHTML]="topic.content | safeHtml"></div>
-        </div>
-  
-        <div class="vote-buttons">
-          <button
-            (click)="vote(topic.id, i, 'up', $event); $event.stopPropagation()"
-            [class.active]="userVotes[topic.id] === 'up'"
-            class="vote-btn upvote-btn"
-          >
-            ▲
-          </button>
-          <span>{{ topic.upvote_count | shortenNumber}}</span>
-          <button
-            (click)="vote(topic.id, i, 'down', $event); $event.stopPropagation()"
-            [class.active]="userVotes[topic.id] === 'down'"
-            class="vote-btn downvote-btn"
-          >
-            ▼
-          </button>
-        </div>
       </div>
-    </a>
-    <div *ngIf="topics.length==0 && !loadingMore">
-      <h1 class="text-center">Nincs találat</h1>
+
+      <div class="content-area">
+        <h5 class="post-title">{{ topic.title }}</h5>
+        <p class="post-meta">
+          Kategória:
+          <span class="category">{{ topic.category.category_name }}</span>
+        </p>
+        <p class="post-meta">
+          <span
+            class="timeAgo"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            title="{{ topic.created_at }} - {{ topic.updated_at }}"
+          >
+            {{ topic.timeAgo }}
+          </span>
+        </p>
+        <p class="post-meta">
+          <span *ngIf="topic.image_count" class="image-indicator">
+            <i class="pi pi-image"></i> {{ topic.image_count }} kép csatolva
+          </span>
+          <span *ngIf="topic.comments_count" class="comment-indicator">
+            <i class="pi pi-comments"></i> {{ topic.comments_count }} hozzászólás
+          </span>
+        </p>
+        <div class="post-text" [innerHTML]="topic.content | safeHtml"></div>
+      </div>
+
+      <div class="vote-buttons">
+        <button
+          (click)="vote(topic.id, i, 'up', $event)"
+          [class.active]="userVotes[topic.id] === 'up'"
+          class="vote-btn upvote-btn"
+        >
+          &#x25B2;
+        </button>
+        <span>{{ topic.upvote_count | shortenNumber}}</span>
+        <button
+          (click)="vote(topic.id, i, 'down', $event)"
+          [class.active]="userVotes[topic.id] === 'down'"
+          class="vote-btn downvote-btn"
+        >
+          &#x25BC;
+        </button>
+      </div>
     </div>
   </div>
-  
-    <div class="text-center">
-      <button
-        *ngIf="hasMoreTopics && !loadingMore"
-        (click)="loadMore()"
-        class="btn btn-primary filter"
-      >
-        További téma betöltése
-      </button>
-      <div *ngIf="loadingMore" class="spinner-border" role="status">
-        <span class="visually-hidden">Betöltés...</span>
-      </div>
+  <div *ngIf="topics.length==0 && !loadingMore">
+    <h1 class="text-center">Nincs találat</h1>
+  </div>
+</div>
+
+  <div class="text-center">
+    <button
+      *ngIf="hasMoreTopics && !loadingMore"
+      (click)="loadMore()"
+      class="btn btn-primary filter"
+    >
+      További téma betöltése
+    </button>
+    <div *ngIf="loadingMore" class="spinner-border" role="status">
+      <span class="visually-hidden">Betöltés...</span>
     </div>
-  </body>
+  </div>
+</body>

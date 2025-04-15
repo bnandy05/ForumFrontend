@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { AdminService } from '../../../services/admin.service';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
 import { FormsModule } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
-import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
+import { Subject } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 
 interface User {
   id: number;
@@ -25,12 +26,10 @@ interface UsersResponse {
   selector: 'app-admin-table',
   templateUrl: './admin-table.component.html',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, FormsModule, RouterLink],
-  animations: [fadeInOnEnterAnimation(),
-    fadeOutOnLeaveAnimation(),],
+  imports: [CommonModule, HeaderComponent, FormsModule],
   styleUrls: ['./admin-table.component.css']
 })
-export class AdminTableComponent implements OnInit {
+export class AdminTableComponent implements OnInit, OnDestroy {
   users: UsersResponse = {
     data: [],
     current_page: 0,
@@ -42,15 +41,32 @@ export class AdminTableComponent implements OnInit {
   category: string | null = "";
   bannedFilter: number | null = null;
   adminFilter: number | null = null;
+  private destroy$ = new Subject<void>();
+  private filterSubject = new Subject<string>();
 
   constructor(
+    private router: Router,
     private adminService: AdminService,
     private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit(): void {
     this.loadMore();
+
+    this.filterSubject.pipe(
+      debounceTime(400),  
+      takeUntil(this.destroy$)
+    ).subscribe(value => {
+      this.category = value;
+      this.filterTopics();
+    });
   }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+  
 
   filterTopics(): void {
     this.allLoaded = false;
@@ -62,6 +78,14 @@ export class AdminTableComponent implements OnInit {
     }
   
     this.loadMore(this.category, this.bannedFilter, this.adminFilter);
+  }
+
+  onFilterInput(event: any): void {
+    this.filterSubject.next(event.target.value);
+  }
+
+  userClick(userId: number): void {
+    this.router.navigate(['/profile', userId]);
   }
 
   makeAdmin(userId: number, name: string): void {

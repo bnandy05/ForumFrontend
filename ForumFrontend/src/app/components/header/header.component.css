@@ -21,10 +21,17 @@ li.span {
   cursor: pointer;
 }
 
+.username-text {
+  max-width: 120px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--navbar-text);
+}
+
 .navbar-nav .nav-link {
   color: var(--navbar-text);
   font-weight: bold;
-  transition: color 0.3s ease-in-out;
 }
 
 .navbar-nav .nav-link:hover {
@@ -45,7 +52,6 @@ li.span {
 
 .nav-item.dropdown img {
   border: 2px solid var(--navbar-hover);
-  transition: border-color 0.3s ease-in-out;
 }
 
 .nav-item.dropdown:hover img {
@@ -56,7 +62,6 @@ li.span {
   background-color: var(--dropdown-bg);
   border: 1px solid var(--navbar-border);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease-in-out;
 }
 
 .navbar-toggler-icon {
@@ -65,7 +70,6 @@ li.span {
 
 .dropdown-item {
   color: var(--navbar-text);
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 .dropdown-item:hover {
@@ -94,10 +98,14 @@ li.span {
 
 .navbar-toggler-icon {
   background-color: var(--navbar-text);
-  transition: background-color 0.3s;
 }
 
 .udv {
+  display: block;
+  max-width: 180px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   font-weight: normal;
   color: var(--navbar-text);
 }

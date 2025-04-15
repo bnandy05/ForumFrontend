@@ -1,17 +1,13 @@
+
 body {
     background: var(--navbar-bg);
     color: var(--text-primary);
-    height: 100vh;
-    margin: 0;
-}
-
-.main-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 120px);
+    height: 100vh;
+    margin: 0;
 }
-
 .container {
     background: var(--surface);
     padding: 2rem;
@@ -19,7 +15,6 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
-
 .button {
     background: var(--highlight);
     color: white;
@@ -31,7 +26,6 @@ body {
     cursor: pointer;
     transition: 0.3s;
 }
-
 .button:hover {
     background: var(--primary);
 }

@@ -1,9 +1,8 @@
+<app-header></app-header>
 <body>
-    <app-header></app-header>
-    <div class="main-content">
-        <div class="container" [@fadeInOnEnter]>
-            <button class="button" [routerLink]="['/admin/table']">Felhasználók</button>
-            <button class="button" [routerLink]="['/admin/new-category']">Új Topic Category</button>
-        </div>
+    <div class="container">
+        <button class="button" (click)="redirect('admin/table')">Felhasználók</button>
+        <button class="button" (click)="redirect('admin/new-category')">Új Topic Category</button>
     </div>
 </body>
+

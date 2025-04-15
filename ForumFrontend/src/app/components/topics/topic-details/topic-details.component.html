@@ -19,7 +19,7 @@
                   <a class="author username" [routerLink]="['/profile', topic.user.id]" (click)="$event.stopPropagation()">
                     {{ topic.user.name }}
                   </a>
-                  <span class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ topic.created_at }} - {{ topic.updated_at }}">
+                  <span class="text-muted topicTime" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ topic.created_at }} - {{ topic.updated_at }}">
                     - {{ topic.timeAgo }}
                   </span>
                 </div>
@@ -50,7 +50,7 @@
                         <a class="author username" [routerLink]="['/profile', comment.user.id]" (click)="$event.stopPropagation()">
                           {{ comment.user.name }}
                         </a>
-                        <span class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ comment.created_at }} - {{ comment.updated_at }}">
+                        <span class="text-muted commentTime" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ comment.created_at }} - {{ comment.updated_at }}">
                           - {{ comment.timeAgo }}
                         </span>
                       </div>

@@ -14,7 +14,6 @@ import { EditorModule } from 'primeng/editor';
 import { MessageService, PrimeIcons } from 'primeng/api';
 import { Editor } from 'primeng/editor';
 import Quill from 'quill';
-import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-topic-create',
@@ -25,10 +24,6 @@ import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animati
     ReactiveFormsModule,
     HeaderComponent,
     EditorModule,
-  ],
-  animations: [
-    fadeInOnEnterAnimation(),
-    fadeOutOnLeaveAnimation(),
   ],
   templateUrl: './topic-create.component.html',
   styleUrl: './topic-create.component.css',
