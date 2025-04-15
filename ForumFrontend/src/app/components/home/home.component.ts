@@ -1,10 +1,10 @@
-import { AfterViewChecked, Component, HostListener, OnInit, OnDestroy} from '@angular/core';
+import { AfterViewChecked, Component, OnInit, OnDestroy} from '@angular/core';
 import { TopicService } from '../../services/topic.service';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
 import { SafeHtmlPipe } from '../../safe-html.pipe';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { MenuModule } from 'primeng/menu';
@@ -19,7 +19,7 @@ import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animati
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule, MenuModule, ButtonModule, ShortenNumberPipe],
+  imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule, MenuModule, ButtonModule, ShortenNumberPipe, RouterLink],
   animations :[fadeInOnEnterAnimation(),
     fadeOutOnLeaveAnimation()],
   templateUrl: './home.component.html',
@@ -47,22 +47,6 @@ export class HomeComponent implements OnInit, AfterViewChecked, OnDestroy{
   animate = false;
 
   constructor(private topicService: TopicService, private router: Router, public adminService: AdminService, private confirmationService: ConfirmationService) {}
-
-
-  navigateToTopic(topicId: number, event: MouseEvent): void {
-    const target = event.target as HTMLElement;
-    const forbiddenTags = ['SPAN', 'BUTTON', 'A'];
-
-    if (forbiddenTags.includes(target.tagName)) {
-      return;
-    }
-    this.router.navigate(['/topics/view', topicId]);
-  }
-
-  userClick(userId: number, event: MouseEvent): void {
-    event.stopPropagation();
-    this.router.navigate(['/profile', userId]);
-  }
 
   filterTopics() {
     this.currentPage = 1;
@@ -111,7 +95,7 @@ export class HomeComponent implements OnInit, AfterViewChecked, OnDestroy{
   setupSearch() {
     this.searchSubscription = this.searchChanged
       .pipe(
-        debounceTime(300),
+        debounceTime(400),
         switchMap((searchTerm: string) => {
           this.currentPage = 1;
           this.hasMoreTopics = true;
@@ -146,6 +130,7 @@ export class HomeComponent implements OnInit, AfterViewChecked, OnDestroy{
 
   vote(topicId: number, index: number, type: 'up' | 'down', event: MouseEvent) {
     event.stopPropagation();
+    event.preventDefault();
     const topic = this.topics[index];
 
     if (!topic) return;
@@ -165,6 +150,8 @@ export class HomeComponent implements OnInit, AfterViewChecked, OnDestroy{
   }
 
   openMenu(event: Event, topicId: number, userId: number, menu: any) {
+    event.stopPropagation();
+    event.preventDefault();
     this.selectedTopicId = topicId;
     this.selectedUserId = userId;
     menu.toggle(event);
