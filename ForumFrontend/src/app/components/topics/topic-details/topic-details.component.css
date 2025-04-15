@@ -452,6 +452,24 @@ body input::placeholder {
 }
 
 @media (max-width: 576px) {
+  .topicTime{
+    max-width: 60%;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+  }
+
+  .commentTime{
+    max-width: 80%;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+  }
+
   .card-title {
     font-size: 1.3rem;
   }
