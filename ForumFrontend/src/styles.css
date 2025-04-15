@@ -16,6 +16,15 @@ html, body {
   overflow: auto;
 }
 
+em{
+  font-family: "Roboto", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: italic;
+  font-variation-settings:
+  "wdth" 100;
+}
+
 :root {
     --background: #f5ebe0;
     --surface: #e3dac9;
