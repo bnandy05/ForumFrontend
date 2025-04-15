@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, HostListener, OnInit} from '@angular/core';
+import { AfterViewChecked, Component, HostListener, OnInit, OnDestroy} from '@angular/core';
 import { TopicService } from '../../services/topic.service';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,8 @@ import { ConfirmationService, PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { AdminService } from '../../services/admin.service';
 import { ShortenNumberPipe } from '../../shorten-number.pipe';
+import { Subject, Subscription } from 'rxjs';
+import { debounceTime, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +22,7 @@ import { ShortenNumberPipe } from '../../shorten-number.pipe';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, AfterViewChecked{
+export class HomeComponent implements OnInit, AfterViewChecked, OnDestroy{
   topics: any[] = [];
   title: string = "";
   orderBy: string = "";
@@ -35,6 +37,9 @@ export class HomeComponent implements OnInit, AfterViewChecked{
   adminMenuItems: any[] = [];
   selectedTopicId: number = -1;
   selectedUserId: number = -1;
+
+  searchChanged: Subject<string> = new Subject<string>();
+  private searchSubscription!: Subscription;
 
 
   constructor(private topicService: TopicService, private router: Router, public adminService: AdminService, private confirmationService: ConfirmationService) {}
@@ -98,6 +103,42 @@ export class HomeComponent implements OnInit, AfterViewChecked{
     });
   }
 
+  setupSearch() {
+    this.searchSubscription = this.searchChanged
+      .pipe(
+        debounceTime(300),
+        switchMap((searchTerm: string) => {
+          this.currentPage = 1;
+          this.hasMoreTopics = true;
+          this.loadingMore = true;
+          return this.topicService.getTopics(this.categoryId, searchTerm, this.orderBy, false, null, this.currentPage);
+        })
+      )
+      .subscribe({
+        next: (response) => {
+          const newTopics = response.topics.data.map((topic: any) => ({
+            ...topic,
+            timeAgo: this.topicService.getTimeAgo(topic.created_at, topic.updated_at),
+            upvote_count: topic.upvotes - topic.downvotes,
+            image_count: this.getAttachedImageCount(topic.content)
+          }));
+
+          this.topics = newTopics;
+          this.userVotes = response.user_votes || {};
+          this.hasMoreTopics = this.currentPage < response.topics.last_page;
+          this.loadingMore = false;
+        },
+        error: (err) => {
+          console.error('Failed to fetch topics:', err);
+          this.loadingMore = false;
+        }
+      });
+  }
+
+  onInputChange() {
+    this.searchChanged.next(this.title);
+  }
+
   vote(topicId: number, index: number, type: 'up' | 'down', event: MouseEvent) {
     event.stopPropagation();
     const topic = this.topics[index];
@@ -131,6 +172,7 @@ export class HomeComponent implements OnInit, AfterViewChecked{
   }
 
   ngOnInit() {
+    this.setupSearch();
     this.ownMenuItems = [
       { label: 'Módosítás', icon: 'pi pi-pencil', command: () => this.ModifyTopic(this.selectedTopicId) },
       { label: 'Törlés', icon: 'pi pi-trash', command: () => this.DeleteTopic(this.selectedTopicId) }
@@ -151,6 +193,12 @@ export class HomeComponent implements OnInit, AfterViewChecked{
         console.error('Failed to fetch categories:', err);
       },
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
   }
 
   ngAfterViewChecked(): void {

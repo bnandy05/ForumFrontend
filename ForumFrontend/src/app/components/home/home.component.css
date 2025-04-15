@@ -114,16 +114,73 @@ body {
   color: var(--highlight);
 }
 
+::ng-deep #title::placeholder {
+  color: var(--text-primary);
+}
+
+::ng-deep .custom-dropdown {
+  background-color: var(--surface);
+  color: var(--text-primary);
+  border-radius: 8px;
+  border: 1px solid var(--navbar-border);
+}
+
+::ng-deep .dropdown-menu.custom-dropdown {
+  background-color: var(--surface);
+  border: 1px solid var(--navbar-border);
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+::ng-deep .dropdown-menu.custom-dropdown li {
+  margin-bottom: 0.5rem;
+}
+
+::ng-deep .dropdown-menu.custom-dropdown .form-label {
+  color: var(--text-primary);
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+}
+
+::ng-deep .dropdown-menu.custom-dropdown .form-select,
+::ng-deep .dropdown-menu.custom-dropdown .form-control {
+  background-color: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+::ng-deep .dropdown-menu.custom-dropdown .form-select:focus,
+::ng-deep .dropdown-menu.custom-dropdown .form-control:focus {
+  border-color: var(--highlight);
+  outline: none;
+  background-color: var(--surface);
+  color: var(--text-primary);
+}
+
+::ng-deep .dropdown-menu.custom-dropdown .form-select option {
+  background-color: var(--surface);
+  color: var(--text-primary);
+}
+
 ::ng-deep .filter {
-  margin: 0 auto;
   display: block;
+  margin: 0 auto;
   background-color: var(--highlight) !important;
   color: var(--text-primary) !important;
   border: none !important;
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
 }
 
 ::ng-deep .filter:hover {
   background-color: var(--primary) !important;
+  color: var(--text-primary) !important;
 }
 
 .post-text {

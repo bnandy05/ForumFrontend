@@ -2,7 +2,7 @@
 <div class="admin-table-container">
 
   <div class="filter-container">
-    <input type="text" [(ngModel)]="category" (input)="filterTopics()" class="input-field" placeholder="Add meg a felhasználónevet/emailt...">
+    <input type="text" [(ngModel)]="category" (input)="onFilterInput($event)" class="input-field" placeholder="Add meg a felhasználónevet/emailt...">
 
     <select [(ngModel)]="bannedFilter" (change)="filterTopics()" class="select-field">
       <option [ngValue]="null">Minden felhasználó</option>
