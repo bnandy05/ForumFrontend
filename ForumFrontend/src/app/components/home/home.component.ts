@@ -14,11 +14,14 @@ import { AdminService } from '../../services/admin.service';
 import { ShortenNumberPipe } from '../../shorten-number.pipe';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, switchMap } from 'rxjs/operators';
+import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [HeaderComponent, CommonModule, SafeHtmlPipe, FormsModule, AvatarModule, AvatarGroupModule, MenuModule, ButtonModule, ShortenNumberPipe],
+  animations :[fadeInOnEnterAnimation(),
+    fadeOutOnLeaveAnimation()],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -41,8 +44,10 @@ export class HomeComponent implements OnInit, AfterViewChecked, OnDestroy{
   searchChanged: Subject<string> = new Subject<string>();
   private searchSubscription!: Subscription;
 
+  animate = false;
 
   constructor(private topicService: TopicService, private router: Router, public adminService: AdminService, private confirmationService: ConfirmationService) {}
+
 
   navigateToTopic(topicId: number, event: MouseEvent): void {
     const target = event.target as HTMLElement;
