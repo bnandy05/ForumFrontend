@@ -102,14 +102,14 @@
                           comment.user.avatar
                         }}"
                         shape="circle"
-                        (click)="userClick(topic.user.id, $event)"
+                        (click)="userClick(comment.user.id, $event)"
                       />
                       <div class="ms-2">
                         <a
                           class="author username"
-                          (click)="userClick(topic.user.id, $event)"
+                          (click)="userClick(comment.user.id, $event)"
                         >
-                          {{ topic.user.name }}
+                          {{ comment.user.name }}
                         </a>
                         <span
                           class="text-muted"

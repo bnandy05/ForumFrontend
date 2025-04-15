@@ -136,7 +136,6 @@ export class TopicDetailsComponent implements OnInit{
 
       this.topicService.getTopic(this.id).subscribe({
         next: (response) => {
-          console.log(response);
           if (response) {
             if (this.currentUserId == response.topic.user_id) {
               this.topicOwner = true;

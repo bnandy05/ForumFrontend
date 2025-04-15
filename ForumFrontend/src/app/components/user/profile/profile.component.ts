@@ -74,9 +74,7 @@ export class ProfileComponent implements OnInit {
   loadUserProfile(): void {
     this.authService.getUser().subscribe({
       next: (profile) => {
-        console.log(profile);
         this.userProfile = profile;
-        console.log(this.userProfile)
         this.ownProfile = true;
       },
       error: (err: any) => {
