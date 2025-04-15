@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="admin-table-container">
-
+<br>
   <div class="filter-container">
     <input type="text" [(ngModel)]="category" (input)="filterTopics()" class="input-field" placeholder="Add meg a felhasználónevet/emailt...">
 
@@ -9,7 +9,7 @@
       <option [ngValue]="1">Bannoltak</option>
       <option [ngValue]="0">Nem bannoltak</option>
     </select>
-    
+
     <select [(ngModel)]="adminFilter" (change)="filterTopics()" class="select-field">
       <option [ngValue]="null">Minden felhasználó</option>
       <option [ngValue]="1">Adminok</option>
