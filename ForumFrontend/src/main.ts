@@ -20,7 +20,6 @@ bootstrapApplication(AppComponent, {
       scrollPositionRestoration: 'enabled',
       anchorScrolling: 'enabled'
     })),
-    { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy },
     provideHttpClient(withInterceptors([authInterceptor])),
     importProvidersFrom(ToastModule, ConfirmDialogModule),
     provideAnimationsAsync(),
