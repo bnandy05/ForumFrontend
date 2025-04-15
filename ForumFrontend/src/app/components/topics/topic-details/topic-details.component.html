@@ -1,124 +1,56 @@
 <body>
   <app-header></app-header>
   <div class="container">
-    <div *ngFor="let topic of topics">
+    <div *ngFor="let topic of topics" [@fadeInOnEnter]>
       <div class="card post-card">
         <div class="card-body">
-          <div class="d-flex align-items-start position-relative">
-            <div
-              class="menu-container"
-              *ngIf="topic.user_id == currentUserId || IsAdmin()"
-            >
-              <p-menu
-                #menu
-                [popup]="true"
-                [model]="
-                  topic.user_id == currentUserId ? ownMenuItems : adminMenuItems
-                "
-                appendTo="body"
-              ></p-menu>
-              <p-button
-                class="menu-button"
-                (click)="openTopicMenu($event, topic.id, topic.user.id, menu)"
-                icon="pi pi-ellipsis-v"
-              />
+          <div class="post-container">
+            <div class="menu-container" *ngIf="topic.user_id == currentUserId || IsAdmin()">
+              <p-menu #menu [popup]="true" [model]="topic.user_id == currentUserId ? ownMenuItems : adminMenuItems" appendTo="body"></p-menu>
+              <p-button class="menu-button" (click)="openTopicMenu($event, topic.id, topic.user.id, menu)" icon="pi pi-ellipsis-v" />
             </div>
 
-            <div class="flex-grow-1">
-              <div class="d-flex align-items-center mb-2">
-                <p-avatar
-                  image="https://berenandor.moriczcloud.hu/storage/{{
-                    topic.user.avatar
-                  }}"
-                  size="large"
-                  shape="circle"
-                  (click)="userClick(topic.user.id, $event)"
-                />
-                <div class="ms-2">
-                  <a
-                    class="author username"
-                    (click)="userClick(topic.user.id, $event)"
-                  >
+            <div class="post-content">
+              <div class="user-info">
+                <a [routerLink]="['/profile', topic.user.id]" (click)="$event.stopPropagation()">
+                  <p-avatar image="https://berenandor.moriczcloud.hu/storage/{{topic.user.avatar}}" size="large" shape="circle" />
+                </a>
+                <div class="user-details">
+                  <a class="author username" [routerLink]="['/profile', topic.user.id]" (click)="$event.stopPropagation()">
                     {{ topic.user.name }}
                   </a>
-                  <span
-                    class="text-muted"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="{{ topic.created_at }} - {{ topic.updated_at }}"
-                  >
+                  <span class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ topic.created_at }} - {{ topic.updated_at }}">
                     - {{ topic.timeAgo }}
                   </span>
                 </div>
               </div>
               <h1 class="card-title">{{ topic.title }}</h1>
-              <p class="text-muted">
-                Kategória:
-                <span class="fw-bold">{{ topic.category.category_name }}</span>
-              </p>
-              <p
-                class="card-text"
-                [innerHTML]="topic.content | safeHtml"
-                (click)="openImage($event)"
-              ></p>
+              <p class="text-muted">Kategória: <span class="fw-bold">{{ topic.category.category_name }}</span></p>
+              <p class="card-text" [innerHTML]="topic.content | safeHtml" (click)="openImage($event)"></p>
             </div>
 
-            <div class="vote-buttons ms-3 text-center">
-              <button
-                (click)="voteTopic('up')"
-                [class.active]="userVote === 'up'"
-                class="btn"
-              >
-                ▲
-              </button>
+            <div class="vote-buttons">
+              <button (click)="voteTopic('up')" [class.active]="userVote === 'up'" class="btn">▲</button>
               <span>{{ topic.upvote_count | shortenNumber}}</span>
-              <button
-                (click)="voteTopic('down')"
-                [class.active]="userVote === 'down'"
-                class="btn"
-              >
-                ▼
-              </button>
+              <button (click)="voteTopic('down')" [class.active]="userVote === 'down'" class="btn">▼</button>
             </div>
           </div>
 
-          <div class="comment-section mt-4">
+          <div class="comment-section">
             <h5>Hozzászólások</h5>
-            <div
-              *ngFor="let comment of topic.comments; index as i"
-              class="comment-card mb-2"
-            >
-              <div class="d-flex align-items-start">
+            <div *ngFor="let comment of topic.comments; index as i" class="comment-card" [attr.data-comment-id]="comment.id">
+              <div class="comment-container">
                 <div class="flex-grow-1">
-                  <div
-                    *ngIf="
-                      editingCommentId !== comment.id;
-                      else editCommentTemplate
-                    "
-                  >
-                    <div class="d-flex align-items-center mb-1">
-                      <p-avatar
-                        image="https://berenandor.moriczcloud.hu/storage/{{
-                          comment.user.avatar
-                        }}"
-                        shape="circle"
-                        (click)="userClick(comment.user.id, $event)"
-                      />
-                      <div class="ms-2">
-                        <a
-                          class="author username"
-                          (click)="userClick(comment.user.id, $event)"
-                        >
+                  <div *ngIf="editingCommentId !== comment.id; else editCommentTemplate">
+                    <div class="user-info">
+                      <a [routerLink]="['/profile', comment.user.id]" (click)="$event.stopPropagation()">
+                        <p-avatar image="https://berenandor.moriczcloud.hu/storage/{{comment.user.avatar}}" shape="circle" />
+                      </a>
+                      <div class="user-details">
+                        <a class="author username" [routerLink]="['/profile', comment.user.id]" (click)="$event.stopPropagation()">
                           {{ comment.user.name }}
                         </a>
-                        <span
-                          class="text-muted"
-                          data-bs-toggle="tooltip"
-                          data-bs-placement="top"
-                          title="{{ comment.created_at }} - {{
-                            comment.updated_at
-                          }}"
-                        >
+                        <span class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ comment.created_at }} - {{ comment.updated_at }}">
                           - {{ comment.timeAgo }}
                         </span>
                       </div>
@@ -126,115 +58,49 @@
                     <p class="comment-text">{{ comment.content }}</p>
                   </div>
                   <ng-template #editCommentTemplate>
-                    <div class="d-flex align-items-center mb-1">
-                      <p-avatar
-                        image="https://berenandor.moriczcloud.hu/storage/{{
-                          comment.user.avatar
-                        }}"
-                        shape="circle"
-                      />
-                      <div class="ms-2">
-                        <strong class="username">{{
-                          comment.user.name
-                        }}</strong>
+                    <div class="user-info">
+                      <p-avatar image="https://berenandor.moriczcloud.hu/storage/{{comment.user.avatar}}" shape="circle" />
+                      <div class="user-details">
+                        <strong class="username">{{ comment.user.name }}</strong>
                         <span class="text-muted">- Szerkesztés alatt</span>
                       </div>
                     </div>
-                    <div class="input-group mt-2">
-                      <textarea
-                        class="form-control"
-                        (keydown.enter)="saveEditedComment(comment.id)"
-                        (keydown.escape)="cancelEdit()"
-                        [(ngModel)]="editedCommentContent"
-                        placeholder="Módosítsd a hozzászólást..."
-                        rows="3"
-                      ></textarea>
+                    <div class="edit-input-group">
+                      <textarea class="form-control" (keydown)="handleKeyDown($event, comment.id)" (keydown.escape)="cancelEdit()" [(ngModel)]="editedCommentContent" placeholder="Módosítsd a hozzászólást..." rows="3"></textarea>
+                      <button class="btn btn-secondary emoji-button" (click)="toggleEditEmojiPicker()">😊</button>
                     </div>
-                    <div class="mt-2 d-flex justify-content-end">
-                      <button
-                        class="btn btn-secondary me-2"
-                        (click)="cancelEdit()"
-                      >
-                        Mégse
-                      </button>
-                      <button
-                        class="btn btn-primary"
-                        (click)="saveEditedComment(comment.id)"
-                      >
-                        Mentés
-                      </button>
+                    <div *ngIf="showEditEmojiPicker" class="edit-emoji-picker">
+                      <emoji-mart [set]="'twitter'" [i18n]="emojiLang" (emojiSelect)="addEmoji($event)"></emoji-mart>
+                    </div>
+                    <div class="edit-actions">
+                      <button class="btn btn-secondary" (click)="cancelEdit()">Mégse</button>
+                      <button class="btn btn-primary" (click)="saveEditedComment(comment.id)">Mentés</button>
                     </div>
                   </ng-template>
                 </div>
 
-                <div class="actions">
-                  <div
-                    class="menu-container"
-                    *ngIf="
-                      comment.user_id == currentUserId ||
-                      topicOwner ||
-                      IsAdmin()
-                    "
-                  >
-                    <p-menu
-                      #menu
-                      [popup]="true"
-                      [model]="comment.menuItems"
-                      appendTo="body"
-                    ></p-menu>
-                    <p-button
-                      (click)="
-                        openMenu($event, comment.id, comment.user.id, menu)
-                      "
-                      icon="pi pi-ellipsis-v"
-                    />
+                <div class="actions" *ngIf="editingCommentId !== comment.id">
+                  <div class="menu-container" *ngIf="comment.user_id == currentUserId || topicOwner || IsAdmin()">
+                    <p-menu #menu [popup]="true" [model]="comment.menuItems" appendTo="body"></p-menu>
+                    <p-button class="menu-button" (click)="openMenu($event, comment.id, comment.user.id, menu)" icon="pi pi-ellipsis-v" />
                   </div>
                   <div class="comment-vote-buttons">
-                    <button
-                      (click)="voteComment(comment.id, i, 'up')"
-                      [class.active]="userCommentVotes[comment.id] === 'up'"
-                      class="btn"
-                    >
-                      ▲
-                    </button>
-                    <span class="mx-2">{{ comment.upvote_count | shortenNumber }}</span>
-                    <button
-                      (click)="voteComment(comment.id, i, 'down')"
-                      [class.active]="userCommentVotes[comment.id] === 'down'"
-                      class="btn"
-                    >
-                      ▼
-                    </button>
+                    <button (click)="voteComment(comment.id, i, 'up')" [class.active]="userCommentVotes[comment.id] === 'up'" class="btn">▲</button>
+                    <span>{{ comment.upvote_count | shortenNumber }}</span>
+                    <button (click)="voteComment(comment.id, i, 'down')" [class.active]="userCommentVotes[comment.id] === 'down'" class="btn">▼</button>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="comment-input position-relative">
+            <div class="comment-input">
               <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  (keydown.enter)="addComment(topic.id)"
-                  placeholder="Írj egy hozzászólást..."
-                  [(ngModel)]="newComment"
-                />
-                <button
-                  class="btn btn-secondary emoji-button"
-                  (click)="toggleEmojiPicker()"
-                >
-                  😊
-                </button>
-                <button class="btn btn-primary" (click)="addComment(topic.id)">
-                  Küldés
-                </button>
+                <input type="text" class="form-control" (keydown.enter)="addComment(topic.id)" placeholder="Írj egy hozzászólást..." [(ngModel)]="newComment" />
+                <button class="btn btn-secondary emoji-button" (click)="toggleEmojiPicker()">😊</button>
+                <button class="btn btn-primary" (click)="addComment(topic.id)">Küldés</button>
               </div>
               <div *ngIf="showEmojiPicker" class="emoji-picker">
-                <emoji-mart
-                  [set]="'twitter'"
-                  [i18n]="emojiLang"
-                  (emojiSelect)="addEmoji($event)"
-                ></emoji-mart>
+                <emoji-mart [set]="'twitter'" [i18n]="emojiLang" (emojiSelect)="addEmoji($event)"></emoji-mart>
               </div>
             </div>
           </div>

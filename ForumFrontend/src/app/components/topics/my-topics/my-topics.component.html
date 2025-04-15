@@ -14,13 +14,13 @@
           <select
             id="category"
             [(ngModel)]="categoryId"
-            (change)="filterTopics()"
+            (change)="filterTopics('category')"
             class="form-select"
           >
             <option value="">Minden kategória</option>
             <option
               *ngFor="let category of categories"
-              value="{{ category.id }}"
+              [value]="category.id"
             >
               {{ category.category_name }}
             </option>
@@ -33,7 +33,7 @@
             type="text"
             id="title"
             [(ngModel)]="title"
-            (input)="filterTopics()"
+            (input)="filterTopics('title')"
             class="form-control"
             placeholder="Cím keresése..."
           />
@@ -44,7 +44,7 @@
           <select
             id="orderBy"
             [(ngModel)]="orderBy"
-            (change)="filterTopics()"
+            (change)="filterTopics('order')"
             class="form-select"
           >
             <option value="created_at">Dátum szerint</option>
