@@ -4,12 +4,12 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { ThemeToggleComponent } from '../../theme-toggle/theme-toggle.component';
 import { ThemeService } from '../../../services/theme.service';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, ThemeToggleComponent, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, ThemeToggleComponent],
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css']
 })
@@ -19,11 +19,16 @@ export class ForgotPasswordComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private router: Router,
     public themeService: ThemeService
   ) {
     this.forgotForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });
+  }
+
+  redirect(url:string) {
+    this.router.navigate([url]);
   }
 
   onSubmit() {

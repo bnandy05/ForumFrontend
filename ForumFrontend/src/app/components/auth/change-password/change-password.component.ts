@@ -25,10 +25,12 @@ export class ChangePasswordComponent {
     }, { validators: this.passwordsMatch });
   }
 
+  // Getterek a könnyebb hivatkozás érdekében
   get currentPassword() { return this.passwordForm.get('current_password'); }
   get newPassword() { return this.passwordForm.get('new_password'); }
   get confirmNewPassword() { return this.passwordForm.get('confirm_new_password'); }
 
+  // Ellenőrzi, hogy az új jelszavak egyeznek-e
   passwordsMatch(formGroup: FormGroup) {
     const newPassword = formGroup.get('new_password')?.value;
     const confirmNewPassword = formGroup.get('confirm_new_password')?.value;

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, RouterLink} from '@angular/router';
+import { Router } from '@angular/router';
 import { AdminService } from '../../../services/admin.service';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
@@ -26,7 +26,7 @@ interface UsersResponse {
   selector: 'app-admin-table',
   templateUrl: './admin-table.component.html',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, FormsModule, RouterLink],
+  imports: [CommonModule, HeaderComponent, FormsModule],
   styleUrls: ['./admin-table.component.css']
 })
 export class AdminTableComponent implements OnInit, OnDestroy {
@@ -82,6 +82,10 @@ export class AdminTableComponent implements OnInit, OnDestroy {
 
   onFilterInput(event: any): void {
     this.filterSubject.next(event.target.value);
+  }
+
+  userClick(userId: number): void {
+    this.router.navigate(['/profile', userId]);
   }
 
   makeAdmin(userId: number, name: string): void {

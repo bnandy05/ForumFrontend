@@ -7,7 +7,6 @@ body {
 .forum-container {
   display: block;
   background-color: var(--surface);
-  text-decoration: none;
   border-radius: 8px;
   margin-bottom: 15px;
   cursor: pointer;
