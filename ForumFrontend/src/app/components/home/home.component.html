@@ -65,9 +65,9 @@
     </div>
     <br>
 
-  <div
+  <a
     *ngFor="let topic of topics; index as i"
-    (click)="navigateToTopic(topic.id, $event)"
+    [routerLink]="['/topics/view', topic.id]"
     class="forum-container container"
     [@fadeInOnEnter]
   >
@@ -79,11 +79,13 @@
           "
           shape="circle"
           class="topic-list-avatar hover"
-          (click)="userClick(topic.user.id, $event)"
+          [routerLink]="['/profile', topic.user.id]"
+          (click)="$event.stopPropagation(); $event.preventDefault()"
         />
         <a
           class="author username"
-          (click)="userClick(topic.user.id, $event)"
+          [routerLink]="['/profile', topic.user.id]"
+          (click)="$event.stopPropagation(); $event.preventDefault()"
         >
           {{ topic.user.name }}
         </a>
@@ -166,7 +168,7 @@
         </button>
       </div>
     </div>
-  </div>
+  </a>
   <div *ngIf="topics.length==0 && !loadingMore">
     <h1 class="text-center">Nincs találat</h1>
   </div>
