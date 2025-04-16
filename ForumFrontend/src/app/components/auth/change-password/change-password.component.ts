@@ -57,7 +57,7 @@ export class ChangePasswordComponent {
           }
         },
         error: (err) => {
-          if (err.status === 401) {
+          if (err.status === 403) {
             this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'A jelenlegi jelszó nem megfelelő.' });
           } else if (err.status === 422) {
             this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'A jelszó nem felel meg a követelményeknek vagy a jelszavak nem egyeznek.' });
